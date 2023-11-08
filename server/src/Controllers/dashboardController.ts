@@ -86,11 +86,15 @@ export const userDiscordOverview = async (req: Request, res: Response) => {
              return res.status(404).json({ error: 'Nie znaleziono użytkownika' });
          }
 
-          const userSchemaInstance = userOverview[1].users.find((user: any) => user.userId === userId); // wybór serwera 
+          const userOverviewInstance = userOverview[1];
+        if (!userOverviewInstance || !userOverviewInstance.users) {
+          return res.status(404).json({ error: 'Nie znaleziono danych użytkownika' });
+        }
 
-          if (!userSchemaInstance) {
-             return res.status(404).json({ error: 'Nie znaleziono danych użytkownika' });
-          }
+        const userSchemaInstance = userOverviewInstance.users.find((user: any) => user.userId === userId);
+        if (!userSchemaInstance) {
+          return res.status(404).json({ error: 'Nie znaleziono danych użytkownika' });
+        }
 
           res.status(200).json(userSchemaInstance);
 
@@ -98,6 +102,7 @@ export const userDiscordOverview = async (req: Request, res: Response) => {
       })
 
     } catch (error) {
+      console.log(error)
       res.status(400).json({error: error.message})
     }
 }

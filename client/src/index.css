@@ -4,7 +4,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* .gradient__bg { 
+.gradient__bg { 
   background:radial-gradient(circle at 77% 50%, #790000 -300%, #0a0a0a 55%);
 }
 
@@ -23,7 +23,7 @@
 .reflect {
   -webkit-box-reflect: below 1px linear-gradient(
       transparent, #0005);
-} */
+}
 
 .hover_animate {
   position: relative;
