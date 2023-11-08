@@ -129,7 +129,6 @@ const News = () => {
 
       </div>
         
-
     </section>
   )
 }
