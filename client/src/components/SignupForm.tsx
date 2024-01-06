@@ -18,7 +18,7 @@ const SignupForm = () => {
     <div className='flex justify-center sm:mt-[80px] lg:mt-[120px] h-full'>
 
         <div className='flex flex-col w-[500px] p-[80px]'>
-            <h2 className='text-white uppercase text-[24px] mb-[32px]'>Stwórz <span className='text-dark_red '>Konto</span></h2>
+            <h2 className='gradient__text font-montserrat uppercase text-[24px] mb-[32px]'>Stwórz Konto</h2>
 
             <form 
             action="" 
@@ -33,7 +33,7 @@ const SignupForm = () => {
                     value={username}
                     onChange={(e) => setUsername(e.target.value)} 
                     placeholder='Username' 
-                    className='mb-[24px] bg-transparent border border-white p-[16px] hover:border-dark_red text-white placeholder:text-dark_red'/>
+                    className='mb-[24px] bg-transparent border border-white p-[16px] hover_gold text-white placeholder:text-white'/>
 
                     <label htmlFor="email" className='text-white'>E-mail</label>
                     <input 
@@ -42,8 +42,8 @@ const SignupForm = () => {
                     id="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)} 
-                    placeholder='lux@in.tenebris' 
-                    className='mb-[24px] bg-transparent border border-white p-[16px] hover:border-dark_red text-white placeholder:text-dark_red' />
+                    placeholder='gold@legends.gl' 
+                    className='mb-[24px] bg-transparent border border-white p-[16px] hover_gold placeholder:text-white' />
 
                     <label htmlFor="password" className='text-white'>Hasło</label>
                     <input 
@@ -53,9 +53,9 @@ const SignupForm = () => {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder='Wybierz silne hasło' 
-                    className='mb-[24px] bg-transparent border border-white p-[16px] hover:border-dark_red text-white placeholder:text-dark_red'/>
+                    className='mb-[24px] bg-transparent border border-white p-[16px] hover_gold placeholder:text-white'/>
 
-                    <button disabled={isLoading}  type="submit"className='border hover:border-dark_red px-[48px] py-4 reflect text-center text-white'>Stwórz <span className='text-dark_red '>Konto</span></button> 
+                    <button disabled={isLoading}  type="submit"className='border_gold px-[48px] py-4 text-center text-white hover_gradient__text'>Stwórz Konto</button> 
                     {error && <div className='text-dark_red'>{error}</div>}
             </form>
         </div>

@@ -19,29 +19,33 @@ const Navbar = () => {
 
 
   return (
-    <div className='flex justify-between p-6 sm:p-[0px] lg:px-[80px] items-center'>
-        <div className='w-[110px] lg:w-[210px] sm:my-[20px] sm:mx-[40px] lg:m-0'>
+    <div id="home" className='flex justify-between p-6 sm:p-[40px] lg:px-[80px] items-center navbar'>
+        <div className='w-[66px] lg:w-[88px]'>
             <NavLink to="/"> 
-              <img src="../../assets/logo/LIT.png" alt="Lux In Tenebris" />
+              <img src="../../assets/logo//gl.png" alt="GoldLegends" className='GoldLegends'/>
             </NavLink>
         </div>
-        <div className='text-white sm:flex w-[550px] items-center justify-between hidden'>
+        <div className='text-white sm:flex w-[550px] items-center justify-between hidden '>
         <nav className='flex gap-[33px] sm:text-[16px]'>
-            <ScrollLink to="news" smooth={true} duration={500} className="hover:text-dark_red hover_animate tracking-wide cursor-pointer">Co nowego</ScrollLink>
-            <ScrollLink to="about" smooth={true} duration={500} className="hover:text-dark_red hover_animate tracking-wide cursor-pointer">O nas</ScrollLink>
-            <ScrollLink to="history" smooth={true} duration={500} className="hover:text-dark_red hover_animate tracking-wide cursor-pointer">Historia</ScrollLink>
+            <ScrollLink to="news" smooth={true} duration={500} className="hover_animate tracking-wide cursor-pointer">Co nowego</ScrollLink>
+            <ScrollLink to="about" smooth={true} duration={500} className="hover_animate tracking-wide cursor-pointer">O nas</ScrollLink>
+            <ScrollLink to="history" smooth={true} duration={500} className="hover_animate tracking-wide cursor-pointer">Historia</ScrollLink>
         </nav>
 
-            <div className='flex items-center reflect text-[16px] gap-[33px] sm:my-[40px] sm:mx-[40px] lg:m-0'>
+            <div className='flex items-center text-[16px] gap-[33px]'>
             {
                         user ? (
-                            <div className='flex gap-[8px] hover_animate'>
-                              <NavLink to="/dashboard" className='text-'>{user.username}</NavLink> 
-                              <button className='text-white hover:text-dark_red' onClick={handleClick}>Wyloguj <span className='text-dark_red inline-block font-bold '>Się</span></button> 
+                          <NavLink to="/dashboard">
+                            {/* <div className=' diamond relative'> */}
+                              <div className=' '>
+                              <span className='gradient__text text-[24px] font-black '>{user.username}</span>
+                              {/* </div> */}
+                               
                             </div>
+                            </NavLink>
                         )  : (
-                            <NavLink to="/login" className="hover_animate ">
-                                Zaloguj <span className='text-dark_red inline-block font-bold '>Się</span>
+                            <NavLink to="/login" className="hover_animate">
+                                Zaloguj Się
                             </NavLink>
                         ) 
                      }
@@ -56,9 +60,25 @@ const Navbar = () => {
         {
             toggleMenu && 
             <nav className='text-white text-[16px] flex flex-col absolute bg-dark_opacity inset-0 top-[89px] backdrop-blur-[70px] left-1/3 gap-[33px] p-6 sm:hidden z-10'>
-                <ScrollLink to="news" smooth={true} duration={500} className="hover:text-dark_red hover_animate tracking-wide cursor-pointer">Co nowego</ScrollLink>
-                <ScrollLink to="about" smooth={true} duration={500} className="hover:text-dark_red hover_animate tracking-wide cursor-pointer">O nas</ScrollLink>
-                <ScrollLink to="history" smooth={true} duration={500} className="hover:text-dark_red hover_animate tracking-wide cursor-pointer">Historia</ScrollLink>
+                <ScrollLink to="news" smooth={true} duration={500} className="hover_animate tracking-wide cursor-pointer">Co nowego</ScrollLink>
+                <ScrollLink to="about" smooth={true} duration={500} className="hover_animate tracking-wide cursor-pointer">O nas</ScrollLink>
+                <ScrollLink to="history" smooth={true} duration={500} className="hover_animate tracking-wide cursor-pointer">Historia</ScrollLink>
+                {
+                        user ? (
+                          <NavLink to="/dashboard">
+                            <div className=' diamond relative'>
+                              <div className='back absolute top-3 right-2 translate-x-[17rem]'>
+                              <span className='gradient__text text-[14px] font-black '>{user.username}</span>
+                              </div>
+                               
+                            </div>
+                            </NavLink>
+                        )  : (
+                            <NavLink to="/login" className="hover_animate ">
+                                Zaloguj <span className='text-dark_red inline-block font-bold '>Się</span>
+                            </NavLink>
+                        ) 
+                     }
             </nav>
         }
         </div>

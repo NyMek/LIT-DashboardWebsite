@@ -34,9 +34,9 @@ const DashboardProfile = () => {
   }
   return (
     
-        <div className='text-white  flex flex-col  md:flex-row gap-[33px] mt-[50px] sm:pl-[275px] lg:pl-[315px]'>
-            <div className='flex flex-col sm:w-[350px] lg:w-[500px]  gradient__card rounded-3xl m-6 sm:m-[40px] sm:mr-0 lg:m-[80px] lg:mr-0 p-6 pb-[80px] sm:p-[40px] sm:pb-[80px] lg:p-[80px]'>
-             <h2 className='text-white uppercase text-[24px] mb-[32px]'>Ustawienia <span className='text-dark_red '>Profilu</span></h2>
+        <div className='text-white  flex flex-col  md:flex-row gap-[33px] mt-[145px] sm:pl-[275px] lg:pl-[315px]'>
+            <div className='flex flex-col sm:w-[360px] lg:w-[510px] m-6 sm:mx-[40px] sm:mr-0 lg:mx-[80px] lg:mr-0 p-6 pb-[80px] sm:px-[40px] sm:pb-[80px] lg:px-[80px]'>
+             <h2 className='gradient__text font-montserrat uppercase text-[24px] mb-[32px]'>Ustawienia Profilu</h2>
 
         <form 
         action="" 
@@ -51,7 +51,7 @@ const DashboardProfile = () => {
                 value={username}
                 onChange={(e) => setUsername(e.target.value)} 
                 placeholder='Nowy username' 
-                className='mb-[24px] bg-transparent border border-white p-[16px] hover:border-dark_red text-white placeholder:text-dark_red'/>
+                className='mb-[24px] bg-transparent border border-white p-[16px] hover_gold text-white placeholder:text-white'/>
 
             <label htmlFor="email" className='text-white'>Nowy e-mail</label>
             <input 
@@ -60,8 +60,8 @@ const DashboardProfile = () => {
                 id="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)} 
-                placeholder='newlux@in.tenebris' 
-                className='mb-[24px] bg-transparent border border-white p-[16px] hover:border-dark_red text-white placeholder:text-dark_red' />
+                placeholder='newgold@legends.gl' 
+                className='mb-[24px] bg-transparent border border-white p-[16px] hover_gold text-white placeholder:text-white' />
 
             <label htmlFor="password" className='text-white'>Nowe hasło</label>
             <input 
@@ -71,15 +71,15 @@ const DashboardProfile = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder='Wybierz nowe silne hasło' 
-                className='mb-[24px] bg-transparent border border-white p-[16px] hover:border-dark_red text-white placeholder:text-dark_red'/>
+                className='mb-[24px] bg-transparent border border-white p-[16px] hover_gold text-white placeholder:text-white'/>
 
-            <button disabled={isLoading}  type="submit"className='border hover:border-dark_red px-[48px] py-4 reflect text-center text-white'>Zaktualizuj <span className='text-dark_red '>Dane</span></button> 
+            <button disabled={isLoading}  type="submit"className='border_gold px-[48px] py-4 text-center text-white hover_gradient__text'>Zaktualizuj Dane</button> 
              {error && <div className='text-dark_red'>{error}</div>}
         </form>
 
             </div>
-            <div className='gradient__card rounded-3xl p-6 sm:p-[40px] lg:p-[80px] m-6  sm:m-[40px] lg:m-[80px] lg:ml-0 md:ml-0'>
-                <h2 className='text-white uppercase text-[24px] mb-[32px]'>Połącz <span className='text-dark_red '>Konta</span></h2>
+            <div className='gradient__card rounded-3xl p-6 sm:px-[40px] lg:px-[80px] m-6  sm:mx-[40px] lg:mx-[80px] lg:ml-0 md:ml-0'>
+                <h2 className='gradient__text font-montserrat uppercase text-[24px] mb-[32px]'>Połącz Konta</h2>
             {
               discordUser
               ? 

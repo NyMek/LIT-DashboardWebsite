@@ -20,6 +20,7 @@ export default {
       fontFamily: {
         barlow_condensed: ["Barlow Condensed", "sans-serif"],
         roboto: ["Roboto", "sans-serif"],
+        montserrat: ['Montserrat', "sans-serif"]
       },
       gradients: {
         blue_gradient: "linear-gradient(89.97deg, #fff 1.84%, #fff 72.67%)",
