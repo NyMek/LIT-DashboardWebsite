@@ -39,7 +39,7 @@ const texts = {
       "img": [
         '../../assets/grafiki/4.png',
         '../../assets/grafiki/5.png',
-        '../../assets/grafiki/3.png'
+        '../../assets/grafiki/6.png'
 
       ]
     }

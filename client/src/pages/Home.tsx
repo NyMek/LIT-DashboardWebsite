@@ -1,5 +1,5 @@
 import { Navbar } from '../components'
-import { Header, News, AboutUs, OldProjects } from '../containtes'
+import { Header, News, AboutUs, OldProjects, Footer } from '../containtes'
 import { Link as ScrollLink } from 'react-scroll';
 
 const Home = () => {
@@ -19,6 +19,7 @@ const Home = () => {
       <News/>
       <AboutUs/>
       <OldProjects />
+      <Footer />
 
     </div>
   )
