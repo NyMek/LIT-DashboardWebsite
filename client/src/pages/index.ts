@@ -10,6 +10,9 @@ import DashboardServerDiscordOverview from './DashboardServerDiscordOverview'
 import DashboardTextChannelOverview from './DashboardTextChannelOverview'
 import DashboardVoiceChannelOverview from './DashboardVoiceChannelOverview'
 import DashboardServerSlOverview from './DashboardServerSlOverview'
+import DashboardUserSlOverview from './DashboardUserSlOverview'
+import DashboardWalletSlOverview from './DashboardWalletSlOverview'
+import DashboardSlClassOverview from './DashboardSlClassOverview'
 
 export {
     Home,
@@ -24,4 +27,7 @@ export {
     DashboardTextChannelOverview,
     DashboardVoiceChannelOverview,
     DashboardServerSlOverview,
+    DashboardUserSlOverview,
+    DashboardWalletSlOverview,
+    DashboardSlClassOverview
 }

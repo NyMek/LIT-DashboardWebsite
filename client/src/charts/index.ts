@@ -6,6 +6,10 @@ import UserVoiceChart from "./UserVoiceChart";
 import TextChannelMessagesChart from "./TextChannelMessagesChart";
 import TextChannelOtherChart from "./TextChannelOtherChart";
 import VoiceChannelMinutesChart from "./VoiceChannelMinutesChart";
+import UserSLSummaryChart from "./UserSLSummaryChart";
+import UserSLKDChart from "./UserSLKDChart";
+import UserSLPlayTimeChart from "./UserSLPlayTimeChart";
+import UserSLShotsChart from "./UserSLShotsChart";
 
 export {
     MembersChart,
@@ -15,5 +19,9 @@ export {
     UserVoiceChart,
     TextChannelMessagesChart,
     TextChannelOtherChart,
-    VoiceChannelMinutesChart
+    VoiceChannelMinutesChart,
+    UserSLSummaryChart,
+    UserSLKDChart,
+    UserSLPlayTimeChart,
+    UserSLShotsChart
 }

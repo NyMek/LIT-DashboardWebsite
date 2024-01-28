@@ -1,6 +1,5 @@
 import mongoose  from 'mongoose';
 
-const Schema = mongoose.Schema;
 
 const strReqUniq = {
     type: String,
@@ -17,8 +16,9 @@ const numDef = {
     default: 0
 }
 
-const dailyStat = new Schema({
+const dailyStats = new mongoose.Schema({
     lastJoin: Date,
+    _id: String,
     timesJumped: numDef,
     onlineTime: numDef,
     deaths: numDef,
@@ -26,19 +26,19 @@ const dailyStat = new Schema({
     firedShots: numDef,
     accurateShots: numDef,
     headshots: numDef,
-    _id: String,
     kdRatio: numDef,
     accuracy: String,
     headshotPercentage: String
 })
 
 
-const serverSlOverviewSchema = new Schema({
+const userSlOverviewSchema = new mongoose.Schema({
     _id: String,
-    nickname: strReq,
+    nickname: String,
+    ip: String,
     ignoreDNT: Boolean,
     dntEnabled: Boolean,
-    dailyStats: [dailyStat],
+    dailyStats: [dailyStats],
     kills: numDef,
     deaths: numDef,
     firedShots: numDef,
@@ -56,8 +56,7 @@ const serverSlOverviewSchema = new Schema({
     headshotPercentage: String
     })
 
+const SlDB = mongoose.connection.useDb('goldlegends');
+const UserSlOverview = SlDB.model('players_test', userSlOverviewSchema, 'players_test')
 
-const DiscordDB = mongoose.connection.useDb('goldlegends');
-const ServerSlOverview = DiscordDB.model('players_test', serverSlOverviewSchema)
-
-export default ServerSlOverview
+export default UserSlOverview

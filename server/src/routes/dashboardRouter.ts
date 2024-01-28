@@ -1,5 +1,5 @@
 import express, { Router } from "express"
-import { dashboard, discordCallback, userDiscordOverview, serverDiscordOverview, textChannelOverview, voiceChannelOverview, steamLogin, steamCallback, serverSlOverview } from "../Controllers/dashboardController"
+import { dashboard, discordCallback, userDiscordOverview, serverDiscordOverview, textChannelOverview, voiceChannelOverview, steamLogin, steamCallback, serverSlOverview, userSlOverview,walletSlOverview, classSlOverview } from "../Controllers/dashboardController"
 import requireAuth from "../middleware/requireAuth"
 import passport from 'passport'
 
@@ -21,6 +21,9 @@ router.get('/server-discord-overview', serverDiscordOverview)
 router.get('/text-channel-overview', textChannelOverview)
 router.get('/voice-channel-overview', voiceChannelOverview)
 
+router.get('/user-sl-overview', userSlOverview)
 router.get('/server-sl-overview', serverSlOverview)
+router.get('/wallet-sl-overview', walletSlOverview)
+router.get('/class-sl-overview', classSlOverview)
 
 export default router;

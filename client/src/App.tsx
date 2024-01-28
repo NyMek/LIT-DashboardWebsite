@@ -5,7 +5,7 @@ import {
 } from "react-router-dom";
 
 import { RootLayout, DashboardLayout } from "./layouts";
-import { Home, Signup, Login, Forgot, ResetPassword, Dashboard, DashboardProfile, DashboardUserDiscordOverview, DashboardServerDiscordOverview, DashboardTextChannelOverview, DashboardVoiceChannelOverview, DashboardServerSlOverview} from "./pages";
+import { Home, Signup, Login, Forgot, ResetPassword, Dashboard, DashboardProfile, DashboardUserDiscordOverview, DashboardServerDiscordOverview, DashboardTextChannelOverview, DashboardVoiceChannelOverview, DashboardServerSlOverview, DashboardUserSlOverview, DashboardWalletSlOverview, DashboardSlClassOverview} from "./pages";
 import { useAuthContext } from './hooks/useAuthContext'
 import { useDiscordAuthContext } from './hooks/useDiscordAuthContext'
 import { useSteamAuthContext } from "./hooks/useSteamAuthContext";
@@ -56,8 +56,20 @@ const App = () => {
           element:  user ? <DashboardProfile /> : <Navigate to="/" />
         },
         {
+          path: '/dashboard/user-sl-overview',
+          element: user && steamUser ? <DashboardUserSlOverview />  : <Navigate to="/dashboard" />
+        },
+        {
           path: '/dashboard/server-sl-overview',
           element: user && steamUser ? <DashboardServerSlOverview />  : <Navigate to="/dashboard" />
+        },
+        {
+          path: '/dashboard/wallet-sl-overview',
+          element: user && steamUser ? <DashboardWalletSlOverview />  : <Navigate to="/dashboard" />
+        },
+        {
+          path: '/dashboard/class-sl-overview',
+          element: user && steamUser ? <DashboardSlClassOverview/>  : <Navigate to="/dashboard" />
         },
         {
           path: '/dashboard/user-discord-overview',

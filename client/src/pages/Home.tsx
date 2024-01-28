@@ -11,7 +11,7 @@ const Home = () => {
                    <span className="arrow_up"></span>
                 </div>
               </ScrollLink>
-      <div className='gradient__bg'>
+      <div className='bg-almost_black'>
         <Navbar />
         <Header />
       </div>

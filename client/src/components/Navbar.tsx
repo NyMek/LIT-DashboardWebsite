@@ -36,11 +36,9 @@ const Navbar = () => {
             {
                         user ? (
                           <NavLink to="/dashboard">
-                            {/* <div className=' diamond relative'> */}
+
                               <div className=' '>
                               <span className='gradient__text text-[24px] font-black '>{user.username}</span>
-                              {/* </div> */}
-                               
                             </div>
                             </NavLink>
                         )  : (

@@ -15,7 +15,7 @@ export default {
         footer: "#0f0f0f",
         ligt_blue: '#c4ffff',
         blue: '#016fff',
-        gold: '#ffd51e'
+        gold: '#efc95e'
       },
       fontFamily: {
         barlow_condensed: ["Barlow Condensed", "sans-serif"],
@@ -28,6 +28,7 @@ export default {
       }
     },
     screens: {
+      xxs: "280px",
       xs: "480px",
       ss: "580px",
       sm: "768px",

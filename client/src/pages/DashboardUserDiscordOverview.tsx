@@ -3,6 +3,7 @@ import { useAuthContext } from "../hooks/useAuthContext";
 import { useEffect, useState  } from "react"
 import useWindowDimensions from "../hooks/useWindowDimensions";
 import { UserMessagesChart, UserVoiceChart } from "../charts";
+import { DiscordDashboardNavbar } from "../components";
 
 interface UserData {
   userId: string;
@@ -61,8 +62,6 @@ const DashboardUserDiscordOverview = () => {
         const jsonData = response.data;
         
         setUserOverview(jsonData);
-
-
       }
     }
     if(user) {
@@ -81,25 +80,35 @@ const DashboardUserDiscordOverview = () => {
 
 
   return (
-    <div className='text-white flex flex-col mt-[187px] sm:pl-[275px] lg:pl-[315px] w-full px-6 sm:px-[40px] lg:px-[80px] gap-[33px] '>
+    <div className='text-white flex flex-col w-full px-6 sm:px-[40px] lg:px-[80px] gap-[33px] '>
+      
+    <DiscordDashboardNavbar/>
 
-    <div className="border p-6">
-      <p>User ID: <span className=" text-dark_red">{userOverview.userId}</span></p>
-      <p>User Name: <span className=" text-dark_red uppercase">{userOverview.userName}</span></p>
+
+    <div className="p-6 bg-dark_opacity flex gap-[33px]">
       <div>
-        <p>XP Count: <span className=" text-dark_red">{userOverview.dailyStats[userOverview.dailyStats.length - 1].xpCount}</span></p>
-        <p>Level Count: <span className=" text-dark_red">{userOverview.dailyStats[userOverview.dailyStats.length - 1].levelCount}</span></p>
-        <p>Balance: <span className=" text-dark_red">{userOverview.dailyStats[userOverview.dailyStats.length - 1].balance}</span></p>
-        <p>Warn Count: <span className=" text-dark_red">{userOverview.dailyStats[userOverview.dailyStats.length - 1].warnCount}</span></p>
+        <h3 className="font-barlow_condensed text-[24px] leading-[32px] lead">Podstawowe Informacje:</h3>
+
+        <p>User ID: <span className="gradient__text__yellow">{userOverview.userId}</span></p>
+        <p>User Name: <span className="gradient__text__yellow">{userOverview.userName}</span></p>
+        <p>Warn Count: <span className="gradient__text__yellow">{userOverview.dailyStats[userOverview.dailyStats.length - 1].warnCount}</span></p>
+      </div>
+      
+      <div>
+        <h3 className="font-barlow_condensed text-[24px] leading-[32px] lead">Informacje o Levelu:</h3>
+        <p>XP Count: <span className="gradient__text__yellow">{userOverview.dailyStats[userOverview.dailyStats.length - 1].xpCount}</span></p>
+        <p>Level Count: <span className="gradient__text__yellow">{userOverview.dailyStats[userOverview.dailyStats.length - 1].levelCount}</span></p>
+        <p>Balance: <span className=" gradient__text__yellow">{userOverview.dailyStats[userOverview.dailyStats.length - 1].balance}</span></p>
+        
       </div>
     </div>
 
-    <div>
+    <div className="bg-dark_opacity p-6">
         <h2 className="text-[25px] leading-[28px] font-black sm:text-[32px] sm:leading-[32px] lg:text-[40px] lg:leading-[48px] mb-[8px]">Ilość wiadomości</h2>
         <UserMessagesChart userOverview={userOverview} chartHeight={width < 420 ? 350 : 400} chartWidth={'100%'}/>
     </div>
 
-    <div>
+    <div className="bg-dark_opacity p-6">
         <h2 className="text-[25px] leading-[28px] font-black sm:text-[32px] sm:leading-[32px] lg:text-[40px] lg:leading-[48px] mb-[8px]">Czas na kanałach głosowych</h2>
         <UserVoiceChart userOverview={userOverview} chartHeight={chartHeight} chartWidth={'100%'}/>
     </div>

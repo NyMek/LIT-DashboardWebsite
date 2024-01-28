@@ -3,6 +3,8 @@ import TextChannelOverview from "./textChannelOverviewModel";
 import UserOverview from "./userDiscordOverviewModel";
 import VoiceChannelOverview from "./voiceChannelOverviewModel";
 import ServerSlOverview from './serverSlOverviewModel';
+import UserSlOverview from "./userSlOverviewModel";
+import ClassSlOverview from "./classSlOverviewModel";
 
 export {
     ServerOverview,
@@ -10,4 +12,6 @@ export {
     UserOverview,
     VoiceChannelOverview,
     ServerSlOverview,
+    UserSlOverview,
+    ClassSlOverview
 }

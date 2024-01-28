@@ -3,12 +3,13 @@ import { useAuthContext } from "../hooks/useAuthContext";
 import { useEffect, useState  } from "react"
 import useWindowDimensions from "../hooks/useWindowDimensions";
 import { SLDashboardNavbar  } from "../components";
+import { UserSLSummaryChart, UserSLKDChart, UserSLPlayTimeChart, UserSLShotsChart } from "../charts";
 
 
-const DashboardServerSlOverview = () => {
+const DashboardUserSlOverview = () => {
     const {user} = useAuthContext()
     const { height, width } = useWindowDimensions();
-    const [serverSlOverview, setServerSlOverview] = useState({
+    const [userSlOverview, setUserSlOverview] = useState({
       _id: '',
       nickname: '',
       ignoreDNT: false,
@@ -51,22 +52,25 @@ const DashboardServerSlOverview = () => {
 
         
         useEffect(()=> {
-            const fetchServerOverview = async () => {
+            const fetchUserSlOverview = async () => {
         
-              const response = await axios.get('http://localhost:5000/dashboard/server-sl-overview', {
+              const response = await axios.get('http://localhost:5000/dashboard/user-sl-overview', {
               withCredentials: true,
               headers: { 'Authorization': `Bearer ${user.token}` }
              })
 
               if (response.status === 200) {
                 const jsonData = response.data[0]; // one servwr temp 
-                setServerSlOverview(jsonData);
+                setUserSlOverview(jsonData);
+                console.log('jsonData: ' + jsonData)
               }
             }
             if(user) {
-              fetchServerOverview()
+              fetchUserSlOverview()
             }
          }, [])
+
+         console.log(userSlOverview)
 
          let chartHeight = 400;
          if(height > chartHeight){
@@ -78,28 +82,23 @@ const DashboardServerSlOverview = () => {
   return (
     <div className='text-white flex flex-col w-full px-6 sm:px-[40px] lg:px-[80px] gap-[33px]'>
       <SLDashboardNavbar/>
-  asdsadasd
-
-        {/* <div >
-          <h2 className="text-[25px] leading-[28px] font-black sm:text-[32px] sm:leading-[32px] lg:text-[40px] lg:leading-[48px] mb-[8px]">Podstawowe informacje</h2>
-          <BasicServerInforChart serverOverview={serverOverview} chartHeight={width < 420 ? 300 : 400} chartWidth={width < 420 ? '250px' : width > 850 ?'780px': '400px'}/>
-        </div>
-       
-        <div>
-          <h2 className="text-[25px] leading-[28px] font-black sm:text-[32px] sm:leading-[32px] lg:text-[40px] lg:leading-[48px] mb-[8px]">Ilość osób na serwerze, które dołączyły oraz wyszły</h2>
-          <MembersChart serverOverview={serverOverview} chartHeight={chartHeight} chartWidth={'100%'}/>
-        </div>
+      <UserSLSummaryChart userSlOverview={userSlOverview}/>
       
 
-      <div>
-        <h2 className="text-[25px] leading-[28px] font-black sm:text-[32px] sm:leading-[32px] lg:text-[40px] lg:leading-[48px] mb-[8px]">Wiadomości na kanałach tekstowych dla serwera</h2>
-        <MessagesChart serverOverview={serverOverview} chartHeight={chartHeight} chartWidth={'100%'}/>
-      </div> */}
-
-      
-
+      <div className="bg-dark_opacity p-6">
+          <h2 className="text-[25px] leading-[28px] font-black sm:text-[32px] sm:leading-[32px] lg:text-[40px] lg:leading-[48px] mb-[8px]">K/D:</h2>
+          <UserSLKDChart userSlOverview={userSlOverview} chartHeight={width < 420 ? 350 : 400} chartWidth={'100%'}/>
+      </div>
+      <div className="bg-dark_opacity p-6">
+          <h2 className="text-[25px] leading-[28px] font-black sm:text-[32px] sm:leading-[32px] lg:text-[40px] lg:leading-[48px] mb-[8px]">Czas spędzony na serwerze:</h2>
+          <UserSLPlayTimeChart userSlOverview={userSlOverview} chartHeight={width < 420 ? 350 : 400} chartWidth={'100%'}/>
+      </div>
+      <div className="bg-dark_opacity p-6">
+          <h2 className="text-[25px] leading-[28px] font-black sm:text-[32px] sm:leading-[32px] lg:text-[40px] lg:leading-[48px] mb-[8px]">Statystyki oddanych strzałów</h2>
+          <UserSLShotsChart userSlOverview={userSlOverview} chartHeight={width < 420 ? 350 : 400} chartWidth={'100%'}/>
+      </div>
   </div>
   )
 }
 
-export default DashboardServerSlOverview
+export default DashboardUserSlOverview

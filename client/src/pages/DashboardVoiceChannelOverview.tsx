@@ -1,9 +1,9 @@
 import axios from "axios";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useEffect, useState } from "react";
-import Chart from 'react-apexcharts';
 import useWindowDimensions from "../hooks/useWindowDimensions";
 import { VoiceChannelMinutesChart } from "../charts";
+import { DiscordDashboardNavbar } from "../components";
 
 const DashboardTextChannelOverview = () => {
   const { user } = useAuthContext();
@@ -20,7 +20,7 @@ const DashboardTextChannelOverview = () => {
               voiceChannelMinutes: 0,
             }
           ]
-    }   
+    }
     ]
  });
   const [selectedChannel, setSelectedChannel] = useState<any>(null);
@@ -36,9 +36,7 @@ const DashboardTextChannelOverview = () => {
       })
       if (response.status === 200) {
         const jsonData = response.data; // one server temp
-        
         setTextChannelOverview(jsonData);
-        
       }
     }
     if(user) {
@@ -56,9 +54,10 @@ const DashboardTextChannelOverview = () => {
  }
 
 return (
-  <div className='text-white flex flex-col mt-[187px] sm:pl-[275px] lg:pl-[315px] w-full px-6 sm:px-[40px] lg:px-[80px] gap-[33px]'>
+  <div className='text-white flex flex-col w-full px-6 sm:px-[40px] lg:px-[80px] gap-[33px]'>
+    <DiscordDashboardNavbar/>
     <select
-      className="bg-transparent text-[16px] sm:text-[24px] uppercase font-black w-[300px] mb-[24px]"
+      className="bg-dark_opacity p-6 text-[16px] sm:text-[24px] uppercase font-black w-[300px] mb-[24px] "
       value={selectedChannel?.channelId || ''}
       onChange={(e) => {
         const channelId = e.target.value;
@@ -81,8 +80,8 @@ return (
     {selectedChannel && 
 
       <div className="pb-[30px]">
-        <div>
-          <h2 className="text-[25px] leading-[28px] font-black sm:text-[32px] sm:leading-[32px] lg:text-[40px] lg:leading-[48px] mb-[8px]">Czas na kanale głosowym (min)</h2>
+        <div className="bg-dark_opacity p-6">
+          <h2 className="text-[25px] leading-[28px] font-black sm:text-[32px] sm:leading-[32px] lg:text-[40px] lg:leading-[48px] mb-[8px]">Czas na kanale głosowym (min):</h2>
           <VoiceChannelMinutesChart selectedChannel={selectedChannel} chartHeight={chartHeight} chartWidth={'100%'}/>
         </div>
       </div>

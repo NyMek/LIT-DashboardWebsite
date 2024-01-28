@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import useWindowDimensions from "../hooks/useWindowDimensions";
 
 import { TextChannelMessagesChart, TextChannelOtherChart } from "../charts";
+import { DiscordDashboardNavbar } from "../components";
 
 const DashboardTextChannelOverview = () => {
   const { user } = useAuthContext();
@@ -61,9 +62,10 @@ const DashboardTextChannelOverview = () => {
  }
 
 return (
-  <div className='text-white flex flex-col mt-[187px] sm:pl-[275px] lg:pl-[315px] w-full px-6 sm:px-[40px] lg:px-[80px] gap-[33px]'>
+  <div className='text-white flex flex-col w-full px-6 sm:px-[40px] lg:px-[80px] gap-[33px]'>
+    <DiscordDashboardNavbar/>
     <select
-      className="bg-transparent text-[16px] sm:text-[24px] uppercase font-black w-[300px] mb-[24px]"
+      className="bg-dark_opacity p-6 text-[16px] sm:text-[24px] uppercase font-black w-[300px] mb-[24px] "
       value={selectedChannel?.channelId || ''}
       onChange={(e) => {
         const channelId = e.target.value;
@@ -84,13 +86,15 @@ return (
     </select>
     {selectedChannel &&
      (
-      <div className="pb-[30px]">
-        <div>
-          <h2 className="text-[25px] leading-[28px] font-black sm:text-[32px] sm:leading-[32px] lg:text-[40px] lg:leading-[48px] mb-[8px]">Wysłane wiadomości</h2>
+      <div className="flex flex-col gap-[33px]">
+        
+        <div className="bg-dark_opacity p-6">
+          <h2 className="text-[25px] leading-[28px] font-black sm:text-[32px] sm:leading-[32px] lg:text-[40px] lg:leading-[48px] mb-[8px]">Wysłane wiadomości:</h2>
             <TextChannelMessagesChart selectedChannel={selectedChannel} chartHeight={chartHeight} chartWidth={'100%'}/>
         </div>
-        <div>
-          <h2 className="text-[25px] leading-[28px] font-black sm:text-[32px] sm:leading-[32px] lg:text-[40px] lg:leading-[48px] mb-[8px]">Wysłane załaczniki linki itd.</h2>
+
+        <div className="bg-dark_opacity p-6">
+          <h2 className="text-[25px] leading-[28px] font-black sm:text-[32px] sm:leading-[32px] lg:text-[40px] lg:leading-[48px] mb-[8px]">Inne wysłane:</h2>
           <TextChannelOtherChart selectedChannel={selectedChannel} chartHeight={chartHeight} chartWidth={'100%'}/>
         </div>
       </div>

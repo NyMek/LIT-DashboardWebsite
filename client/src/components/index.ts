@@ -5,6 +5,8 @@ import ForgotForm from "./ForgotForm";
 import ResetPasswordForm from "./ResetPasswordForm";
 import Sidebar from "./Sidebar";
 import DashboardNavbar from "./DashboardNavbar";
+import DiscordDashboardNavbar from "./DiscordDashboardNavbar";
+import SLDashboardNavbar from "./SLDashboardNavbar";
 
 export {
     Navbar,
@@ -13,5 +15,7 @@ export {
     ForgotForm,
     ResetPasswordForm,
     Sidebar,
-    DashboardNavbar
+    DashboardNavbar,
+    DiscordDashboardNavbar,
+    SLDashboardNavbar
 }
