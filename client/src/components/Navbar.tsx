@@ -35,7 +35,7 @@ const Navbar = () => {
             <div className='flex items-center text-[16px] gap-[33px]'>
             {
                         user ? (
-                          <NavLink to="/dashboard">
+                          <NavLink to="/dashboard/overview">
 
                               <div className=' '>
                               <span className='gradient__text text-[24px] font-black '>{user.username}</span>

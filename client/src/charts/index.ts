@@ -10,6 +10,8 @@ import UserSLSummaryChart from "./UserSLSummaryChart";
 import UserSLKDChart from "./UserSLKDChart";
 import UserSLPlayTimeChart from "./UserSLPlayTimeChart";
 import UserSLShotsChart from "./UserSLShotsChart";
+import UsersDiscordMessageCountTopChart from "./UsersDiscordMessageCountTopChart";
+import UsersDiscordVoiceCountTopChart from "./UsersDiscordVoiceCountTopChart";
 
 export {
     MembersChart,
@@ -23,5 +25,8 @@ export {
     UserSLSummaryChart,
     UserSLKDChart,
     UserSLPlayTimeChart,
-    UserSLShotsChart
+    UserSLShotsChart,
+    UsersDiscordMessageCountTopChart,
+    UsersDiscordVoiceCountTopChart,
+
 }

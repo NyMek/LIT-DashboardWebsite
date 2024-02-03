@@ -13,6 +13,7 @@ import DashboardServerSlOverview from './DashboardServerSlOverview'
 import DashboardUserSlOverview from './DashboardUserSlOverview'
 import DashboardWalletSlOverview from './DashboardWalletSlOverview'
 import DashboardSlClassOverview from './DashboardSlClassOverview'
+import DashboardUsersDiscordOverview from './DashboardUsersDiscordOverview'
 
 export {
     Home,
@@ -29,5 +30,6 @@ export {
     DashboardServerSlOverview,
     DashboardUserSlOverview,
     DashboardWalletSlOverview,
-    DashboardSlClassOverview
+    DashboardSlClassOverview,
+    DashboardUsersDiscordOverview
 }

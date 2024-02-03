@@ -8,6 +8,7 @@ export default {
         dark_red: "#9e0000",
         card_red: "#270000",
         dark_opacity: "rgba(0, 0, 0, 0.35)",
+        white_opacity: "rgba(255, 255, 255, 0.35)",
         almost_black: '#0a0a0a',
         gray: "#888",
         light_red: "#f50000",

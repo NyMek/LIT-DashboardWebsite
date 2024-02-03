@@ -316,3 +316,55 @@ export const classSlOverview = (req: any, res: any) => {
     res.status(400).json({error: error.message})
   }
 }
+
+
+
+
+export const usersDiscordOverview = (req:any, res:any) => {
+  try {
+    const token = req.cookies['discordToken']
+
+    jwt.verify(token, process.env.SECRET, async (error: any) => {
+      if(error) {
+       
+        console.log('Token prawdopodobnie wygasł')
+        return res.json({error: 'Token prawdopodobnie wygasł lub nie połączyłeś konta z Discord'})
+      } else {
+       
+        const decodeToken = jwt.decode(token) as JwtPayload
+        const userId = decodeToken._id;
+        const usersOverview = await UserOverview.find({ })
+    
+        if (!usersOverview) {
+           return res.status(404).json({ error: 'Nie znaleziono użytkowników' });
+       }
+
+        console.log('usersOverview ' + usersOverview)
+        res.status(200).json(usersOverview);
+
+      }
+    })
+
+  } catch (error) {
+    console.log(error)
+    res.status(400).json({error: error.message})
+  }
+}
+
+export const textChannelsOverview = (req:any, res:any) => {
+
+}
+export const voiceChannelsOverview = (req:any, res:any) => {
+
+}
+export const usersSlOverview = (req:any, res:any) => {
+
+}
+
+export const walletsSlOverview = (req:any, res:any) => {
+
+}
+
+export const classesSlOverview = (req:any, res:any) => {
+
+}

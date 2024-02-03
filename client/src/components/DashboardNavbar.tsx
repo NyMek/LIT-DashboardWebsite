@@ -75,7 +75,7 @@ const DashboardNavbar = () => {
               <img src="../../assets/grafiki/dor.png" alt="" className="zoom"/>
               <p className="absolute bottom-[24px] right-1/2 translate-x-1/2 pointer-events-none dropdown_text" >SCP: SL</p>
           </NavLink>
-          <NavLink to="/dashboard"  className={`ss:w-[200px] sm:w-[300px]  relative overflow-hidden  cursor-pointer border_gold ${animate}`} onClick={()=>handleOverview(1000)}>
+          <NavLink to="/dashboard/overview"  className={`ss:w-[200px] sm:w-[300px]  relative overflow-hidden  cursor-pointer border_gold ${animate}`} onClick={()=>handleOverview(1000)}>
               <img src="../../assets/grafiki/mirr.png" alt="" className="zoom"/>
               <p className="absolute bottom-[24px] right-1/2 translate-x-1/2 pointer-events-none dropdown_text" >Przegląd</p>
           </NavLink>

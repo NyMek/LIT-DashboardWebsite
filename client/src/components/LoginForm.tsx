@@ -14,7 +14,7 @@ const LoginForm = () => {
         
     }
   return (
-    <div className='flex justify-center sm:mt-[80px] lg:mt-[120px] h-full'>
+    <div className='flex justify-center  h-full'>
 
         <div className='flex  flex-col w-[500px] p-[80px]'>
             <h2 className='gradient__text font-montserrat uppercase text-[24px] mb-[32px]'>Witamy ponownie!</h2>

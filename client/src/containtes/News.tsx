@@ -87,7 +87,7 @@ const News = () => {
 
   return (
 
-    <section id="news" className="gradient__bg flex flex-col h-full  pt-[120px] pb-[120px]">
+    <section id="news" className=" flex flex-col h-full  pt-[120px] pb-[120px]">
 
       <div className="pb-[49px] px-6 sm:px-[40px] lg:px-[80px]">
             <h1 className="text-white text-[40px] leading-[40px] font-black mb-[48px] sm:text-[48px] sm:leading-[48px] lg:text-[72px] lg:leading-[72px] font-barlow_condensed news_bar text-center lg:text-left">Odkryj Nowości na <span className='gradient__text'>GoldLegends</span> </h1>

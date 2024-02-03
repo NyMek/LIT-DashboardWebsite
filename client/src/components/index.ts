@@ -7,6 +7,7 @@ import Sidebar from "./Sidebar";
 import DashboardNavbar from "./DashboardNavbar";
 import DiscordDashboardNavbar from "./DiscordDashboardNavbar";
 import SLDashboardNavbar from "./SLDashboardNavbar";
+import OverviewDashboardNavbar from "./OverviewDashboardNavbar";
 
 export {
     Navbar,
@@ -17,5 +18,6 @@ export {
     Sidebar,
     DashboardNavbar,
     DiscordDashboardNavbar,
-    SLDashboardNavbar
+    SLDashboardNavbar,
+    OverviewDashboardNavbar
 }

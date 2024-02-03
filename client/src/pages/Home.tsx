@@ -11,16 +11,16 @@ const Home = () => {
                    <span className="arrow_up"></span>
                 </div>
               </ScrollLink>
-      <div className='bg-almost_black'>
+      <div className='gradient__bg'>
         <Navbar />
         <Header />
+        <News/>
+        <AboutUs/>
       </div>
-      
-      <News/>
-      <AboutUs/>
       <OldProjects />
+      
       <Footer />
-
+      
     </div>
   )
 }
