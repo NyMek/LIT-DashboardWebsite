@@ -57,7 +57,7 @@ return (
   <div className='text-white flex flex-col w-full px-6 sm:px-[40px] lg:px-[80px] gap-[33px]'>
     <DiscordDashboardNavbar/>
     <select
-      className="bg-dark_opacity p-6 text-[16px] sm:text-[24px] uppercase font-black w-[300px] mb-[24px] "
+      className="bg-dark_opacity p-6 text-[16px] sm:text-[24px] uppercase font-black w-[300px] mb-[24px]"
       value={selectedChannel?.channelId || ''}
       onChange={(e) => {
         const channelId = e.target.value;

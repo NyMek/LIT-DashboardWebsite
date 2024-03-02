@@ -3,7 +3,7 @@ import { useAuthContext } from "../hooks/useAuthContext";
 import { useEffect, useState  } from "react"
 import useWindowDimensions from "../hooks/useWindowDimensions";
 import { UserMessagesChart, UserVoiceChart } from "../charts";
-import { DiscordDashboardNavbar } from "../components";
+import { DiscordDashboardNavbar, Loader } from "../components";
 
 interface UserData {
   userId: string;
@@ -47,11 +47,12 @@ const DashboardUserDiscordOverview = () => {
       warnCount: 0,
     }
   ] });
-
+  const [loading, setLoading] = useState(true)
  
 
  useEffect(()=> {
     const fetchUserOverview = async () => {
+      setLoading(true);
 
       const response = await axios.get('http://localhost:5000/dashboard/user-discord-overview', {
       withCredentials: true,
@@ -63,6 +64,7 @@ const DashboardUserDiscordOverview = () => {
         
         setUserOverview(jsonData);
       }
+      setLoading(false);
     }
     if(user) {
       
@@ -84,35 +86,43 @@ const DashboardUserDiscordOverview = () => {
       
     <DiscordDashboardNavbar/>
 
+    {
+      loading ?
+      (
+        <Loader />
+      ) : (
+        <div>
+          <div className="p-6 bg-dark_opacity flex gap-[33px]">
+            <div>
+              <h3 className="font-barlow_condensed text-[24px] leading-[32px] lead">Podstawowe Informacje:</h3>
 
-    <div className="p-6 bg-dark_opacity flex gap-[33px]">
-      <div>
-        <h3 className="font-barlow_condensed text-[24px] leading-[32px] lead">Podstawowe Informacje:</h3>
+              <p>User ID: <span className="gradient__text__yellow">{userOverview.userId}</span></p>
+              <p>User Name: <span className="gradient__text__yellow">{userOverview.userName}</span></p>
+              <p>Warn Count: <span className="gradient__text__yellow">{userOverview.dailyStats[userOverview.dailyStats.length - 1].warnCount}</span></p>
+            </div>
+          
+            <div>
+              <h3 className="font-barlow_condensed text-[24px] leading-[32px] lead">Informacje o Levelu:</h3>
+              <p>XP Count: <span className="gradient__text__yellow">{userOverview.dailyStats[userOverview.dailyStats.length - 1].xpCount}</span></p>
+              <p>Level Count: <span className="gradient__text__yellow">{userOverview.dailyStats[userOverview.dailyStats.length - 1].levelCount}</span></p>
+              <p>Balance: <span className=" gradient__text__yellow">{userOverview.dailyStats[userOverview.dailyStats.length - 1].balance}</span></p>
+              
+            </div>
+         </div>
 
-        <p>User ID: <span className="gradient__text__yellow">{userOverview.userId}</span></p>
-        <p>User Name: <span className="gradient__text__yellow">{userOverview.userName}</span></p>
-        <p>Warn Count: <span className="gradient__text__yellow">{userOverview.dailyStats[userOverview.dailyStats.length - 1].warnCount}</span></p>
-      </div>
-      
-      <div>
-        <h3 className="font-barlow_condensed text-[24px] leading-[32px] lead">Informacje o Levelu:</h3>
-        <p>XP Count: <span className="gradient__text__yellow">{userOverview.dailyStats[userOverview.dailyStats.length - 1].xpCount}</span></p>
-        <p>Level Count: <span className="gradient__text__yellow">{userOverview.dailyStats[userOverview.dailyStats.length - 1].levelCount}</span></p>
-        <p>Balance: <span className=" gradient__text__yellow">{userOverview.dailyStats[userOverview.dailyStats.length - 1].balance}</span></p>
-        
-      </div>
-    </div>
+         <div className="bg-dark_opacity p-6">
+            <h2 className="text-[25px] leading-[28px] font-black sm:text-[32px] sm:leading-[32px] lg:text-[40px] lg:leading-[48px] mb-[8px]">Ilość wiadomości</h2>
+            <UserMessagesChart userOverview={userOverview} chartHeight={width < 420 ? 350 : 400} chartWidth={'100%'}/>
+         </div>
 
-    <div className="bg-dark_opacity p-6">
-        <h2 className="text-[25px] leading-[28px] font-black sm:text-[32px] sm:leading-[32px] lg:text-[40px] lg:leading-[48px] mb-[8px]">Ilość wiadomości</h2>
-        <UserMessagesChart userOverview={userOverview} chartHeight={width < 420 ? 350 : 400} chartWidth={'100%'}/>
-    </div>
+         <div className="bg-dark_opacity p-6">
+            <h2 className="text-[25px] leading-[28px] font-black sm:text-[32px] sm:leading-[32px] lg:text-[40px] lg:leading-[48px] mb-[8px]">Czas na kanałach głosowych</h2>
+            <UserVoiceChart userOverview={userOverview} chartHeight={chartHeight} chartWidth={'100%'}/>
+         </div>
 
-    <div className="bg-dark_opacity p-6">
-        <h2 className="text-[25px] leading-[28px] font-black sm:text-[32px] sm:leading-[32px] lg:text-[40px] lg:leading-[48px] mb-[8px]">Czas na kanałach głosowych</h2>
-        <UserVoiceChart userOverview={userOverview} chartHeight={chartHeight} chartWidth={'100%'}/>
-    </div>
-    
+        </div>
+      )
+    }
   </div>
   )
 }

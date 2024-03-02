@@ -4,8 +4,8 @@ import {
   Navigate
 } from "react-router-dom";
 
-import { RootLayout, DashboardLayout } from "./layouts";
-import { Home, Signup, Login, Forgot, ResetPassword, Dashboard, DashboardProfile, DashboardUserDiscordOverview, DashboardServerDiscordOverview, DashboardTextChannelOverview, DashboardVoiceChannelOverview, DashboardServerSlOverview, DashboardUserSlOverview, DashboardWalletSlOverview, DashboardSlClassOverview, DashboardUsersDiscordOverview} from "./pages";
+import { RootLayout, DashboardLayout, DashboardSlUsersLayout, DashboardSLClassLayout } from "./layouts";
+import { Home, Signup, Login, Forgot, ResetPassword, Dashboard, DashboardProfile, DashboardUserDiscordOverview, DashboardServerDiscordOverview, DashboardTextChannelOverview, DashboardVoiceChannelOverview, DashboardServerSlOverview, DashboardUserSlOverview, DashboardWalletSlOverview, DashboardSlPersonnelClassOverview, DashboardUsersDiscordOverview, DashboardTextChannelsOverview, DashboardUsersSlKillsOverview, DashboardUsersSlTimeOverview, DashboardUsersSlShotsOverview } from "./pages";
 import { useAuthContext } from './hooks/useAuthContext'
 import { useDiscordAuthContext } from './hooks/useDiscordAuthContext'
 import { useSteamAuthContext } from "./hooks/useSteamAuthContext";
@@ -69,7 +69,29 @@ const App = () => {
         },
         {
           path: '/dashboard/class-sl-overview',
-          element: user && steamUser ? <DashboardSlClassOverview/>  : <Navigate to="/dashboard/overview" />
+          element: user && steamUser ? <DashboardSLClassLayout/>  : <Navigate to="/dashboard/overview" />,
+          children: [
+            {
+              path: '/dashboard/class-sl-overview/personnel',
+              element: user && steamUser ? <DashboardSlPersonnelClassOverview/>  : <Navigate to="/dashboard/overview" />,
+            },
+            {
+              path: '/dashboard/class-sl-overview/chaos',
+              element: user && steamUser ? 'chaos'  : <Navigate to="/dashboard/overview" />,
+            },
+            {
+              path: '/dashboard/class-sl-overview/mtf',
+              element: user && steamUser ? 'mtf'  : <Navigate to="/dashboard/overview" />,
+            },
+            {
+              path: '/dashboard/class-sl-overview/scp',
+              element: user && steamUser ? 'scp' : <Navigate to="/dashboard/overview" />,
+            },
+            {
+              path: '/dashboard/class-sl-overview/special',
+              element: user && steamUser ? 'special' : <Navigate to="/dashboard/overview" />,
+            }
+          ]
         },
         {
           path: '/dashboard/user-discord-overview',
@@ -90,6 +112,28 @@ const App = () => {
         {
           path: '/dashboard/users-discord-overview',
           element: user && discordUser ? <DashboardUsersDiscordOverview /> : <Navigate to="/dashboard/overview" />
+        },
+        {
+          path: '/dashboard/text-channels-overview',
+          element: user && discordUser ? <DashboardTextChannelsOverview /> : <Navigate to="/dashboard/overview" />
+        },
+        {
+          path: '/dashboard/users-sl-overview',
+          element: user && steamUser ? <DashboardSlUsersLayout /> : <Navigate to="/dashboard/overview" />,
+          children: [
+            {
+                path: '/dashboard/users-sl-overview/time',
+                element: user && steamUser ? <DashboardUsersSlTimeOverview /> : <Navigate to="/dashboard/overview" />
+            },
+            {
+              path: '/dashboard/users-sl-overview/kills',
+              element: user && steamUser? <DashboardUsersSlKillsOverview /> : <Navigate to="/dashboard/overview" />
+            },
+            {
+              path: '/dashboard/users-sl-overview/shots',
+              element: user && steamUser? <DashboardUsersSlShotsOverview /> : <Navigate to="/dashboard/overview" />
+            },
+          ]
         }
       ]
     }

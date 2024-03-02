@@ -31,7 +31,7 @@ const UserSLSummaryChart = ({userSlOverview}:any) => {
               <p className="text-[11px] xs:text-[14px]">DPM</p>
             </div>
             <div className="flex flex-col justify-center items-center border-l-[1px] border-white_opacity">
-              <p className="text-[18px] xs:text-[20px]">{userSlOverview.enteredPocket != 0 ? (userSlOverview.escapedPocket/userSlOverview.enteredPocket) * 100 + '%' : 0 }</p>
+              <p className="text-[18px] xs:text-[20px]">{userSlOverview.enteredPocket != 0 ? ((userSlOverview.escapedPocket/userSlOverview.enteredPocket) * 100).toFixed(2) + '%' : 0 }</p>
               <p className="text-[11px] xs:text-[14px]">ESCAPED POCKET</p>
             </div>
           </div>
@@ -73,11 +73,11 @@ const UserSLSummaryChart = ({userSlOverview}:any) => {
         </div>
       </div>
 
-      <div className="bg-dark_opacity grid md:grid-cols-3 md:grid-rows-1 sm:grid-cols-2 sm:grid-rows-2">
+      {/* <div className="bg-dark_opacity grid md:grid-cols-3 md:grid-rows-1 sm:grid-cols-2 sm:grid-rows-2">
         <div className="h-[330px] border_gold"> LEVEL NA SLU WORK IN PROGRESS</div>
         <div className="h-[330px] border_gold">Szybkie podsumowanie Klass</div>
         <div className="h-[330px] border_gold">TYTUŁY NA SLU WORK IN PROGRESS</div>
-      </div>
+      </div> */}
 
     </div>
   )

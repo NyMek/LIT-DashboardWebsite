@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const UsersDiscordVoiceCountTopChart = ({ usersOverview }: any) => {
+const UsersDiscordVoiceCountTopChart = ({ usersOverview, period}: any) => {
   const currentDate: number = new Date().getTime();
   const itemsPerPage = 20;
   let i = 0;
@@ -30,7 +30,7 @@ const UsersDiscordVoiceCountTopChart = ({ usersOverview }: any) => {
       const statDate: Date | null = parseDateStringToDate(stat.date);
       if (statDate) {
         const diffInDays: number = Math.floor((currentDate - statDate.getTime()) / (1000 * 60 * 60 * 24));
-        return diffInDays <= 30;
+        return diffInDays <= period;
       } else {
         return false;
       }

@@ -12,8 +12,12 @@ import DashboardVoiceChannelOverview from './DashboardVoiceChannelOverview'
 import DashboardServerSlOverview from './DashboardServerSlOverview'
 import DashboardUserSlOverview from './DashboardUserSlOverview'
 import DashboardWalletSlOverview from './DashboardWalletSlOverview'
-import DashboardSlClassOverview from './DashboardSlClassOverview'
 import DashboardUsersDiscordOverview from './DashboardUsersDiscordOverview'
+import DashboardTextChannelsOverview from './DashboardTextChannelsOverview'
+import DashboardUsersSlKillsOverview from './DashboardUsersSlKillsOverview'
+import DashboardUsersSlTimeOverview from './DashboardUsersSlTimeOverview'
+import DashboardUsersSlShotsOverview from './DashboardUsersSlShotsOverview'
+import DashboardSlPersonnelClassOverview from './DashboardSlPersonnelClassOverview'
 
 export {
     Home,
@@ -30,6 +34,10 @@ export {
     DashboardServerSlOverview,
     DashboardUserSlOverview,
     DashboardWalletSlOverview,
-    DashboardSlClassOverview,
-    DashboardUsersDiscordOverview
+    DashboardUsersDiscordOverview,
+    DashboardTextChannelsOverview,
+    DashboardUsersSlKillsOverview,
+    DashboardUsersSlTimeOverview,
+    DashboardUsersSlShotsOverview,
+    DashboardSlPersonnelClassOverview
 }

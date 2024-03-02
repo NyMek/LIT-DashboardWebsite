@@ -11,15 +11,12 @@ const SLDashboardNavbar = () => {
               <NavLink to="/dashboard/user-sl-overview" className={({ isActive }) => (isActive ?
                 'tracking-wide gold_bar px-6 py-3 gradient__gold hover__text__yellow ' :
                 'tracking-wide gold_bar px-6 py-3 hover__text__yellow ')}>{user.username}</NavLink>
-              <NavLink to="/dashboard/class-sl-overview" className={({ isActive }) => (isActive ?
+              <NavLink to="/dashboard/class-sl-overview/personnel" className={({ isActive }) => (isActive ?
                 'tracking-wide  gold_bar px-6 py-3 gradient__gold hover__text__yellow' :
                 'tracking-wide gold_bar px-6 py-3 hover__text__yellow')}>Statystyki Klas</NavLink>
               <NavLink to="/dashboard/wallet-sl-overview" className={({ isActive }) => (isActive ?
                 'tracking-wide gold_bar px-6 py-3 gradient__gold hover__text__yellow' :
                 'tracking-wide gold_bar px-6 py-3 hover__text__yellow ')}>Portfel</NavLink>
-              <NavLink to="/dashboard/server-sl-overview" className={({ isActive }) => (isActive ?
-                'tracking-wide gold_bar px-6 py-3 gradient__gold hover__text__yellow' :
-                'tracking-wide gold_bar px-6 py-3 hover__text__yellow ')}>GoldLegends</NavLink>
             </div>
         </div>
     )

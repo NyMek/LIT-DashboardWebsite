@@ -1,9 +1,10 @@
 import { useState } from 'react';
 
-const UsersDiscordMessageCountTopChart = ({ usersOverview, period }: any) => {
+const TextChannelsMessagesTopChart = ({ textChannelsOverview, period }: any) => {
   const currentDate: number = new Date().getTime();
   const itemsPerPage = 20; 
   let i = 0;
+  console.log('textChannelsOverview:  ', textChannelsOverview)
 
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -24,8 +25,8 @@ const UsersDiscordMessageCountTopChart = ({ usersOverview, period }: any) => {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
 
-  const usersVoiceCount = usersOverview.users.map((user: { dailyStats: any[]; userId: any; userName: any; }) => {
-    const lastXDayStats = user.dailyStats.filter(stat => {
+  const channelsMessagesCount = textChannelsOverview.channels.map((channel: { dailyStats: any[]; channelId: any; channelName: any; }) => {
+    const lastXDayStats = channel.dailyStats.filter(stat => {
       const statDate: Date | null = parseDateStringToDate(stat.date);
       if (statDate) {
         const diffInDays: number = Math.floor((currentDate - statDate.getTime()) / (1000 * 60 * 60 * 24));
@@ -36,33 +37,33 @@ const UsersDiscordMessageCountTopChart = ({ usersOverview, period }: any) => {
     });
 
     return {
-      userId: user.userId,
-      userName: user.userName,
+      channelId: channel.channelId,
+      channelName: channel.channelName,
       messageCount: sumMessageCount(lastXDayStats),
       number: 0
     };
   });
 
-  const sortedUsers = usersVoiceCount.sort((a: any, b: any) => b.messageCount - a.messageCount);
+  const sortedChannels = channelsMessagesCount.sort((a: any, b: any) => b.messageCount - a.messageCount);
 
-  sortedUsers.forEach((el: any) => {
+  sortedChannels.forEach((el: any) => {
     el.number = i++;
   });
 
-  const paginatedUsers = sortedUsers.slice(startIndex, endIndex);
+  const paginatedChannels = sortedChannels.slice(startIndex, endIndex);
 
   return (
     <div className='flex flex-col gap-[16px] w-full'>
       {
         
-        paginatedUsers.map((user: any, index:any) => {  
+        paginatedChannels.map((channel: any, index:any) => {  
     
           return(
             (
-              <div key={user.userId} className='flex justify-between border-b-[1px] border-white_opacity pb-[16px] px-6'>
-               <div className='text-[18px] font-roboto font-black'>{user.number + 1}.</div>
-               <div className='text-[18px] font-roboto font-black '>{user.userName}</div>
-               <div className='text-[18px] font-roboto font-black'>{user.messageCount}</div>
+              <div key={channel.userId} className='flex justify-between border-b-[1px] border-white_opacity pb-[16px] px-6'>
+               <div className='text-[18px] font-roboto font-black'>{channel.number + 1}.</div>
+               <div className='text-[18px] font-roboto font-black '>{channel.channelName}</div>
+               <div className='text-[18px] font-roboto font-black'>{channel.messageCount}</div>
               </div>
             )
           )
@@ -74,7 +75,7 @@ const UsersDiscordMessageCountTopChart = ({ usersOverview, period }: any) => {
         <button onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 1} className='cursor-pointer hover__text__yellow'>
           Poprzednia Strona
         </button>
-        <button onClick={() => setCurrentPage(currentPage + 1)} disabled={endIndex >= usersVoiceCount.length} className='cursor-pointer hover__text__yellow'>
+        <button onClick={() => setCurrentPage(currentPage + 1)} disabled={endIndex >= channelsMessagesCount.length} className='cursor-pointer hover__text__yellow'>
           Następna Strona
         </button>
       </div>
@@ -82,4 +83,4 @@ const UsersDiscordMessageCountTopChart = ({ usersOverview, period }: any) => {
   );
 }
 
-export default UsersDiscordMessageCountTopChart;
+export default TextChannelsMessagesTopChart;

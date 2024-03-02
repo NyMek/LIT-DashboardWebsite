@@ -63,7 +63,7 @@ const Navbar = () => {
                 <ScrollLink to="history" smooth={true} duration={500} className="hover_animate tracking-wide cursor-pointer">Historia</ScrollLink>
                 {
                         user ? (
-                          <NavLink to="/dashboard">
+                          <NavLink to="/dashboard/overview">
                             <div className=' diamond relative'>
                               <div className='back absolute top-3 right-2 translate-x-[17rem]'>
                               <span className='gradient__text text-[14px] font-black '>{user.username}</span>

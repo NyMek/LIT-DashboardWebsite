@@ -2,7 +2,7 @@ import axios from "axios";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useEffect, useState  } from "react"
 import useWindowDimensions from "../hooks/useWindowDimensions";
-import { SLDashboardNavbar  } from "../components";
+import { SLDashboardNavbar, Loader  } from "../components";
 import { UserSLSummaryChart, UserSLKDChart, UserSLPlayTimeChart, UserSLShotsChart } from "../charts";
 
 
@@ -47,12 +47,11 @@ const DashboardUserSlOverview = () => {
       headshotPercentage: '',
       });
 
-
-
-
-        
+const [loading, setLoading] = useState(true)
+ 
         useEffect(()=> {
             const fetchUserSlOverview = async () => {
+              setLoading(true);
         
               const response = await axios.get('http://localhost:5000/dashboard/user-sl-overview', {
               withCredentials: true,
@@ -62,8 +61,8 @@ const DashboardUserSlOverview = () => {
               if (response.status === 200) {
                 const jsonData = response.data[0]; // one servwr temp 
                 setUserSlOverview(jsonData);
-                console.log('jsonData: ' + jsonData)
               }
+              setLoading(false);
             }
             if(user) {
               fetchUserSlOverview()
@@ -82,21 +81,30 @@ const DashboardUserSlOverview = () => {
   return (
     <div className='text-white flex flex-col w-full px-6 sm:px-[40px] lg:px-[80px] gap-[33px]'>
       <SLDashboardNavbar/>
-      <UserSLSummaryChart userSlOverview={userSlOverview}/>
-      
 
-      <div className="bg-dark_opacity p-6">
-          <h2 className="text-[25px] leading-[28px] font-black sm:text-[32px] sm:leading-[32px] lg:text-[40px] lg:leading-[48px] mb-[8px]">K/D:</h2>
-          <UserSLKDChart userSlOverview={userSlOverview} chartHeight={width < 420 ? 350 : 400} chartWidth={'100%'}/>
-      </div>
-      <div className="bg-dark_opacity p-6">
-          <h2 className="text-[25px] leading-[28px] font-black sm:text-[32px] sm:leading-[32px] lg:text-[40px] lg:leading-[48px] mb-[8px]">Czas spędzony na serwerze:</h2>
-          <UserSLPlayTimeChart userSlOverview={userSlOverview} chartHeight={width < 420 ? 350 : 400} chartWidth={'100%'}/>
-      </div>
-      <div className="bg-dark_opacity p-6">
-          <h2 className="text-[25px] leading-[28px] font-black sm:text-[32px] sm:leading-[32px] lg:text-[40px] lg:leading-[48px] mb-[8px]">Statystyki oddanych strzałów</h2>
-          <UserSLShotsChart userSlOverview={userSlOverview} chartHeight={width < 420 ? 350 : 400} chartWidth={'100%'}/>
-      </div>
+      {
+        loading ? (
+          <Loader />
+        ) : (
+          <div>
+            <UserSLSummaryChart userSlOverview={userSlOverview}/>
+            <div className="bg-dark_opacity p-6 mt-[33px]">
+                <h2 className="text-[25px] leading-[28px] font-black sm:text-[32px] sm:leading-[32px] lg:text-[40px] lg:leading-[48px] mb-[8px]">K/D:</h2>
+                <UserSLKDChart userSlOverview={userSlOverview} chartHeight={width < 420 ? 350 : 400} chartWidth={'100%'}/>
+            </div>
+            <div className="bg-dark_opacity p-6">
+                <h2 className="text-[25px] leading-[28px] font-black sm:text-[32px] sm:leading-[32px] lg:text-[40px] lg:leading-[48px] mb-[8px]">Czas spędzony na serwerze:</h2>
+                <UserSLPlayTimeChart userSlOverview={userSlOverview} chartHeight={width < 420 ? 350 : 400} chartWidth={'100%'}/>
+            </div>
+            <div className="bg-dark_opacity p-6">
+                <h2 className="text-[25px] leading-[28px] font-black sm:text-[32px] sm:leading-[32px] lg:text-[40px] lg:leading-[48px] mb-[8px]">Statystyki oddanych strzałów</h2>
+                <UserSLShotsChart userSlOverview={userSlOverview} chartHeight={width < 420 ? 350 : 400} chartWidth={'100%'}/>
+            </div>
+
+          </div>
+        )
+      }
+
   </div>
   )
 }

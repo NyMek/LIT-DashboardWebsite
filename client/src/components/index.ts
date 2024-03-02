@@ -8,6 +8,8 @@ import DashboardNavbar from "./DashboardNavbar";
 import DiscordDashboardNavbar from "./DiscordDashboardNavbar";
 import SLDashboardNavbar from "./SLDashboardNavbar";
 import OverviewDashboardNavbar from "./OverviewDashboardNavbar";
+import SLUsersDashboardNavbar from "./SLUsersDashboardNavbar";
+import Loader from "./Loader";
 
 export {
     Navbar,
@@ -19,5 +21,7 @@ export {
     DashboardNavbar,
     DiscordDashboardNavbar,
     SLDashboardNavbar,
-    OverviewDashboardNavbar
+    OverviewDashboardNavbar,
+    SLUsersDashboardNavbar,
+    Loader
 }

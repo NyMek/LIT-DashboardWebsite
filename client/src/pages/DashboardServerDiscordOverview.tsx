@@ -3,7 +3,7 @@ import { useAuthContext } from "../hooks/useAuthContext";
 import { useEffect, useState  } from "react"
 import useWindowDimensions from "../hooks/useWindowDimensions";
 import { MembersChart, MessagesChart, BasicServerInforChart } from "../charts";
-import { DiscordDashboardNavbar } from "../components";
+import { DiscordDashboardNavbar, Loader } from "../components";
 
 interface UserData {
     guildId: string;
@@ -48,10 +48,12 @@ const DashboardServerDiscordOverview = () => {
             voiceChannelMinutes: 0,
           }
         ] });
+const [loading, setLoading] = useState(true)
 
         
         useEffect(()=> {
             const fetchServerOverview = async () => {
+              setLoading(true);
         
               const response = await axios.get('http://localhost:5000/dashboard/server-discord-overview', {
               withCredentials: true,
@@ -61,6 +63,7 @@ const DashboardServerDiscordOverview = () => {
                 const jsonData = response.data[0]; // one servwr temp 
                 setServerOverview(jsonData);
               }
+              setLoading(false);
             }
             if(user) {
               fetchServerOverview()
@@ -78,21 +81,31 @@ const DashboardServerDiscordOverview = () => {
     <div className='text-white flex flex-col w-full px-6 sm:px-[40px] lg:px-[80px] gap-[33px]'>
     <DiscordDashboardNavbar/>
 
-        <div className="bg-dark_opacity p-6">
-          <h2 className="text-[25px] leading-[28px] font-black sm:text-[32px] sm:leading-[32px] lg:text-[40px] lg:leading-[48px] mb-[8px]">GoldLegends:</h2>
-          <BasicServerInforChart serverOverview={serverOverview} chartHeight={width < 420 ? 300 : 400} chartWidth={width < 420 ? '250px' : width > 850 ?'780px': '400px'}/>
-        </div>
-       
-        <div className="bg-dark_opacity p-6">
-          <h2 className="text-[25px] leading-[28px] font-black sm:text-[32px] sm:leading-[32px] lg:text-[40px] lg:leading-[48px] mb-[8px]">Ilość osób na serwerze:</h2>
-          <MembersChart serverOverview={serverOverview} chartHeight={chartHeight} chartWidth={'100%'}/>
-        </div>
-      
+    {
+      loading ? (
+        <Loader />
+      ) : (
+        <div>
+          <div className="bg-dark_opacity p-6">
+            <h2 className="text-[25px] leading-[28px] font-black sm:text-[32px] sm:leading-[32px] lg:text-[40px] lg:leading-[48px] mb-[8px]">GoldLegends:</h2>
+            <BasicServerInforChart serverOverview={serverOverview} chartHeight={width < 420 ? 300 : 400} chartWidth={width < 420 ? '250px' : width > 850 ?'780px': '400px'}/>
+          </div>
+        
+          <div className="bg-dark_opacity p-6">
+            <h2 className="text-[25px] leading-[28px] font-black sm:text-[32px] sm:leading-[32px] lg:text-[40px] lg:leading-[48px] mb-[8px]">Ilość osób na serwerze:</h2>
+            <MembersChart serverOverview={serverOverview} chartHeight={chartHeight} chartWidth={'100%'}/>
+          </div>
+        
 
-      <div className="bg-dark_opacity p-6">
-        <h2 className="text-[25px] leading-[28px] font-black sm:text-[32px] sm:leading-[32px] lg:text-[40px] lg:leading-[48px] mb-[8px]">Wiadomości na kanałach tekstowych:</h2>
-        <MessagesChart serverOverview={serverOverview} chartHeight={chartHeight} chartWidth={'100%'}/>
-      </div>
+          <div className="bg-dark_opacity p-6">
+            <h2 className="text-[25px] leading-[28px] font-black sm:text-[32px] sm:leading-[32px] lg:text-[40px] lg:leading-[48px] mb-[8px]">Wiadomości na kanałach tekstowych:</h2>
+            <MessagesChart serverOverview={serverOverview} chartHeight={chartHeight} chartWidth={'100%'}/>
+          </div>
+        </div>
+      )
+    }
+
+
 
       
 
