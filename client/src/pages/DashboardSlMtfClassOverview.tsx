@@ -5,7 +5,7 @@ import { SLDashboardNavbar, Loader, SLUsersClassDashboardNavbar  } from "../comp
 import {UserSLDClassSummaryChart, UserSLScientistClassSummaryChart, UserSLGuardClassSummaryChart} from "../charts";
 
 
-const DashboardSlPersonnelClassOverview = () => {
+const DashboardSlMtfClassOverview = () => {
 
   const basicClass = {
     _t: [],
@@ -128,4 +128,4 @@ const [loading, setLoading] = useState(true)
   )
 }
 
-export default DashboardSlPersonnelClassOverview
+export default DashboardSlMtfClassOverview

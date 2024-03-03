@@ -281,12 +281,71 @@ export const classPersonnelSlOverview = (req: Request, res: Response) => {
         const userId = decodeToken._id;
         console.log('userId Class', userId)
        
-        const classSlOverview = await ClassSlOverview.find({'_id': `${userId}@steam` })
+        const classSlOverview = await ClassSlOverview.aggregate([
+          {
+            $match: {
+              _id: `${userId}@steam`
+            }
+          },
+          {
+            $unwind: "$roleStats"
+          },
+          {
+            $match: {
+              "roleStats._t": "EscapistRole"
+            }
+          }
+        ]);
     
         if (!classSlOverview) {
            return res.status(404).json({ error: 'Nie znaleziono użytkownika' });
        }
-       console.log('classPersonnelSlOverview: ' + classSlOverview)
+       console.log('classPersonnelSlOverview: ' + classSlOverview[1].roleStats.
+       roleId)
+        res.status(200).json(classSlOverview);
+      }
+    })
+
+  } catch (error) {
+    res.status(400).json({error: error.message})
+  }
+}
+
+export const classMtfSlOverview = (req: Request, res: Response) => { 
+  try {
+    const token = req.cookies['steamToken']
+    jwt.verify(token, process.env.SECRET, async (error: any) => {
+      if(error) {
+       
+        console.log('Token prawdopodobnie wygasł')
+        return res.json({error: 'Token prawdopodobnie wygasł lub nie połączyłeś konta z Steam'})
+      } else {
+
+        const decodeToken = jwt.decode(token) as JwtPayload
+        const userId = decodeToken._id;
+        console.log('userId Class', userId)
+       
+        const classSlOverview = await ClassSlOverview.aggregate([
+          {
+            $match: {
+              _id: `${userId}@steam`
+            }
+          },
+          {
+            $unwind: "$roleStats"
+          },
+          {
+            $match: {
+              "roleStats._t": "EscapistRole"
+            }
+          }
+        ]);
+    
+        if (!classSlOverview) {
+           return res.status(404).json({ error: 'Nie znaleziono użytkownika' });
+       }
+       console.log('classPersonnelSlOverview: ' + classSlOverview[1].roleStats.
+       roleId)
         res.status(200).json(classSlOverview);
       }
     })
@@ -300,9 +359,6 @@ export const classChaosSlOverview = (req: Request, res: Response) => {
 
 }
 
-export const classMtfSlOverview = (req: Request, res: Response) => { 
-
-}
 
 export const classScpSlOverview = (req: Request, res: Response) => { 
 

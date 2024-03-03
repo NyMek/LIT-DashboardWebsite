@@ -20,6 +20,9 @@ import UsersSLHeasdhotsTopChart from "./UsersSLHeadshotsTopChart";
 import UsersSLFiredshotsTopChart from "./UsersSLFiredshotsTopChart";
 import UsersSLHeasdhotsPercentageTopChart from "./UsersSLHeadshotPercentageTopChart";
 import UsersSLAccuracyTopChart from "./UsersSLAccuracyTopChart";
+import UserSLDClassSummaryChart from "./UserSLDClassSummaryChart";
+import UserSLScientistClassSummaryChart from "./UserSLScientistSummaryChart";
+import UserSLGuardClassSummaryChart from "./UserSLGuardSummaryChart";
 
 export {
     MembersChart,
@@ -43,6 +46,9 @@ export {
     UsersSLHeasdhotsTopChart,
     UsersSLFiredshotsTopChart,
     UsersSLHeasdhotsPercentageTopChart,
-    UsersSLAccuracyTopChart
+    UsersSLAccuracyTopChart,
+    UserSLDClassSummaryChart,
+    UserSLScientistClassSummaryChart,
+    UserSLGuardClassSummaryChart
 
 }

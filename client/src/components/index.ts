@@ -10,6 +10,7 @@ import SLDashboardNavbar from "./SLDashboardNavbar";
 import OverviewDashboardNavbar from "./OverviewDashboardNavbar";
 import SLUsersDashboardNavbar from "./SLUsersDashboardNavbar";
 import Loader from "./Loader";
+import SLUsersClassDashboardNavbar from "./SLUserClassDashboardNavbar";
 
 export {
     Navbar,
@@ -23,5 +24,6 @@ export {
     SLDashboardNavbar,
     OverviewDashboardNavbar,
     SLUsersDashboardNavbar,
-    Loader
+    Loader,
+    SLUsersClassDashboardNavbar
 }
