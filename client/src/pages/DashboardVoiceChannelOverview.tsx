@@ -29,7 +29,7 @@ const DashboardTextChannelOverview = () => {
   useEffect(()=> {
     const fetchServerOverview = async () => {
 
-      const response = await axios.get('http://localhost:5000/dashboard/voice-channel-overview', {
+      const response = await axios.get('http://localhost:5000/dashboard/discord/voice', {
       withCredentials: true,
       headers: { 'Authorization': `Bearer ${user.token}` }
 

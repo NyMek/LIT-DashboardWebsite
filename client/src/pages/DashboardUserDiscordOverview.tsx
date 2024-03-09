@@ -3,7 +3,7 @@ import { useAuthContext } from "../hooks/useAuthContext";
 import { useEffect, useState  } from "react"
 import useWindowDimensions from "../hooks/useWindowDimensions";
 import { UserMessagesChart, UserVoiceChart } from "../charts";
-import { DiscordDashboardNavbar, Loader } from "../components";
+import { DiscordDashboardNavbar, Loader, ErrorInfo } from "../components";
 
 interface UserData {
   userId: string;
@@ -48,30 +48,47 @@ const DashboardUserDiscordOverview = () => {
     }
   ] });
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
  
 
- useEffect(()=> {
+  useEffect(()=> {
     const fetchUserOverview = async () => {
       setLoading(true);
-
-      const response = await axios.get('http://localhost:5000/dashboard/user-discord-overview', {
-      withCredentials: true,
-      headers: { 'Authorization': `Bearer ${user.token}` }
-
-      })
-      if (response.status === 200) {
-        const jsonData = response.data;
-        
-        setUserOverview(jsonData);
-      }
-      setLoading(false);
-    }
-    if(user) {
-      
-      fetchUserOverview()
-    }
- }, [])
+      try {
+        const response = await axios.get('http://localhost:5000/dashboard/discord/user', {
+          withCredentials: true,
+          headers: { 'Authorization': `Bearer ${user.token}` }
+        });
   
+        if (response.status === 200) {
+          const jsonData = response.data;
+          setUserOverview(jsonData);
+        }
+        setLoading(false);
+      } catch (error: any) {
+        console.log('asd', error);
+        if (error.response && error.response.status === 404) {
+
+          console.log('404');
+
+          setErrorMessage(JSON.stringify(error.response.data.error))
+
+          console.log('error message', JSON.stringify(error.response.data.error))
+
+          setError(true);
+        } else {
+          setError(true); // lub obsłuż inny rodzaj błędu
+        }
+        setLoading(false);
+      }
+    };
+  
+    if (user) {
+      console.log('user', user);
+      fetchUserOverview();
+    }
+  }, []);
 
  let chartHeight = 400;
  if(height > chartHeight){
@@ -87,7 +104,12 @@ const DashboardUserDiscordOverview = () => {
     <DiscordDashboardNavbar/>
 
     {
-      loading ?
+      error ?
+      (
+         <ErrorInfo errorMessage={errorMessage.toString()}/>
+
+
+      ) : loading ?
       (
         <Loader />
       ) : (

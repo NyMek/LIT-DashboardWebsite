@@ -87,7 +87,7 @@ const [loading, setLoading] = useState(true)
             const fetchUserSlOverview = async () => {
               setLoading(true);
         
-              const response = await axios.get('http://localhost:5000/dashboard/class-sl-overview/personnel', {
+              const response = await axios.get('http://localhost:5000/dashboard/sl/class/personnel', {
               withCredentials: true,
               headers: { 'Authorization': `Bearer ${user.token}` }
              })

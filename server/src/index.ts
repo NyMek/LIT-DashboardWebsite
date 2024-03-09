@@ -2,7 +2,9 @@ import express, { Express, Request, Response } from "express";
 import mongoose from "mongoose";
 import 'dotenv/config'
 import userRouter from './routes/userRouter'
-import dashboardRouter from './routes/dashboardRouter'
+import discordRouter from './routes/discordRouter'
+import slRouter from './routes/slRouter'
+import overviewRouter from './routes/overviewRouter'
 import cors from 'cors'
 import cookieParser from 'cookie-parser';
 import passport from 'passport'
@@ -24,7 +26,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use('/', userRouter)
-app.use('/dashboard', dashboardRouter)
+app.use('/dashboard/discord', discordRouter)
+app.use('/dashboard/sl', slRouter)
+app.use('/dashboard/overview', overviewRouter)
 
 mongoose.connect(process.env.MONGO_URI)
     .then(()=> {

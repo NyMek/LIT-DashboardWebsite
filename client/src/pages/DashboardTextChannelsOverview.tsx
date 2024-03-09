@@ -36,7 +36,7 @@ const DashboardTextChannelsOverview = () => {
     const fetchTextChannelsOverview = async () => {
       setLoading(true);
 
-      const response = await axios.get('http://localhost:5000/dashboard/text-channels-overview', {
+      const response = await axios.get('http://localhost:5000/dashboard/overview/text', {
       withCredentials: true,
       headers: { 'Authorization': `Bearer ${user.token}` }
 

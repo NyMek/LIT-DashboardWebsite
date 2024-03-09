@@ -11,19 +11,19 @@ const OverviewDashboardNavbar = () => {
                 'tracking-wide gold_bar px-6 py-3 gradient__gold hover__text__yellow ' :
                 'tracking-wide gold_bar px-6 py-3 hover__text__yellow ')}>Przegląd</NavLink>
 
-              <NavLink to="/dashboard/users-discord-overview" className={({ isActive }) => (isActive ?
+              <NavLink to="/dashboard/overview/users-discord" className={({ isActive }) => (isActive ?
                 'tracking-wide gold_bar px-6 py-3 gradient__gold hover__text__yellow' :
                 'tracking-wide gold_bar px-6 py-3 hover__text__yellow ')}>Discord</NavLink>
-              <NavLink to="/dashboard/text-channels-overview" className={({ isActive }) => (isActive ?
+              <NavLink to="/dashboard/overview/text-channels" className={({ isActive }) => (isActive ?
                 'tracking-wide gold_bar px-6 py-3 gradient__gold hover__text__yellow' :
                 'tracking-wide gold_bar px-6 py-3 hover__text__yellow ')}>Kanały</NavLink>
-              <NavLink to="/dashboard/users-sl-overview/time" className={({ isActive }) => (isActive ?
+              <NavLink to="/dashboard/overview/users-sl/time" className={({ isActive }) => (isActive ?
                 'tracking-wide  gold_bar px-6 py-3 gradient__gold hover__text__yellow' :
                 'tracking-wide gold_bar px-6 py-3 hover__text__yellow')}>SCP: SL</NavLink>
-              <NavLink to="/dashboard/wallets-sl-overview" className={({ isActive }) => (isActive ?
+              <NavLink to="/dashboard/overview/wallets-sl" className={({ isActive }) => (isActive ?
                 'tracking-wide  gold_bar px-6 py-3 gradient__gold hover__text__yellow' :
                 'tracking-wide gold_bar px-6 py-3 hover__text__yellow')}>SCP: SL BILIONERS</NavLink>
-              <NavLink to="/dashboard/classes-sl-overview" className={({ isActive }) => (isActive ?
+              <NavLink to="/dashboard/overview/classes-sl" className={({ isActive }) => (isActive ?
                 'tracking-wide  gold_bar px-6 py-3 gradient__gold hover__text__yellow' :
                 'tracking-wide gold_bar px-6 py-3 hover__text__yellow')}>SCP: SL BEST CLASS PLAYERS</NavLink>
 

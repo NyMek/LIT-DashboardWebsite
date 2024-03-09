@@ -53,7 +53,7 @@ const DashboardServerSlOverview = () => {
         useEffect(()=> {
             const fetchServerOverview = async () => {
         
-              const response = await axios.get('http://localhost:5000/dashboard/server-sl-overview', {
+              const response = await axios.get('http://localhost:5000/dashboard/sl/server', {
               withCredentials: true,
               headers: { 'Authorization': `Bearer ${user.token}` }
              })

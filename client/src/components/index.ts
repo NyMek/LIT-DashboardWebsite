@@ -11,6 +11,7 @@ import OverviewDashboardNavbar from "./OverviewDashboardNavbar";
 import SLUsersDashboardNavbar from "./SLUsersDashboardNavbar";
 import Loader from "./Loader";
 import SLUsersClassDashboardNavbar from "./SLUserClassDashboardNavbar";
+import ErrorInfo from "./ErrorInfo";
 
 export {
     Navbar,
@@ -25,5 +26,6 @@ export {
     OverviewDashboardNavbar,
     SLUsersDashboardNavbar,
     Loader,
-    SLUsersClassDashboardNavbar
+    SLUsersClassDashboardNavbar,
+    ErrorInfo
 }

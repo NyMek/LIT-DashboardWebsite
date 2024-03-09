@@ -51,7 +51,7 @@ const [loading, setLoading] = useState(true)
     const fetchUsersSlOverview = async () => {
       setLoading(true);
 
-      const response = await axios.get('http://localhost:5000/dashboard/users-sl-overview/time', {
+      const response = await axios.get('http://localhost:5000/dashboard/overview/users-sl/time', {
       withCredentials: true,
       headers: { 'Authorization': `Bearer ${user.token}` }
 

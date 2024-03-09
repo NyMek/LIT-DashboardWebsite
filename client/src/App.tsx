@@ -56,81 +56,81 @@ const App = () => {
           element:  user ? <DashboardProfile /> : <Navigate to="/" />
         },
         {
-          path: '/dashboard/user-sl-overview',
+          path: '/dashboard/sl/user',
           element: user && steamUser ? <DashboardUserSlOverview />  : <Navigate to="/dashboard/overview" />
         },
         {
-          path: '/dashboard/server-sl-overview',
+          path: '/dashboard/sl/server',
           element: user && steamUser ? <DashboardServerSlOverview />  : <Navigate to="/dashboard/overview" />
         },
         {
-          path: '/dashboard/wallet-sl-overview',
+          path: '/dashboard/sl/wallet',
           element: user && steamUser ? <DashboardWalletSlOverview />  : <Navigate to="/dashboard/overview" />
         },
         {
-          path: '/dashboard/class-sl-overview',
+          path: '/dashboard/sl/class',
           element: user && steamUser ? <DashboardSLClassLayout/>  : <Navigate to="/dashboard/overview" />,
           children: [
             {
-              path: '/dashboard/class-sl-overview/personnel',
+              path: '/dashboard/sl/class/personnel',
               element: user && steamUser ? <DashboardSlPersonnelClassOverview/>  : <Navigate to="/dashboard/overview" />,
             },
             {
-              path: '/dashboard/class-sl-overview/chaos',
+              path: '/dashboard/sl/class/chaos',
               element: user && steamUser ? 'chaos'  : <Navigate to="/dashboard/overview" />,
             },
             {
-              path: '/dashboard/class-sl-overview/mtf',
+              path: '/dashboard/sl/class/mtf',
               element: user && steamUser ? 'mtf'  : <Navigate to="/dashboard/overview" />,
             },
             {
-              path: '/dashboard/class-sl-overview/scp',
+              path: '/dashboard/sl/class/scp',
               element: user && steamUser ? 'scp' : <Navigate to="/dashboard/overview" />,
             },
             {
-              path: '/dashboard/class-sl-overview/special',
+              path: '/dashboard/sl/class/special',
               element: user && steamUser ? 'special' : <Navigate to="/dashboard/overview" />,
             }
           ]
         },
         {
-          path: '/dashboard/user-discord-overview',
+          path: '/dashboard/discord/user',
           element: user && discordUser ? <DashboardUserDiscordOverview /> : <Navigate to="/dashboard/overview" />
         },
         {
-          path: '/dashboard/server-discord-overview',
+          path: '/dashboard/discord/server',
           element: user && discordUser ? <DashboardServerDiscordOverview /> : <Navigate to="/dashboard/overview" />
         },
         {
-          path: '/dashboard/text-channel-overview',
+          path: '/dashboard/discord/text',
           element: user && discordUser ? <DashboardTextChannelOverview /> : <Navigate to="/dashboard/overview" />
         },
         {
-          path: '/dashboard/voice-channel-overview',
+          path: '/dashboard/discord/voice',
           element: user && discordUser ? <DashboardVoiceChannelOverview /> : <Navigate to="/dashboard/overview" />
         },
         {
-          path: '/dashboard/users-discord-overview',
+          path: '/dashboard/overview/users-discord',
           element: user && discordUser ? <DashboardUsersDiscordOverview /> : <Navigate to="/dashboard/overview" />
         },
         {
-          path: '/dashboard/text-channels-overview',
+          path: '/dashboard/overview/text',
           element: user && discordUser ? <DashboardTextChannelsOverview /> : <Navigate to="/dashboard/overview" />
         },
         {
-          path: '/dashboard/users-sl-overview',
+          path: '/dashboard/overview/users-sl',
           element: user && steamUser ? <DashboardSlUsersLayout /> : <Navigate to="/dashboard/overview" />,
           children: [
             {
-                path: '/dashboard/users-sl-overview/time',
+                path: '/dashboard/overview/users-sl-overview/time',
                 element: user && steamUser ? <DashboardUsersSlTimeOverview /> : <Navigate to="/dashboard/overview" />
             },
             {
-              path: '/dashboard/users-sl-overview/kills',
+              path: '/dashboard/overview/users-sl/kills',
               element: user && steamUser? <DashboardUsersSlKillsOverview /> : <Navigate to="/dashboard/overview" />
             },
             {
-              path: '/dashboard/users-sl-overview/shots',
+              path: '/dashboard/overview/users-sl/shots',
               element: user && steamUser? <DashboardUsersSlShotsOverview /> : <Navigate to="/dashboard/overview" />
             },
           ]

@@ -55,7 +55,7 @@ const [loading, setLoading] = useState(true)
             const fetchServerOverview = async () => {
               setLoading(true);
         
-              const response = await axios.get('http://localhost:5000/dashboard/server-discord-overview', {
+              const response = await axios.get('http://localhost:5000/dashboard/discord/server', {
               withCredentials: true,
               headers: { 'Authorization': `Bearer ${user.token}` }
              })

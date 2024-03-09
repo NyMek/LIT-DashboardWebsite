@@ -42,7 +42,7 @@ const DashboardUsersDiscordOverview = () => {
     const fetchUserOverview = async () => {
       setLoading(true);
 
-      const response = await axios.get('http://localhost:5000/dashboard/users-discord-overview', {
+      const response = await axios.get('http://localhost:5000/dashboard/overview/users-discord', {
       withCredentials: true,
       headers: { 'Authorization': `Bearer ${user.token}` }
 

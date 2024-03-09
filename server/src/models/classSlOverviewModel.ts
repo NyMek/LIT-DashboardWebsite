@@ -93,7 +93,7 @@ const classSlOverviewSchema = new mongoose.Schema({
     })
 
 
-const SlDB = mongoose.connection.useDb('goldlegends_beta_testing');
+const SlDB = mongoose.connection.useDb('goldlegends_beta_testing_fix');
 const ClassSlOverview = SlDB.model('role_stats', classSlOverviewSchema, 'role_stats')
 
 export default ClassSlOverview
