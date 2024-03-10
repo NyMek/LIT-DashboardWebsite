@@ -26,9 +26,9 @@ interface UserData {
 }
 
 const DashboardUserDiscordOverview = () => {
- const {user} = useAuthContext()
- const { height, width } = useWindowDimensions();
- const [userOverview, setUserOverview] = useState<UserData>({ 
+const {user} = useAuthContext()
+const { height, width } = useWindowDimensions();
+const [userOverview, setUserOverview] = useState<UserData>({ 
   userId: '',
   userName: '',
   dailyStats: [
@@ -51,7 +51,6 @@ const DashboardUserDiscordOverview = () => {
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
  
-
   useEffect(()=> {
     const fetchUserOverview = async () => {
       setLoading(true);
@@ -67,25 +66,18 @@ const DashboardUserDiscordOverview = () => {
         }
         setLoading(false);
       } catch (error: any) {
-        console.log('asd', error);
         if (error.response && error.response.status === 404) {
-
-          console.log('404');
-
           setErrorMessage(JSON.stringify(error.response.data.error))
-
-          console.log('error message', JSON.stringify(error.response.data.error))
-
           setError(true);
-        } else {
-          setError(true); // lub obsłuż inny rodzaj błędu
+        } else if(error.response && error.response.status === 400){
+          setErrorMessage(JSON.stringify(error.response.data.error))
+          setError(true);
         }
         setLoading(false);
       }
-    };
-  
+    }
+    
     if (user) {
-      console.log('user', user);
       fetchUserOverview();
     }
   }, []);
@@ -97,17 +89,14 @@ const DashboardUserDiscordOverview = () => {
    } 
  } 
 
-
   return (
     <div className='text-white flex flex-col w-full px-6 sm:px-[40px] lg:px-[80px] gap-[33px] '>
-      
     <DiscordDashboardNavbar/>
 
     {
       error ?
       (
          <ErrorInfo errorMessage={errorMessage.toString()}/>
-
 
       ) : loading ?
       (
@@ -141,7 +130,6 @@ const DashboardUserDiscordOverview = () => {
             <h2 className="text-[25px] leading-[28px] font-black sm:text-[32px] sm:leading-[32px] lg:text-[40px] lg:leading-[48px] mb-[8px]">Czas na kanałach głosowych</h2>
             <UserVoiceChart userOverview={userOverview} chartHeight={chartHeight} chartWidth={'100%'}/>
          </div>
-
         </div>
       )
     }

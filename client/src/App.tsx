@@ -122,7 +122,7 @@ const App = () => {
           element: user && steamUser ? <DashboardSlUsersLayout /> : <Navigate to="/dashboard/overview" />,
           children: [
             {
-                path: '/dashboard/overview/users-sl-overview/time',
+                path: '/dashboard/overview/users-sl/time',
                 element: user && steamUser ? <DashboardUsersSlTimeOverview /> : <Navigate to="/dashboard/overview" />
             },
             {

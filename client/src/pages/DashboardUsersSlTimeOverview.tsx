@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useEffect, useState  } from "react"
-import { OverviewDashboardNavbar, SLUsersDashboardNavbar, Loader } from "../components";
+import { OverviewDashboardNavbar, SLUsersDashboardNavbar, Loader, ErrorInfo } from "../components";
 import { UsersSLPlayTimeTopChart } from "../charts";
 
 const DashboardUsersSlTimeOverview = () => {
@@ -45,23 +45,34 @@ const DashboardUsersSlTimeOverview = () => {
     });
 const [period, setPeriod] = useState(30)
 const [loading, setLoading] = useState(true)
+const [error, setError] = useState(false);
+const [errorMessage, setErrorMessage] = useState('');
 
 
  useEffect(()=> {
     const fetchUsersSlOverview = async () => {
       setLoading(true);
-
-      const response = await axios.get('http://localhost:5000/dashboard/overview/users-sl/time', {
-      withCredentials: true,
-      headers: { 'Authorization': `Bearer ${user.token}` }
-
-      })
-      if (response.status === 200) {
-        const jsonData = response.data; // one servwr temp
-        setUsersSlOverview(jsonData);
-        
+      try {
+        const response = await axios.get('http://localhost:5000/dashboard/overview/users-sl/time', {
+          withCredentials: true,
+          headers: { 'Authorization': `Bearer ${user.token}` }
+    
+          })
+          if (response.status === 200) {
+            const jsonData = response.data; // one servwr temp
+            setUsersSlOverview(jsonData);
+          }
+          setLoading(false);
+      } catch (error:any) {
+        if (error.response && error.response.status === 404) {
+          setErrorMessage(JSON.stringify(error.response.data.error))
+          setError(true);
+        } else if(error.response && error.response.status === 400){
+          setErrorMessage(JSON.stringify(error.response.data.error))
+          setError(true);
+        } 
+        setLoading(false);
       }
-      setLoading(false);
     }
     if(user) {
       
@@ -75,7 +86,12 @@ const [loading, setLoading] = useState(true)
     <SLUsersDashboardNavbar />
 
     {
-      loading ? (
+      error ?
+      (
+         <ErrorInfo errorMessage={errorMessage.toString()}/>
+
+      ) : loading ?
+      (
         <Loader />
       ) : (
         <div>
@@ -95,7 +111,6 @@ const [loading, setLoading] = useState(true)
             <option value="1" className="bg-black">Ostatni dzień</option>
           </select>
         
-
           <div className="flex flex-col sm:flex-row gap-[33px] justify-between w-full">
             <div className="p-6 bg-dark_opacity w-full">
             <h2 className="text-[25px] leading-[28px] font-black sm:text-[32px] sm:leading-[32px] lg:text-[40px] lg:leading-[48px] pb-6 sm:pb-[40px]">Najdłużej u nas grali:</h2>

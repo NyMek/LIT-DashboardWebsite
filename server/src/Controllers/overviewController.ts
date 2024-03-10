@@ -1,14 +1,6 @@
 import { Request, Response } from 'express'
-import axios from 'axios'
 import jwt from 'jsonwebtoken'
-import { JwtPayload } from 'jsonwebtoken'
-import { UserOverview, ServerOverview, TextChannelOverview, VoiceChannelOverview, UserSlOverview, ClassSlOverview } from '../models'
-
-const createToken = (_id: object, time: string) => {
-  return jwt.sign({_id}, process.env.SECRET, {expiresIn: time})
-}
-
-
+import { UserOverview, TextChannelOverview, UserSlOverview,  } from '../models'
 
 export const usersDiscordOverview = (req: Request, res: Response) => {
     try {
@@ -16,26 +8,19 @@ export const usersDiscordOverview = (req: Request, res: Response) => {
   
       jwt.verify(token, process.env.SECRET, async (error: any) => {
         if(error) {
-         
-          console.log('Token prawdopodobnie wygasł')
-          return res.json({error: 'Token prawdopodobnie wygasł lub nie połączyłeś konta z Discord'})
+          return res.status(404).json({error: 'Token prawdopodobnie wygasł lub nie połączyłeś konta z Discord'})
         } else {
-      
           const usersOverview = await UserOverview.find({})
           .select('users.userName users.dailyStats -_id');
       
-          if (!usersOverview) {
-             return res.status(404).json({ error: 'Nie znaleziono użytkowników' });
+          if (!usersOverview || usersOverview.length === 0) {
+             return res.status(404).json({ error: 'Nie znaleziono użytkowników, prawdopodobnie bota nie ma na serwerze' });
          }
-  
-          console.log('usersOverview ' + usersOverview)
           res.status(200).json(usersOverview);
-  
         }
       })
   
     } catch (error) {
-      console.log(error)
       res.status(400).json({error: error.message})
     }
   }
@@ -46,19 +31,14 @@ export const usersDiscordOverview = (req: Request, res: Response) => {
   
       jwt.verify(token, process.env.SECRET, async (error: any) => {
         if(error) {
-         
-          console.log('Token prawdopodobnie wygasł')
-          return res.json({error: 'Token prawdopodobnie wygasł lub nie połączyłeś konta z Discord'})
+          return res.status(404).json({error: 'Token prawdopodobnie wygasł lub nie połączyłeś konta z Discord'})
         } else {
-         
           const textChannelsOverview = await TextChannelOverview.find({ 'guildId': '473863145207889931' }) //temp 
       
-          if (!textChannelsOverview) {
-             return res.status(404).json({ error: 'Nie znaleziono servera' });
+          if (!textChannelsOverview || textChannelsOverview.length === 0) {
+             return res.status(404).json({ error: 'Nie znaleziono danych serwera, prawdopodobnie bota nie ma na serwerze' });
          }
-         console.log('textChannelOverview: ' + textChannelsOverview)
           res.status(200).json(textChannelsOverview);
-  
         }
       })
   
@@ -72,16 +52,13 @@ export const usersDiscordOverview = (req: Request, res: Response) => {
       const token = req.cookies['steamToken']
       jwt.verify(token, process.env.SECRET, async (error: any) => {
         if(error) {
-         
-          console.log('Token prawdopodobnie wygasł')
-          return res.json({error: 'Token prawdopodobnie wygasł lub nie połączyłeś konta z Steam'})
+          return res.status(404).json({error: 'Token prawdopodobnie wygasł lub nie połączyłeś konta z Steam'})
         } else {
-  
           const usersSlOverview = await UserSlOverview.find({})
           .select('nickname dailyStats -_id')
   
-          if (!usersSlOverview) {
-             return res.status(404).json({ error: 'Nie znaleziono użytkownika' });
+          if (!usersSlOverview || usersSlOverview.length === 0) {
+             return res.status(404).json({ error: 'Nie znaleziono danych z serwera, prawdopodobnie plugin przestał działać' });
          }
           res.status(200).json(usersSlOverview);
         }
@@ -98,17 +75,14 @@ export const usersDiscordOverview = (req: Request, res: Response) => {
       jwt.verify(token, process.env.SECRET, async (error: any) => {
         if(error) {
          
-          console.log('Token prawdopodobnie wygasł')
-          return res.json({error: 'Token prawdopodobnie wygasł lub nie połączyłeś konta z Steam'})
+          return res.status(404).json({error: 'Token prawdopodobnie wygasł lub nie połączyłeś konta z Steam'})
         } else {
-  
           const usersSlOverview = await UserSlOverview.find({})
           .select('nickname dailyStats -_id')
   
-          if (!usersSlOverview) {
-             return res.status(404).json({ error: 'Nie znaleziono użytkownika' });
+          if (!usersSlOverview || usersSlOverview.length === 0) {
+             return res.status(404).json({ error: 'Nie znaleziono danych z serwera, prawdopodobnie plugin przestał działać' });
          }
-         console.log('usersSlTimeOverview: ' + usersSlOverview)
           res.status(200).json(usersSlOverview);
         }
       })
@@ -123,18 +97,15 @@ export const usersDiscordOverview = (req: Request, res: Response) => {
       const token = req.cookies['steamToken']
       jwt.verify(token, process.env.SECRET, async (error: any) => {
         if(error) {
-         
-          console.log('Token prawdopodobnie wygasł')
-          return res.json({error: 'Token prawdopodobnie wygasł lub nie połączyłeś konta z Steam'})
+          return res.status(404).json({error: 'Token prawdopodobnie wygasł lub nie połączyłeś konta z Steam'})
         } else {
   
           const usersSlOverview = await UserSlOverview.find({})
           .select('nickname dailyStats -_id')
   
-          if (!usersSlOverview) {
-             return res.status(404).json({ error: 'Nie znaleziono użytkownika' });
+          if (!usersSlOverview || usersSlOverview.length === 0) {
+             return res.status(404).json({ error: 'Nie znaleziono danych z serwera, prawdopodobnie plugin przestał działać' });
          }
-         console.log('usersSlShotOverview: ' + usersSlOverview)
           res.status(200).json(usersSlOverview);
         }
       })

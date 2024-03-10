@@ -2,7 +2,7 @@ import axios from "axios";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useEffect, useState  } from "react"
 import useWindowDimensions from "../hooks/useWindowDimensions";
-import { SLDashboardNavbar, Loader  } from "../components";
+import { SLDashboardNavbar, Loader, ErrorInfo  } from "../components";
 import { UserSLSummaryChart, UserSLKDChart, UserSLPlayTimeChart, UserSLShotsChart } from "../charts";
 
 
@@ -48,44 +48,62 @@ const DashboardUserSlOverview = () => {
       });
 
 const [loading, setLoading] = useState(true)
+const [error, setError] = useState(false);
+const [errorMessage, setErrorMessage] = useState('');
  
         useEffect(()=> {
             const fetchUserSlOverview = async () => {
-              setLoading(true);
-        
-              const response = await axios.get('http://localhost:5000/dashboard/sl/user', {
-              withCredentials: true,
-              headers: { 'Authorization': `Bearer ${user.token}` }
-             })
+            setLoading(true);
 
+            try {
+              const response = await axios.get('http://localhost:5000/dashboard/sl/user', {
+                withCredentials: true,
+                headers: { 'Authorization': `Bearer ${user.token}` }
+               })
+  
               if (response.status === 200) {
                 const jsonData = response.data[0]; // one servwr temp 
                 setUserSlOverview(jsonData);
               }
               setLoading(false);
+            } catch (error: any) {
+              if (error.response && error.response.status === 404) {
+                setErrorMessage(JSON.stringify(error.response.data.error))
+                setError(true);
+              } else if(error.response && error.response.status === 400){
+                setErrorMessage(JSON.stringify(error.response.data.error))
+                setError(true);
+              }
+              setLoading(false);
+             } 
             }
+
             if(user) {
               fetchUserSlOverview()
             }
          }, [])
 
-         console.log(userSlOverview)
 
-         let chartHeight = 400;
-         if(height > chartHeight){
-           if(width < 420) {
-             chartHeight = 250
-           } 
-         } 
+let chartHeight = 400;
+if(height > chartHeight){
+  if(width < 420) {
+    chartHeight = 250
+  } 
+} 
 
   return (
     <div className='text-white flex flex-col w-full px-6 sm:px-[40px] lg:px-[80px] gap-[33px]'>
       <SLDashboardNavbar/>
 
       {
-        loading ? (
-          <Loader />
-        ) : (
+      error ?
+      (
+         <ErrorInfo errorMessage={errorMessage.toString()}/>
+
+      ) : loading ?
+      (
+        <Loader />
+      ) : (
           <div>
             <UserSLSummaryChart userSlOverview={userSlOverview}/>
             <div className="bg-dark_opacity p-6 mt-[33px]">

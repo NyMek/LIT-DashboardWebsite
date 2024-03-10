@@ -14,7 +14,7 @@ const OverviewDashboardNavbar = () => {
               <NavLink to="/dashboard/overview/users-discord" className={({ isActive }) => (isActive ?
                 'tracking-wide gold_bar px-6 py-3 gradient__gold hover__text__yellow' :
                 'tracking-wide gold_bar px-6 py-3 hover__text__yellow ')}>Discord</NavLink>
-              <NavLink to="/dashboard/overview/text-channels" className={({ isActive }) => (isActive ?
+              <NavLink to="/dashboard/overview/text" className={({ isActive }) => (isActive ?
                 'tracking-wide gold_bar px-6 py-3 gradient__gold hover__text__yellow' :
                 'tracking-wide gold_bar px-6 py-3 hover__text__yellow ')}>Kanały</NavLink>
               <NavLink to="/dashboard/overview/users-sl/time" className={({ isActive }) => (isActive ?

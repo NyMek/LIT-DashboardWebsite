@@ -4,12 +4,11 @@ import { useEffect, useState } from "react";
 import useWindowDimensions from "../hooks/useWindowDimensions";
 
 import { TextChannelMessagesChart, TextChannelOtherChart } from "../charts";
-import { DiscordDashboardNavbar } from "../components";
+import { DiscordDashboardNavbar, Loader, ErrorInfo} from "../components";
 
 const DashboardTextChannelOverview = () => {
   const { user } = useAuthContext();
   const { height, width } = useWindowDimensions();
-
   const [textChannelOverview, setTextChannelOverview] = useState<any>({ 
     guildId: '',
     channels: [{
@@ -30,29 +29,41 @@ const DashboardTextChannelOverview = () => {
     ]
  });
   const [selectedChannel, setSelectedChannel] = useState<any>(null);
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
 
 
   useEffect(()=> {
     const fetchServerOverview = async () => {
+      setLoading(true);
+      try {
+        const response = await axios.get('http://localhost:5000/dashboard/discord/text', {
+          withCredentials: true,
+          headers: { 'Authorization': `Bearer ${user.token}` }
+          })
 
-      const response = await axios.get('http://localhost:5000/dashboard/discord/text', {
-      withCredentials: true,
-      headers: { 'Authorization': `Bearer ${user.token}` }
-
-      })
-      if (response.status === 200) {
-        const jsonData = response.data; // one server temp
-        
-        setTextChannelOverview(jsonData);
+          if (response.status === 200) {
+            const jsonData = response.data; // one server temp
+            setTextChannelOverview(jsonData);
+          }
+          setLoading(false);
+      } catch (error: any) {
+        if (error.response && error.response.status === 404) {
+          setErrorMessage(JSON.stringify(error.response.data.error))
+          setError(true);
+        } else if(error.response && error.response.status === 400){
+          setErrorMessage(JSON.stringify(error.response.data.error))
+          setError(true);
+        }
+        setLoading(false);
       }
     }
     if(user) {
-      
       fetchServerOverview()
     }
  }, [selectedChannel])
-
 
  let chartHeight = 400;
  if(height > chartHeight){
@@ -64,7 +75,19 @@ const DashboardTextChannelOverview = () => {
 return (
   <div className='text-white flex flex-col w-full px-6 sm:px-[40px] lg:px-[80px] gap-[33px]'>
     <DiscordDashboardNavbar/>
-    <select
+
+
+    {
+      error ?
+      (
+         <ErrorInfo errorMessage={errorMessage.toString()}/>
+
+      ) : loading ?
+      (
+        <Loader />
+      ) : (
+        <div>
+              <select
       className="bg-dark_opacity p-6 text-[16px] sm:text-[24px] uppercase font-black w-[300px] mb-[24px] "
       value={selectedChannel?.channelId || ''}
       onChange={(e) => {
@@ -100,6 +123,10 @@ return (
       </div>
 
      )}
+        </div>
+      )
+    }
+
   </div>
   );
 }

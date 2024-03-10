@@ -23,11 +23,7 @@ const UsersSLDeathsTopChart = ({ usersSlOverview, period }: any) => {
       return null;
     }
   };
-
-  console.log('usersSLOverviewArray: ', usersSLOverviewArray)
-
   const userKillsCount = usersSLOverviewArray.map((user: any) => {
-    console.log("user ", user)
     if(user.nickname == "None") {
         return
     }else {

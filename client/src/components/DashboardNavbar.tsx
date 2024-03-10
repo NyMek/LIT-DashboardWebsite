@@ -50,7 +50,7 @@ const DashboardNavbar = () => {
       <div className='flex justify-between items-center pb-6'>
         <div className='w-[66px] lg:w-[66px]'>
             <NavLink to="/">
-              <img src="../../assets/logo/gl.png" alt="GoldLegends" />
+              <img src="../../../assets/logo/gl.png" alt="GoldLegends" />
           </NavLink>
           </div>
           <div className='cursor-pointer relative' onClick={() => handleToggleMenu(900)}> 
@@ -59,7 +59,7 @@ const DashboardNavbar = () => {
           </div>
           <div className='flex items-center sm:text-[16px] '>
             <NavLink to="/dashboard/profile" className="flex items-center gap-[8px]">
-              <img src="../../assets/user.png" alt="avatar" className='w-[50px] h-[50px]'/>
+              <img src="../../../assets/user.png" alt="avatar" className='w-[50px] h-[50px]'/>
             </NavLink>
           </div>
       </div>
@@ -67,20 +67,20 @@ const DashboardNavbar = () => {
         
         <div className={`text-white xs:text-[12px] sm:text-[16px] font-roboto font-bold  ${toggleMenu ? ' flex' : ' hidden'} flex-col xs:flex-row items-center justify-center md:flex-nowrap gap-[16px] xs:gap-[16px] ss:gap-[24px] sm:gap-[33px]`}>
           <NavLink to="/dashboard/discord/user" className={`ss:w-[200px] sm:w-[300px]  relative overflow-hidden  cursor-pointer border_gold ${animate}`}  onClick={()=> handleDiscord(1000)}>
-              <img src="../../assets/grafiki/lab.png" alt="" className="zoom"/>
+              <img src="../../../assets/grafiki/lab.png" alt="" className="zoom"/>
               <p className="absolute bottom-[24px] right-1/2 translate-x-1/2 pointer-events-none dropdown_text">
                 Discord</p> 
           </NavLink>
           <NavLink to="/dashboard/sl/user"  className={`ss:w-[200px] sm:w-[300px]  relative overflow-hidden  cursor-pointer border_gold ${animate}`} onClick={()=> handleSL(1000)}>
-              <img src="../../assets/grafiki/dor.png" alt="" className="zoom"/>
+              <img src="../../../assets/grafiki/dor.png" alt="" className="zoom"/>
               <p className="absolute bottom-[24px] right-1/2 translate-x-1/2 pointer-events-none dropdown_text" >SCP: SL</p>
           </NavLink>
           <NavLink to="/dashboard/overview"  className={`ss:w-[200px] sm:w-[300px]  relative overflow-hidden  cursor-pointer border_gold ${animate}`} onClick={()=>handleOverview(1000)}>
-              <img src="../../assets/grafiki/mirr.png" alt="" className="zoom"/>
+              <img src="../../../assets/grafiki/mirr.png" alt="" className="zoom"/>
               <p className="absolute bottom-[24px] right-1/2 translate-x-1/2 pointer-events-none dropdown_text" >Przegląd</p>
           </NavLink>
           <NavLink to="/dashboard/administration"  className={`ss:w-[200px] sm:w-[300px]  relative overflow-hidden  cursor-pointer border_gold ${animate}`} onClick={()=>handleAdministration(1000)}>
-              <img src="../../assets/grafiki/arrest.png" alt="" className="zoom"/>
+              <img src="../../../assets/grafiki/arrest.png" alt="" className="zoom"/>
               <p className="absolute bottom-[24px] right-1/2 translate-x-1/2 pointer-events-none dropdown_text" >Administracja</p>
           </NavLink>
         </div>

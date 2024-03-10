@@ -4,7 +4,6 @@ const TextChannelsMessagesTopChart = ({ textChannelsOverview, period }: any) => 
   const currentDate: number = new Date().getTime();
   const itemsPerPage = 20; 
   let i = 0;
-  console.log('textChannelsOverview:  ', textChannelsOverview)
 
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -60,7 +59,7 @@ const TextChannelsMessagesTopChart = ({ textChannelsOverview, period }: any) => 
     
           return(
             (
-              <div key={channel.userId} className='flex justify-between border-b-[1px] border-white_opacity pb-[16px] px-6'>
+              <div key={index} className='flex justify-between border-b-[1px] border-white_opacity pb-[16px] px-6'>
                <div className='text-[18px] font-roboto font-black'>{channel.number + 1}.</div>
                <div className='text-[18px] font-roboto font-black '>{channel.channelName}</div>
                <div className='text-[18px] font-roboto font-black'>{channel.messageCount}</div>

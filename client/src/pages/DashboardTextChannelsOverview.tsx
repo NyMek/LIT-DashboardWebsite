@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useEffect, useState  } from "react"
-import { OverviewDashboardNavbar, Loader } from "../components";
+import { OverviewDashboardNavbar, Loader, ErrorInfo } from "../components";
 import { TextChannelsMessagesTopChart } from "../charts";
 
 const DashboardTextChannelsOverview = () => {
@@ -30,23 +30,34 @@ const DashboardTextChannelsOverview = () => {
  });
  const [period, setPeriod] = useState(30)
  const [loading, setLoading] = useState(true)
+ const [error, setError] = useState(false);
+ const [errorMessage, setErrorMessage] = useState('');
 
 
  useEffect(()=> {
     const fetchTextChannelsOverview = async () => {
       setLoading(true);
-
-      const response = await axios.get('http://localhost:5000/dashboard/overview/text', {
-      withCredentials: true,
-      headers: { 'Authorization': `Bearer ${user.token}` }
-
-      })
-      if (response.status === 200) {
-        const jsonData = response.data[0];
-  
-        setTextChannelsOverview(jsonData);
+      try {
+        const response = await axios.get('http://localhost:5000/dashboard/overview/text', {
+          withCredentials: true,
+          headers: { 'Authorization': `Bearer ${user.token}` }
+          })
+          if (response.status === 200) {
+            const jsonData = response.data[0];
+            setTextChannelsOverview(jsonData);
+          }
+          setLoading(false);
+        
+      } catch (error:any) {
+        if (error.response && error.response.status === 404) {
+          setErrorMessage(JSON.stringify(error.response.data.error))
+          setError(true);
+        } else if(error.response && error.response.status === 400){
+          setErrorMessage(JSON.stringify(error.response.data.error))
+          setError(true);
+        } 
+        setLoading(false);
       }
-      setLoading(false);
     }
     if(user) {
       
@@ -59,7 +70,12 @@ const DashboardTextChannelsOverview = () => {
     <OverviewDashboardNavbar/>
 
     {
-      loading ? (
+      error ?
+      (
+         <ErrorInfo errorMessage={errorMessage.toString()}/>
+
+      ) : loading ?
+      (
         <Loader />
       ) : (
         <div>

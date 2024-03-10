@@ -25,7 +25,6 @@ const UsersSLFiredshotsTopChart = ({ usersSlOverview, period }: any) => {
   };
 
   const userFiredshotsCount = usersSLOverviewArray.map((user: any) => {
-    console.log("user ", user)
     if(user.nickname == "None") {
         return
     }else {
@@ -58,7 +57,6 @@ const UsersSLFiredshotsTopChart = ({ usersSlOverview, period }: any) => {
   const sortedUsers = userFiredshotsCount.sort((a: any, b: any) => b.firedshotsCount - a.firedshotsCount);
 
   sortedUsers.forEach((el: any) => {
-    console.log("el ", el)
     if(el) {
         el.number = i++;
     }

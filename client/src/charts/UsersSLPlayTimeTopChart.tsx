@@ -26,7 +26,7 @@ const UsersSLPlayTimeTopChart = ({ usersSlOverview, period }: any) => {
   };
 
   const userKillsCount = usersSLOverviewArray.map((user: any) => {
-    console.log("user ", user)
+
     if(user.nickname == "None") {
         return
     }else {
@@ -59,7 +59,6 @@ const UsersSLPlayTimeTopChart = ({ usersSlOverview, period }: any) => {
   const sortedUsers = userKillsCount.sort((a: any, b: any) => b.timeCount - a.timeCount);
 
   sortedUsers.forEach((el: any) => {
-    console.log("el ", el)
     if(el) {
         el.number = i++;
     }

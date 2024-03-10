@@ -25,7 +25,6 @@ const UsersSLKillTopChart = ({ usersSlOverview, period }: any) => {
   };
 
   const userKillsCount = usersSLOverviewArray.map((user: any) => {
-    console.log("user ", user)
     if(user.nickname == "None") {
         return
     }else {

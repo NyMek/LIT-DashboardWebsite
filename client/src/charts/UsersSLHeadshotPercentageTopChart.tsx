@@ -63,7 +63,6 @@ const sumFiredShotsCount = (dailyStats: any[]) =>
   const sortedUsers = userHeadshotsPercentageCount.sort((a: any, b: any) => b.headshotPercentage - a.headshotPercentage);
 
   sortedUsers.forEach((el: any) => {
-    console.log("el ", el)
     if(el) {
         el.number = i++;
     }

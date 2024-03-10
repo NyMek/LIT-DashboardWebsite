@@ -25,7 +25,6 @@ const UsersSLHeasdhotsTopChart = ({ usersSlOverview, period }: any) => {
   };
 
   const userHeadshotsCount = usersSLOverviewArray.map((user: any) => {
-    console.log("user ", user)
     if(user.nickname == "None") {
         return
     }else {
@@ -58,7 +57,6 @@ const UsersSLHeasdhotsTopChart = ({ usersSlOverview, period }: any) => {
   const sortedUsers = userHeadshotsCount.sort((a: any, b: any) => b.headshotCount - a.headshotCount);
 
   sortedUsers.forEach((el: any) => {
-    console.log("el ", el)
     if(el) {
         el.number = i++;
     }

@@ -28,7 +28,6 @@ const sumFiredShotsCount = (dailyStats: any[]) =>
   };
 
   const userAccuracyCount = usersSLOverviewArray.map((user: any) => {
-    console.log("user ", user)
     if(user.nickname == "None") {
         return
     }else {
@@ -49,9 +48,7 @@ const sumFiredShotsCount = (dailyStats: any[]) =>
         return {
             id: user._id,
             userName: user.nickname,
-            accurateShots: (sumFiredShotsCount(lastXDayStats) !== 0 ? 
-                                ((sumAccurateShotsCount(lastXDayStats) * 100) / sumFiredShotsCount(lastXDayStats)).toFixed(2) : 
-                                0),
+            accurateShots: (sumFiredShotsCount(lastXDayStats) !== 0 ?((sumAccurateShotsCount(lastXDayStats) * 100) / sumFiredShotsCount(lastXDayStats)).toFixed(2) :  0),
             number: 0
         };
     } 
@@ -63,7 +60,6 @@ const sumFiredShotsCount = (dailyStats: any[]) =>
   const sortedUsers = userAccuracyCount.sort((a: any, b: any) => b.accurateShots - a.accurateShots);
 
   sortedUsers.forEach((el: any) => {
-    console.log("el ", el)
     if(el) {
         el.number = i++;
     }

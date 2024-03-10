@@ -1,8 +1,7 @@
 import { Request, Response } from 'express'
-import axios from 'axios'
 import jwt from 'jsonwebtoken'
 import { JwtPayload } from 'jsonwebtoken'
-import { UserOverview, ServerOverview, TextChannelOverview, VoiceChannelOverview, UserSlOverview, ClassSlOverview } from '../models'
+import { UserSlOverview, ClassSlOverview } from '../models'
 
 const createToken = (_id: object, time: string) => {
   return jwt.sign({_id}, process.env.SECRET, {expiresIn: time})
@@ -29,58 +28,25 @@ export const steamCallback = (req: Request, res: Response) => {
   }
 }
 
-export const serverSlOverview = (req: Request, res: Response) => {
-  try {
-    const token = req.cookies['steamToken']
-    jwt.verify(token, process.env.SECRET, async (error: any) => {
-      if(error) {
-       
-        console.log('Token prawdopodobnie wygasł')
-        return res.json({error: 'Token prawdopodobnie wygasł lub nie połączyłeś konta z Steam'})
-      } else {
-
-        const decodeToken = jwt.decode(token) as JwtPayload
-        const userId = decodeToken._id;
-        console.log('userId ', userId)
-       
-        const serverSlOverview = await UserSlOverview.find({ '_id': `${userId}@steam` })
-    
-        if (!serverSlOverview) {
-           return res.status(404).json({ error: 'Nie znaleziono użytkownika' });
-       }
-        res.status(200).json(serverSlOverview);
-      }
-    })
-
-  } catch (error) {
-    res.status(400).json({error: error.message})
-  }
-}
-
 export const userSlOverview = (req: Request, res: Response) => {
   try {
     const token = req.cookies['steamToken']
     jwt.verify(token, process.env.SECRET, async (error: any) => {
       if(error) {
-       
-        console.log('Token prawdopodobnie wygasł')
-        return res.json({error: 'Token prawdopodobnie wygasł lub nie połączyłeś konta z Steam'})
+        return res.status(404).json({error: 'Token prawdopodobnie wygasł lub nie połączyłeś konta z Steam'})
       } else {
 
         const decodeToken = jwt.decode(token) as JwtPayload
         const userId = decodeToken._id;
-        console.log('userId ', userId)
-        console.log('UserSlOverview: ', UserSlOverview)
-  //76561198850936840
+
        const userSlOverview = await UserSlOverview.find({ '_id': `${userId}@steam` })
-        if (!userSlOverview) {
-           return res.status(404).json({ error: 'Nie znaleziono użytkownika' });
+
+        if (!userSlOverview || userSlOverview.length === 0) {
+           return res.status(404).json({ error: 'Nie znaleziono użytkownika, prawdopodobnie nie grałeś u nas na serwerze, zapraszamy do gry' });
        }
-       console.log('userSlOverview: ' + userSlOverview)
         res.status(200).json(userSlOverview);
       }
     })
-
   } catch (error) {
     res.status(400).json({error: error.message})
   }
@@ -98,35 +64,37 @@ export const classPersonnelSlOverview = (req: Request, res: Response) => {
       if(error) {
        
         console.log('Token prawdopodobnie wygasł')
-        return res.json({error: 'Token prawdopodobnie wygasł lub nie połączyłeś konta z Steam'})
+        return res.status(404).json({error: 'Token prawdopodobnie wygasł lub nie połączyłeś konta z Steam'})
       } else {
 
         const decodeToken = jwt.decode(token) as JwtPayload
         const userId = decodeToken._id;
         console.log('userId Class', userId)
+
+        const classSlOverview:any = null
        
-        const classSlOverview = await ClassSlOverview.aggregate([
-          {
-            $match: {
-              _id: `${userId}@steam`
-            }
-          },
-          {
-            $unwind: "$roleStats"
-          },
-          {
-            $match: {
-              "roleStats._t": "EscapistRole"
-            }
-          }
-        ]);
+        // const classSlOverview = await ClassSlOverview.aggregate([
+        //   {
+        //     $match: {
+        //       _id: `76561198072845398@steam`
+        //     }
+        //   },
+        //   {
+        //     $unwind: "$roleStats"
+        //   },
+        //   {
+        //     $match: {
+        //       "roleStats._t": "EscapistRole"
+        //     }
+        //   }
+        // ]);
     
-        if (classSlOverview.length === 0) {
+        if (!classSlOverview ||classSlOverview.length === 0) {
           console.log('Nie znaleziono usera')
-           return res.status(404).json({ error: 'Nie znaleziono użytkownika' });
+           return res.status(404).json({ error: 'Nie znaleziono użytkownika, prawdopodobnie nie grałeś u nas na serwerze, zapraszamy do gry' });
        }
-       console.log('classPersonnelSlOverview: ' + classSlOverview[1].roleStats.
-       roleId)
+      //  console.log('classPersonnelSlOverview: ' + classSlOverview[1].roleStats.
+      //  roleId)
         res.status(200).json(classSlOverview);
       }
     })
@@ -141,9 +109,7 @@ export const classMtfSlOverview = (req: Request, res: Response) => {
     const token = req.cookies['steamToken']
     jwt.verify(token, process.env.SECRET, async (error: any) => {
       if(error) {
-       
-        console.log('Token prawdopodobnie wygasł')
-        return res.json({error: 'Token prawdopodobnie wygasł lub nie połączyłeś konta z Steam'})
+        return res.status(404).json({error: 'Token prawdopodobnie wygasł lub nie połączyłeś konta z Steam'})
       } else {
 
         const decodeToken = jwt.decode(token) as JwtPayload

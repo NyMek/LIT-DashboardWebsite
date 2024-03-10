@@ -3,7 +3,7 @@ import { useAuthContext } from "../hooks/useAuthContext";
 import { useEffect, useState  } from "react"
 import useWindowDimensions from "../hooks/useWindowDimensions";
 import { MembersChart, MessagesChart, BasicServerInforChart } from "../charts";
-import { DiscordDashboardNavbar, Loader } from "../components";
+import { DiscordDashboardNavbar, Loader, ErrorInfo } from "../components";
 
 interface UserData {
     guildId: string;
@@ -49,25 +49,40 @@ const DashboardServerDiscordOverview = () => {
           }
         ] });
 const [loading, setLoading] = useState(true)
+const [error, setError] = useState(false);
+const [errorMessage, setErrorMessage] = useState('');
 
         
         useEffect(()=> {
             const fetchServerOverview = async () => {
               setLoading(true);
-        
-              const response = await axios.get('http://localhost:5000/dashboard/discord/server', {
-              withCredentials: true,
-              headers: { 'Authorization': `Bearer ${user.token}` }
-             })
-              if (response.status === 200) {
-                const jsonData = response.data[0]; // one servwr temp 
-                setServerOverview(jsonData);
+
+              try {
+                const response = await axios.get('http://localhost:5000/dashboard/discord/server', {
+                  withCredentials: true,
+                  headers: { 'Authorization': `Bearer ${user.token}` }
+                 })
+                  if (response.status === 200) {
+                    const jsonData = response.data[0]; // one servwr temp 
+                    setServerOverview(jsonData);
+                  }
+                  setLoading(false);
+                
+              } catch (error: any) {
+                if (error.response && error.response.status === 404) {
+                  setErrorMessage(JSON.stringify(error.response.data.error))
+                  setError(true);
+                } else if(error.response && error.response.status === 400){
+                  setErrorMessage(JSON.stringify(error.response.data.error))
+                  setError(true);
+                } 
+                setLoading(false);
               }
-              setLoading(false);
             }
             if(user) {
               fetchServerOverview()
             }
+
          }, [])
 
   let chartHeight = 400;
@@ -82,7 +97,11 @@ const [loading, setLoading] = useState(true)
     <DiscordDashboardNavbar/>
 
     {
-      loading ? (
+      error ?
+      (
+         <ErrorInfo errorMessage={errorMessage.toString()}/>
+
+      ) : loading ? (
         <Loader />
       ) : (
         <div>

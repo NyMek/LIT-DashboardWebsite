@@ -37,7 +37,7 @@ const UserSLSummaryChart = ({userSlOverview}:any) => {
           </div>
         </div>
         <div className="sm:row-span-2 h-[230px] ss:h-[300px] sm:h-[660px] md:h-[330px] relative bg-dark_opacity sm:bg-transparent">
-          <img src="../../assets/mtf.png" alt="" className="absolute bottom-0 right-1/2 translate-x-1/2 h-[210px] ss:h-[280px] sm:h-[420px]  md:h-[340px] " />
+          <img src="../../assets/class/ClassD.svg" alt="" className="absolute bottom-0 right-1/2 translate-x-1/2 h-[210px] ss:h-[280px] sm:h-[420px]  md:h-[340px] " />
         </div>
         <div className=" h-[330px] grid grid-cols-1 grid-rows-2 bg-dark_opacity sm:bg-transparent">
           <div className="flex flex-col justify-center items-center border-b-[1px] border-white_opacity">
@@ -77,7 +77,7 @@ const UserSLSummaryChart = ({userSlOverview}:any) => {
         <div className="h-[330px] border_gold"> LEVEL NA SLU WORK IN PROGRESS</div>
         <div className="h-[330px] border_gold">Szybkie podsumowanie Klass</div>
         <div className="h-[330px] border_gold">TYTUŁY NA SLU WORK IN PROGRESS</div>
-      </div> */}
+      </div> For future development*/}
 
     </div>
   )
