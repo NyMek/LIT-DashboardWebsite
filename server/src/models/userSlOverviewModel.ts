@@ -51,12 +51,14 @@ const userSlOverviewSchema = new mongoose.Schema({
     onlineTime: numDef,
     firstJoined: Date,
     lastSeen: Date,
+    specificKills: Object,
+    specyficDeaths: Object,
     kdRatio: numDef,
     accuracy: String,
     headshotPercentage: String
     })
 
-const SlDB = mongoose.connection.useDb('goldlegends');
-const UserSlOverview = SlDB.model('players_test', userSlOverviewSchema, 'players_test')
+const SlDB = mongoose.connection.useDb('goldlegends_beta_testing_fix');
+const UserSlOverview = SlDB.model('players', userSlOverviewSchema, 'players')
 
 export default UserSlOverview

@@ -2,10 +2,10 @@ import axios from "axios";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useEffect, useState  } from "react"
 import { SLDashboardNavbar, Loader, ErrorInfo, SLUsersClassDashboardNavbar  } from "../components";
-import { UserSLNtfCaptainClassSummaryChart, UserSLNtfPrivateClassSummaryChart, UserSLNtfSergeantClassSummaryChart, UserSLNtfSpecialistClassSummaryChart } from "../charts";
+import {UserSLScp173ClassSummaryChart, UserSLScp106ClassSummaryChart, UserSLScp096ClassSummaryChart, UserSLScp049ClassSummaryChart, UserSLScp0492ClassSummaryChart, UserSLScp3114ClassSummaryChart, UserSLScp079ClassSummaryChart, UserSLScp939ClassSummaryChart} from "../charts";
 
 
-const DashboardSlMtfClassOverview = () => {
+const DashboardSlScpClassOverview = () => {
 
   const basicClass = {
     _t: [],
@@ -17,21 +17,56 @@ const DashboardSlMtfClassOverview = () => {
     lastPlayed: '',
     kdRatio: 0,
 }
-const humanClass = {
+
+const scp173Class = {
   basicClass,
-  firedShots: 0,
-  accurateShots: 0,
-  headshots: 0,
-  accuracy: '',
-  headshotPercentage: '',
+  placedTantrums: 0,
 }
 
+const scp106Class = {
+  basicClass,
+  caughtInPocket: 0,
+}
+
+const scp096Class = {
+  basicClass,
+  timesRaged: 0,
+}
+
+const scp049Class = {
+  basicClass,
+  timesRecalled: 0,
+}
+
+const scp0492Class = {
+  basicClass,
+  consummedCorpses: 0,
+}
+
+const scp3114Class = {
+  basicClass,
+  timesDisguised: 0,
+}
+
+const scp079Class = {
+  basicClass,
+  totalGainedExperience: 0,
+  teslaInteractions: 0,
+  roomBlackouts: 0,
+}
+
+const scp939Class = {
+  basicClass,
+  totalGainedExperience: 0,
+  teslaInteractions: 0,
+  savedVoices: 0,
+}
 const {user} = useAuthContext()
-const [userSlMtfClassOverview, setUserSlMtfClassOverview] = useState({
+const [userSlScpClassOverview, setUserSlScpClassOverview] = useState({
     _id: '',
     nickname: '',
     ignoreDNT: false,
-    roleStats: [humanClass, humanClass,  humanClass, humanClass],
+    roleStats: [scp173Class, scp106Class,  scp096Class, scp049Class, scp0492Class,scp3114Class, scp079Class, scp939Class],
 });
 
 const [loading, setLoading] = useState(true)
@@ -43,14 +78,14 @@ const [errorMessage, setErrorMessage] = useState('');
               setLoading(true);
 
               try {
-                const response = await axios.get('http://localhost:5000/dashboard/sl/class/mtf', {
+                const response = await axios.get('http://localhost:5000/dashboard/sl/class/scp', {
                   withCredentials: true,
                   headers: { 'Authorization': `Bearer ${user.token}` }
                  })
     
                 if(response.status === 200) {
                   const jsonData = response.data; // one servwr temp 
-                  setUserSlMtfClassOverview(jsonData);
+                  setUserSlScpClassOverview(jsonData);
                 }
                 setLoading(false);
               } catch (error:any) {
@@ -84,11 +119,15 @@ const [errorMessage, setErrorMessage] = useState('');
            <Loader />
          ) : (
           <div className="flex flex-col gap-[33px] ">
-            <UserSLNtfCaptainClassSummaryChart userSlMtfClassOverview={userSlMtfClassOverview}/>
-            <UserSLNtfSpecialistClassSummaryChart userSlMtfClassOverview={userSlMtfClassOverview}/>
-            <UserSLNtfSergeantClassSummaryChart userSlMtfClassOverview={userSlMtfClassOverview}/>
-            <UserSLNtfPrivateClassSummaryChart userSlMtfClassOverview={userSlMtfClassOverview}/>
 
+            <UserSLScp173ClassSummaryChart userSlScpClassOverview={userSlScpClassOverview}/>
+            <UserSLScp106ClassSummaryChart userSlScpClassOverview={userSlScpClassOverview}/>
+            <UserSLScp096ClassSummaryChart userSlScpClassOverview={userSlScpClassOverview}/>
+            <UserSLScp049ClassSummaryChart userSlScpClassOverview={userSlScpClassOverview}/>
+            <UserSLScp0492ClassSummaryChart userSlScpClassOverview={userSlScpClassOverview}/>
+            <UserSLScp3114ClassSummaryChart userSlScpClassOverview={userSlScpClassOverview}/>
+            <UserSLScp079ClassSummaryChart userSlScpClassOverview={userSlScpClassOverview}/>
+            <UserSLScp939ClassSummaryChart userSlScpClassOverview={userSlScpClassOverview}/>
           </div>
         )
       }
@@ -97,4 +136,4 @@ const [errorMessage, setErrorMessage] = useState('');
   )
 }
 
-export default DashboardSlMtfClassOverview
+export default DashboardSlScpClassOverview

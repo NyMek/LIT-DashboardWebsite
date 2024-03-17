@@ -14,7 +14,7 @@ const UsersSLHeasdhotsTopChart = ({ usersSlOverview, period }: any) => {
     dailyStats.reduce((sum, daily) => sum + daily.headshots, 0);
 
   const parseDateStringToDate = (dateString: string): Date | null => {
-    const parts = dateString.split('-');
+    const parts = dateString.split('.');
     if (parts.length === 3) {
       const [day, month, year] = parts.map(Number);
       return new Date(year, month - 1, day);
@@ -25,7 +25,7 @@ const UsersSLHeasdhotsTopChart = ({ usersSlOverview, period }: any) => {
   };
 
   const userHeadshotsCount = usersSLOverviewArray.map((user: any) => {
-    if(user.nickname == "None") {
+    if(user.dntEnabled == true ) {
         return
     }else {
         const lastXDayStats = user.dailyStats.filter((stat: any) => {
@@ -33,7 +33,7 @@ const UsersSLHeasdhotsTopChart = ({ usersSlOverview, period }: any) => {
                 const statDate: Date | null = parseDateStringToDate(stat._id);
                 if (statDate) {
                   const diffInDays: number = Math.floor((currentDate - statDate.getTime()) / (1000 * 60 * 60 * 24));
-                  return diffInDays <= period;
+                  return diffInDays < period;
                 } else {
                   return false;
                 }

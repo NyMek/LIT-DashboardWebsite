@@ -6,7 +6,7 @@ const UserSLDClassSummaryChart = ({userSlPersonnelClassOverview}:any) => {
         <div className="sm:bg-dark_opacity grid md:grid-cols-3 md:grid-rows-1 sm:grid-cols-2 sm:grid-rows-2 gap-[33px] sm:gap-0">
           <div className=" h-[330px] bg-dark_opacity sm:bg-transparent grid grid-cols-1 grid-rows-2">
             <div className="flex flex-col justify-center items-center border-b-[1px] border-white_opacity">
-              <p className="text-[48px]">{userSlPersonnelClassOverview[0].roleStats.kdRatio}</p>
+              <p className="text-[48px]">{!userSlPersonnelClassOverview[0].roleStats.kdRatio ? userSlPersonnelClassOverview[0].roleStats.kills : userSlPersonnelClassOverview[0].roleStats.kdRatio}</p>
               <p className="text-[24px]">K/D</p>
             </div>
             <div className="grid grid-cols-3 grid-rows-2">
@@ -20,7 +20,7 @@ const UserSLDClassSummaryChart = ({userSlPersonnelClassOverview}:any) => {
               </div>
               <div className="flex flex-col justify-center items-center border-l-[1px] border-b-[1px] border-white_opacity">
                 <p className="text-[18px] xs:text-[20px]">{userSlPersonnelClassOverview[0].roleStats.timesJumped }</p>
-                <p className="text-[11px] xs:text-[14px]">Jumps</p>
+                <p className="text-[11px] xs:text-[14px]">JUMPS</p>
               </div>
               <div className="flex flex-col justify-center items-center border-r-[1px] border-white_opacity">
                 <p className="text-[18px] xs:text-[20px]">{(userSlPersonnelClassOverview[0].roleStats.kills/(userSlPersonnelClassOverview[0].roleStats.timePlayed/60)).toFixed(2)}</p>
@@ -37,7 +37,7 @@ const UserSLDClassSummaryChart = ({userSlPersonnelClassOverview}:any) => {
             </div>
           </div>
           <div className="sm:row-span-2 h-[230px] ss:h-[300px] sm:h-[660px] md:h-[330px] relative bg-dark_opacity sm:bg-transparent">
-            <img src="../../assets/class/ClassD.svg" alt="" className="absolute bottom-0 right-1/2 translate-x-1/2 h-[210px] ss:h-[280px] sm:h-[420px]  md:h-[340px] " />
+            <img src="../../../assets/class/ClassD.svg" alt="" className="absolute bottom-0 right-1/2 translate-x-1/2 h-[210px] ss:h-[280px] sm:h-[420px]  md:h-[340px] " />
           </div>
           <div className=" h-[330px] grid grid-cols-1 grid-rows-2 bg-dark_opacity sm:bg-transparent">
             <div className="flex flex-col justify-center items-center border-b-[1px] border-white_opacity">

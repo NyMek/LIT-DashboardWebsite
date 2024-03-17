@@ -2,10 +2,13 @@ import axios from "axios";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useEffect, useState  } from "react"
 import { SLDashboardNavbar, Loader, ErrorInfo, SLUsersClassDashboardNavbar  } from "../components";
-import { UserSLNtfCaptainClassSummaryChart, UserSLNtfPrivateClassSummaryChart, UserSLNtfSergeantClassSummaryChart, UserSLNtfSpecialistClassSummaryChart } from "../charts";
+import { UserSLChaosMarauderClassSummaryChart,
+    UserSLChaosConscriptClassSummaryChart,
+    UserSLChaosRepressorClassSummaryChart,
+    UserSLChaosRiflemanClassSummaryChart } from "../charts";
 
 
-const DashboardSlMtfClassOverview = () => {
+const DashboardSlChaosClassOverview = () => {
 
   const basicClass = {
     _t: [],
@@ -27,11 +30,11 @@ const humanClass = {
 }
 
 const {user} = useAuthContext()
-const [userSlMtfClassOverview, setUserSlMtfClassOverview] = useState({
+const [userSlChaosClassOverview, setUserSlChaosClassOverview] = useState({
     _id: '',
     nickname: '',
     ignoreDNT: false,
-    roleStats: [humanClass, humanClass,  humanClass, humanClass],
+    roleStats: [humanClass, humanClass,  humanClass],
 });
 
 const [loading, setLoading] = useState(true)
@@ -43,14 +46,14 @@ const [errorMessage, setErrorMessage] = useState('');
               setLoading(true);
 
               try {
-                const response = await axios.get('http://localhost:5000/dashboard/sl/class/mtf', {
+                const response = await axios.get('http://localhost:5000/dashboard/sl/class/chaos', {
                   withCredentials: true,
                   headers: { 'Authorization': `Bearer ${user.token}` }
                  })
     
                 if(response.status === 200) {
                   const jsonData = response.data; // one servwr temp 
-                  setUserSlMtfClassOverview(jsonData);
+                  setUserSlChaosClassOverview(jsonData);
                 }
                 setLoading(false);
               } catch (error:any) {
@@ -84,10 +87,10 @@ const [errorMessage, setErrorMessage] = useState('');
            <Loader />
          ) : (
           <div className="flex flex-col gap-[33px] ">
-            <UserSLNtfCaptainClassSummaryChart userSlMtfClassOverview={userSlMtfClassOverview}/>
-            <UserSLNtfSpecialistClassSummaryChart userSlMtfClassOverview={userSlMtfClassOverview}/>
-            <UserSLNtfSergeantClassSummaryChart userSlMtfClassOverview={userSlMtfClassOverview}/>
-            <UserSLNtfPrivateClassSummaryChart userSlMtfClassOverview={userSlMtfClassOverview}/>
+            <UserSLChaosMarauderClassSummaryChart userSlChaosClassOverview={userSlChaosClassOverview}/>
+            <UserSLChaosConscriptClassSummaryChart userSlChaosClassOverview={userSlChaosClassOverview}/>
+            <UserSLChaosRepressorClassSummaryChart userSlChaosClassOverview={userSlChaosClassOverview}/>
+            <UserSLChaosRiflemanClassSummaryChart userSlChaosClassOverview={userSlChaosClassOverview}/>
 
           </div>
         )
@@ -97,4 +100,4 @@ const [errorMessage, setErrorMessage] = useState('');
   )
 }
 
-export default DashboardSlMtfClassOverview
+export default DashboardSlChaosClassOverview

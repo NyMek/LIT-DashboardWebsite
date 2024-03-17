@@ -19,13 +19,13 @@ const OverviewDashboardNavbar = () => {
                 'tracking-wide gold_bar px-6 py-3 hover__text__yellow ')}>Kanały</NavLink>
               <NavLink to="/dashboard/overview/users-sl/time" className={({ isActive }) => (isActive ?
                 'tracking-wide  gold_bar px-6 py-3 gradient__gold hover__text__yellow' :
-                'tracking-wide gold_bar px-6 py-3 hover__text__yellow')}>SCP: SL</NavLink>
+                'tracking-wide gold_bar px-6 py-3 hover__text__yellow')}>SCP:SL</NavLink>
               <NavLink to="/dashboard/overview/wallets-sl" className={({ isActive }) => (isActive ?
                 'tracking-wide  gold_bar px-6 py-3 gradient__gold hover__text__yellow' :
-                'tracking-wide gold_bar px-6 py-3 hover__text__yellow')}>SCP: SL BILIONERS</NavLink>
+                'tracking-wide gold_bar px-6 py-3 hover__text__yellow')}>NymCoin™</NavLink>
               <NavLink to="/dashboard/overview/classes-sl" className={({ isActive }) => (isActive ?
                 'tracking-wide  gold_bar px-6 py-3 gradient__gold hover__text__yellow' :
-                'tracking-wide gold_bar px-6 py-3 hover__text__yellow')}>SCP: SL BEST CLASS PLAYERS</NavLink>
+                'tracking-wide gold_bar px-6 py-3 hover__text__yellow')}>Klasy</NavLink>
 
             </div>
         </div>

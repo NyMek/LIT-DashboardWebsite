@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const UsersSLKillTopChart = ({ usersSlOverview, period }: any) => {
+const UsersSLJumpsTopChart = ({ usersSlOverview, period }: any) => {
   const currentDate: number = new Date().getTime();
   const itemsPerPage = 20; 
   let i = 0;
@@ -10,8 +10,8 @@ const UsersSLKillTopChart = ({ usersSlOverview, period }: any) => {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
 
-  const sumKillCount = (dailyStats: any[]) =>
-    dailyStats.reduce((sum, daily) => sum + daily.kills, 0);
+  const sumTimesJumpedCount = (dailyStats: any[]) =>
+    dailyStats.reduce((sum, daily) => sum + daily.timesJumped, 0);
 
   const parseDateStringToDate = (dateString: string): Date | null => {
     const parts = dateString.split('.');
@@ -24,7 +24,8 @@ const UsersSLKillTopChart = ({ usersSlOverview, period }: any) => {
     }
   };
 
-  const userKillsCount = usersSLOverviewArray.map((user: any) => {
+  const userTimesJumpedCount = usersSLOverviewArray.map((user: any) => {
+
     if(user.dntEnabled == true ) {
         return
     }else {
@@ -45,18 +46,13 @@ const UsersSLKillTopChart = ({ usersSlOverview, period }: any) => {
         return {
             id: user._id,
             userName: user.nickname,
-            killCount: sumKillCount(lastXDayStats),
+            timesJumped: sumTimesJumpedCount(lastXDayStats),
             number: 0
           };
-    }
-
-
-
+    } 
   });
 
-
-
-  const sortedUsers = userKillsCount.sort((a: any, b: any) => b.killCount - a.killCount);
+  const sortedUsers = userTimesJumpedCount.sort((a: any, b: any) => b.timesJumped - a.timesJumped);
 
   sortedUsers.forEach((el: any) => {
     if(el) {
@@ -75,14 +71,13 @@ const UsersSLKillTopChart = ({ usersSlOverview, period }: any) => {
     
           return(
             (
-              <div key={user.id} className='flex justify-between border-b-[1px] border-white_opacity pb-[16px] px-6'>
+              <div key={index} className='flex justify-between border-b-[1px] border-white_opacity pb-[16px] px-6'>
                <div className='text-[18px] font-roboto font-black'>{user.number + 1}.</div>
                <div className='text-[18px] font-roboto font-black '>{user.userName}</div>
-               <div className='text-[18px] font-roboto font-black'>{user.killCount}</div>
+               <div className='text-[18px] font-roboto font-black'>{user.timesJumped}</div>
               </div>
             )
           )
-          
         })
       }
 
@@ -90,7 +85,7 @@ const UsersSLKillTopChart = ({ usersSlOverview, period }: any) => {
         <button onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 1} className='cursor-pointer hover__text__yellow'>
           Poprzednia Strona
         </button>
-        <button onClick={() => setCurrentPage(currentPage + 1)} disabled={endIndex >= userKillsCount.length} className='cursor-pointer hover__text__yellow'>
+        <button onClick={() => setCurrentPage(currentPage + 1)} disabled={endIndex >= userTimesJumpedCount.length} className='cursor-pointer hover__text__yellow'>
           Następna Strona
         </button>
       </div>
@@ -98,4 +93,4 @@ const UsersSLKillTopChart = ({ usersSlOverview, period }: any) => {
   );
 }
 
-export default UsersSLKillTopChart;
+export default UsersSLJumpsTopChart;

@@ -69,32 +69,27 @@ export const classPersonnelSlOverview = (req: Request, res: Response) => {
 
         const decodeToken = jwt.decode(token) as JwtPayload
         const userId = decodeToken._id;
-        console.log('userId Class', userId)
-
-        const classSlOverview:any = null
        
-        // const classSlOverview = await ClassSlOverview.aggregate([
-        //   {
-        //     $match: {
-        //       _id: `76561198072845398@steam`
-        //     }
-        //   },
-        //   {
-        //     $unwind: "$roleStats"
-        //   },
-        //   {
-        //     $match: {
-        //       "roleStats._t": "EscapistRole"
-        //     }
-        //   }
-        // ]);
+        const classSlOverview = await ClassSlOverview.aggregate([
+          {
+            $match: {
+              _id: `${userId}@steam`
+            }
+          },
+          {
+            $unwind: "$roleStats"
+          },
+          {
+            $match: {
+              "roleStats._t": "EscapistRole"
+            }
+          }
+        ]);
     
         if (!classSlOverview ||classSlOverview.length === 0) {
           console.log('Nie znaleziono usera')
            return res.status(404).json({ error: 'Nie znaleziono użytkownika, prawdopodobnie nie grałeś u nas na serwerze, zapraszamy do gry' });
        }
-      //  console.log('classPersonnelSlOverview: ' + classSlOverview[1].roleStats.
-      //  roleId)
         res.status(200).json(classSlOverview);
       }
     })
@@ -114,7 +109,6 @@ export const classMtfSlOverview = (req: Request, res: Response) => {
 
         const decodeToken = jwt.decode(token) as JwtPayload
         const userId = decodeToken._id;
-        console.log('userId Class', userId)
        
         const classSlOverview = await ClassSlOverview.aggregate([
           {
@@ -127,16 +121,14 @@ export const classMtfSlOverview = (req: Request, res: Response) => {
           },
           {
             $match: {
-              "roleStats._t": "EscapistRole"
+              "roleStats._t": "MTFRole"
             }
           }
         ]);
     
-        if (!classSlOverview) {
-           return res.status(404).json({ error: 'Nie znaleziono użytkownika' });
+        if (!classSlOverview || classSlOverview.length === 0) {
+           return res.status(404).json({ error: 'Nie znaleziono użytkownika, prawdopodobnie nie grałeś u nas na serwerze, zapraszamy do gry' });
        }
-       console.log('classPersonnelSlOverview: ' + classSlOverview[1].roleStats.
-       roleId)
         res.status(200).json(classSlOverview);
       }
     })
@@ -147,14 +139,80 @@ export const classMtfSlOverview = (req: Request, res: Response) => {
 }
 
 export const classChaosSlOverview = (req: Request, res: Response) => { 
+  try {
+    const token = req.cookies['steamToken']
+    jwt.verify(token, process.env.SECRET, async (error: any) => {
+      if(error) {
+        return res.status(404).json({error: 'Token prawdopodobnie wygasł lub nie połączyłeś konta z Steam'})
+      } else {
 
+        const decodeToken = jwt.decode(token) as JwtPayload
+        const userId = decodeToken._id;
+        
+        const classSlOverview = await ClassSlOverview.aggregate([
+          {
+            $match: {
+              _id: `${userId}@steam`
+            }
+          },
+          {
+            $unwind: "$roleStats"
+          },
+          {
+            $match: {
+              "roleStats._t": "CHIRole"
+            }
+          }
+        ]);
+    
+        if (!classSlOverview || classSlOverview.length === 0) {
+           return res.status(404).json({ error: 'Nie znaleziono użytkownika, prawdopodobnie nie grałeś u nas na serwerze, zapraszamy do gry' });
+       }
+        res.status(200).json(classSlOverview);
+      }
+    })
+
+  } catch (error) {
+    res.status(400).json({error: error.message})
+  }
 }
 
 
 export const classScpSlOverview = (req: Request, res: Response) => { 
+  try {
+    const token = req.cookies['steamToken']
+    jwt.verify(token, process.env.SECRET, async (error: any) => {
+      if(error) {
+        return res.status(404).json({error: 'Token prawdopodobnie wygasł lub nie połączyłeś konta z Steam'})
+      } else {
 
-}
+        const decodeToken = jwt.decode(token) as JwtPayload
+        const userId = decodeToken._id;
+    
+        const classSlOverview = await ClassSlOverview.aggregate([
+          {
+            $match: {
+              _id: `${userId}@steam`
+            }
+          },
+          {
+            $unwind: "$roleStats"
+          },
+          {
+            $match: {
+              "roleStats._t": "SCPRole"
+            }
+          }
+        ]);
+    
+        if (!classSlOverview || classSlOverview.length === 0) {
+           return res.status(404).json({ error: 'Nie znaleziono użytkownika, prawdopodobnie nie grałeś u nas na serwerze, zapraszamy do gry' });
+       }
+        res.status(200).json(classSlOverview);
+      }
+    })
 
-export const classSpecialSlOverview = (req: Request, res: Response) => { 
-
+  } catch (error) {
+    res.status(400).json({error: error.message})
+  }
 }

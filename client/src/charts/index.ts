@@ -23,6 +23,24 @@ import UsersSLAccuracyTopChart from "./UsersSLAccuracyTopChart";
 import UserSLDClassSummaryChart from "./UserSLDClassSummaryChart";
 import UserSLScientistClassSummaryChart from "./UserSLScientistSummaryChart";
 import UserSLGuardClassSummaryChart from "./UserSLGuardSummaryChart";
+import UserSLNtfCaptainClassSummaryChart from "./UserSLNtfCaptainSummaryChart";
+import UserSLNtfPrivateClassSummaryChart from "./UserSLNtfPrivateSummaryChart";
+import UserSLNtfSergeantClassSummaryChart from "./UserSLNtfSergeantSummaryChart";
+import UserSLNtfSpecialistClassSummaryChart from "./UserSLNtfSpecialistSummaryChart";
+import UserSLChaosMarauderClassSummaryChart from "./UserSLChaosMarauderClassSummaryChart";
+import UserSLChaosConscriptClassSummaryChart from "./UserSLChaosConscriptClassSummaryChart";
+import UserSLChaosRepressorClassSummaryChart from "./UserSLChaosRepressorClassSummaryChart";
+import UserSLChaosRiflemanClassSummaryChart from "./UserSLChaosRiflemanClassSummaryChart";
+import UserSLScp173ClassSummaryChart from "./UserSLScp173ClassSummaryChart";
+import UserSLScp106ClassSummaryChart from "./UserSLScp106ClassSummaryChart";
+import UserSLScp096ClassSummaryChart from "./UserSLScp096ClassSummaryChart";
+import UserSLScp049ClassSummaryChart from "./UserSLScp049ClassSummaryChart";
+import UserSLScp0492ClassSummaryChart from "./UserSLScp0492ClassSummaryChart";
+import UserSLScp3114ClassSummaryChart from "./UserSLScp3114ClassSummaryChart";
+import UserSLScp079ClassSummaryChart from "./UserSLScp079ClassSummaryChart";
+import UserSLScp939ClassSummaryChart from "./UserSLScp939ClassSummaryChart";
+import UsersSLWalletsTopChart from "./UsersSLWalletsTopChart";
+import UsersSLJumpsTopChart from "./UsersSLJumpsTopChart";
 
 export {
     MembersChart,
@@ -49,6 +67,23 @@ export {
     UsersSLAccuracyTopChart,
     UserSLDClassSummaryChart,
     UserSLScientistClassSummaryChart,
-    UserSLGuardClassSummaryChart
-
+    UserSLGuardClassSummaryChart,
+    UserSLNtfCaptainClassSummaryChart,
+    UserSLNtfPrivateClassSummaryChart,
+    UserSLNtfSergeantClassSummaryChart,
+    UserSLNtfSpecialistClassSummaryChart,
+    UserSLChaosMarauderClassSummaryChart,
+    UserSLChaosConscriptClassSummaryChart,
+    UserSLChaosRepressorClassSummaryChart,
+    UserSLChaosRiflemanClassSummaryChart,
+    UserSLScp173ClassSummaryChart,
+    UserSLScp106ClassSummaryChart,
+    UserSLScp096ClassSummaryChart,
+    UserSLScp049ClassSummaryChart,
+    UserSLScp0492ClassSummaryChart,
+    UserSLScp3114ClassSummaryChart,
+    UserSLScp079ClassSummaryChart,
+    UserSLScp939ClassSummaryChart,
+    UsersSLWalletsTopChart,
+    UsersSLJumpsTopChart
 }

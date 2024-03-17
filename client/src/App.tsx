@@ -5,7 +5,7 @@ import {
 } from "react-router-dom";
 
 import { RootLayout, DashboardLayout, DashboardSlUsersLayout, DashboardSLClassLayout } from "./layouts";
-import { Home, Signup, Login, Forgot, ResetPassword, Dashboard, DashboardProfile, DashboardUserDiscordOverview, DashboardServerDiscordOverview, DashboardTextChannelOverview, DashboardVoiceChannelOverview, DashboardServerSlOverview, DashboardUserSlOverview, DashboardWalletSlOverview, DashboardSlPersonnelClassOverview, DashboardUsersDiscordOverview, DashboardTextChannelsOverview, DashboardUsersSlKillsOverview, DashboardUsersSlTimeOverview, DashboardUsersSlShotsOverview } from "./pages";
+import { Home, Signup, Login, Forgot, ResetPassword, Dashboard, DashboardProfile, DashboardUserDiscordOverview, DashboardServerDiscordOverview, DashboardTextChannelOverview, DashboardVoiceChannelOverview, DashboardServerSlOverview, DashboardUserSlOverview, DashboardWalletSlOverview, DashboardSlPersonnelClassOverview, DashboardUsersDiscordOverview, DashboardTextChannelsOverview, DashboardUsersSlKillsOverview, DashboardUsersSlTimeOverview, DashboardUsersSlShotsOverview, DashboardSlMtfClassOverview, DashboardSlChaosClassOverview, DashboardSlScpClassOverview, DashboardUsersSlWalletsOverview, DashboardUsersSlJumpsOverview, NotFound } from "./pages";
 import { useAuthContext } from './hooks/useAuthContext'
 import { useDiscordAuthContext } from './hooks/useDiscordAuthContext'
 import { useSteamAuthContext } from "./hooks/useSteamAuthContext";
@@ -76,21 +76,17 @@ const App = () => {
               element: user && steamUser ? <DashboardSlPersonnelClassOverview/>  : <Navigate to="/dashboard/overview" />,
             },
             {
-              path: '/dashboard/sl/class/chaos',
-              element: user && steamUser ? 'chaos'  : <Navigate to="/dashboard/overview" />,
+              path: '/dashboard/sl/class/mtf',
+              element: user && steamUser ? <DashboardSlMtfClassOverview/>  : <Navigate to="/dashboard/overview" />,
             },
             {
-              path: '/dashboard/sl/class/mtf',
-              element: user && steamUser ? 'mtf'  : <Navigate to="/dashboard/overview" />,
+              path: '/dashboard/sl/class/chaos',
+              element: user && steamUser ? <DashboardSlChaosClassOverview />  : <Navigate to="/dashboard/overview" />,
             },
             {
               path: '/dashboard/sl/class/scp',
-              element: user && steamUser ? 'scp' : <Navigate to="/dashboard/overview" />,
+              element: user && steamUser ? <DashboardSlScpClassOverview /> : <Navigate to="/dashboard/overview" />,
             },
-            {
-              path: '/dashboard/sl/class/special',
-              element: user && steamUser ? 'special' : <Navigate to="/dashboard/overview" />,
-            }
           ]
         },
         {
@@ -133,9 +129,21 @@ const App = () => {
               path: '/dashboard/overview/users-sl/shots',
               element: user && steamUser? <DashboardUsersSlShotsOverview /> : <Navigate to="/dashboard/overview" />
             },
+            {
+              path: '/dashboard/overview/users-sl/jumps',
+              element: user && steamUser? <DashboardUsersSlJumpsOverview /> : <Navigate to="/dashboard/overview" />
+            },
           ]
+        },
+        {
+          path: '/dashboard/overview/wallets-sl',
+          element: user && discordUser ? <DashboardUsersSlWalletsOverview/> : <Navigate to="/dashboard/overview" />
         }
       ]
+    },
+    {
+      path: '*',
+          element: <NotFound /> 
     }
   ])
 

@@ -15,7 +15,7 @@ const UsersSLPlayTimeTopChart = ({ usersSlOverview, period }: any) => {
     onlineTime, 0);
 
   const parseDateStringToDate = (dateString: string): Date | null => {
-    const parts = dateString.split('-');
+    const parts = dateString.split('.');
     if (parts.length === 3) {
       const [day, month, year] = parts.map(Number);
       return new Date(year, month - 1, day);
@@ -25,9 +25,9 @@ const UsersSLPlayTimeTopChart = ({ usersSlOverview, period }: any) => {
     }
   };
 
-  const userKillsCount = usersSLOverviewArray.map((user: any) => {
+  const userTimeCount = usersSLOverviewArray.map((user: any) => {
 
-    if(user.nickname == "None") {
+    if(user.dntEnabled == true ) {
         return
     }else {
         const lastXDayStats = user.dailyStats.filter((stat: any) => {
@@ -35,7 +35,7 @@ const UsersSLPlayTimeTopChart = ({ usersSlOverview, period }: any) => {
                 const statDate: Date | null = parseDateStringToDate(stat._id);
                 if (statDate) {
                   const diffInDays: number = Math.floor((currentDate - statDate.getTime()) / (1000 * 60 * 60 * 24));
-                  return diffInDays <= period;
+                  return diffInDays < period;
                 } else {
                   return false;
                 }
@@ -51,12 +51,9 @@ const UsersSLPlayTimeTopChart = ({ usersSlOverview, period }: any) => {
             number: 0
           };
     } 
-
-
-
   });
 
-  const sortedUsers = userKillsCount.sort((a: any, b: any) => b.timeCount - a.timeCount);
+  const sortedUsers = userTimeCount.sort((a: any, b: any) => b.timeCount - a.timeCount);
 
   sortedUsers.forEach((el: any) => {
     if(el) {
@@ -75,14 +72,13 @@ const UsersSLPlayTimeTopChart = ({ usersSlOverview, period }: any) => {
     
           return(
             (
-              <div key={user.id} className='flex justify-between border-b-[1px] border-white_opacity pb-[16px] px-6'>
+              <div key={index} className='flex justify-between border-b-[1px] border-white_opacity pb-[16px] px-6'>
                <div className='text-[18px] font-roboto font-black'>{user.number + 1}.</div>
                <div className='text-[18px] font-roboto font-black '>{user.userName}</div>
                <div className='text-[18px] font-roboto font-black'>{((user.timeCount/60)/60).toFixed(2)} h</div>
               </div>
             )
           )
-          
         })
       }
 
@@ -90,7 +86,7 @@ const UsersSLPlayTimeTopChart = ({ usersSlOverview, period }: any) => {
         <button onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 1} className='cursor-pointer hover__text__yellow'>
           Poprzednia Strona
         </button>
-        <button onClick={() => setCurrentPage(currentPage + 1)} disabled={endIndex >= userKillsCount.length} className='cursor-pointer hover__text__yellow'>
+        <button onClick={() => setCurrentPage(currentPage + 1)} disabled={endIndex >= userTimeCount.length} className='cursor-pointer hover__text__yellow'>
           Następna Strona
         </button>
       </div>

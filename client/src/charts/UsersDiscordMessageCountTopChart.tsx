@@ -6,6 +6,8 @@ const UsersDiscordMessageCountTopChart = ({ usersOverview, period }: any) => {
   let i = 0;
 
   const [currentPage, setCurrentPage] = useState(1);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
 
   const sumMessageCount = (dailyStats: any[]) =>
     dailyStats.reduce((sum, daily) => sum + daily.messageCount, 0);
@@ -21,8 +23,7 @@ const UsersDiscordMessageCountTopChart = ({ usersOverview, period }: any) => {
     }
   };
 
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
+
 
   const usersVoiceCount = usersOverview.users.map((user: { dailyStats: any[]; userId: any; userName: any; }) => {
     const lastXDayStats = user.dailyStats.filter(stat => {

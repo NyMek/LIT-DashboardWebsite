@@ -4,6 +4,7 @@ import UserOverview from "./userDiscordOverviewModel";
 import VoiceChannelOverview from "./voiceChannelOverviewModel";
 import UserSlOverview from "./userSlOverviewModel";
 import ClassSlOverview from "./classSlOverviewModel";
+import UserSlWallets from "./userSlWalletsOverview";
 
 export {
     ServerOverview,
@@ -11,5 +12,6 @@ export {
     UserOverview,
     VoiceChannelOverview,
     UserSlOverview,
-    ClassSlOverview
+    ClassSlOverview, 
+    UserSlWallets
 }

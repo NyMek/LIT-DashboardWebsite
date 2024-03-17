@@ -1,5 +1,5 @@
 import express, { Router } from "express"
-import { steamLogin, steamCallback, userSlOverview,walletSlOverview, classPersonnelSlOverview, classChaosSlOverview, classMtfSlOverview, classScpSlOverview, classSpecialSlOverview} from "../Controllers/slController"
+import { steamLogin, steamCallback, userSlOverview,walletSlOverview, classPersonnelSlOverview, classChaosSlOverview, classMtfSlOverview, classScpSlOverview} from "../Controllers/slController"
 import requireAuth from "../middleware/requireAuth"
 import passport from 'passport'
 
@@ -16,6 +16,5 @@ router.get('/class/personnel', classPersonnelSlOverview)
 router.get('/class/mtf', classMtfSlOverview)
 router.get('/class/chaos', classChaosSlOverview)
 router.get('/class/scp', classScpSlOverview)
-router.get('/class/special', classSpecialSlOverview)
 
 export default router;

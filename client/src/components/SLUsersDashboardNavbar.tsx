@@ -15,9 +15,9 @@ const SLUsersDashboardNavbar = () => {
               <NavLink to="/dashboard/overview/users-sl/shots" className={({ isActive }) => (isActive ?
                 'tracking-wide gold_bar px-6 py-3 gradient__gold hover__text__yellow' :
                 'tracking-wide gold_bar px-6 py-3 hover__text__yellow ')}>Strzały</NavLink>
-              <NavLink to="/dashboard/overview/users-sl/class" className={({ isActive }) => (isActive ?
+              <NavLink to="/dashboard/overview/users-sl/jumps" className={({ isActive }) => (isActive ?
                 'tracking-wide  gold_bar px-6 py-3 gradient__gold hover__text__yellow' :
-                'tracking-wide gold_bar px-6 py-3 hover__text__yellow')}>Klasy</NavLink>
+                'tracking-wide gold_bar px-6 py-3 hover__text__yellow')}>Skoki</NavLink>
             </div>
         </div>
     )

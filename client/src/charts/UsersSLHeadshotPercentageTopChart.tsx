@@ -17,7 +17,7 @@ const sumFiredShotsCount = (dailyStats: any[]) =>
     dailyStats.reduce((sum, daily) => sum + daily.firedShots, 0);
 
   const parseDateStringToDate = (dateString: string): Date | null => {
-    const parts = dateString.split('-');
+    const parts = dateString.split('.');
     if (parts.length === 3) {
       const [day, month, year] = parts.map(Number);
       return new Date(year, month - 1, day);
@@ -28,8 +28,7 @@ const sumFiredShotsCount = (dailyStats: any[]) =>
   };
 
   const userHeadshotsPercentageCount = usersSLOverviewArray.map((user: any) => {
-    console.log("user ", user)
-    if(user.nickname == "None") {
+    if(user.dntEnabled == true ) {
         return
     }else {
         const lastXDayStats = user.dailyStats.filter((stat: any) => {
@@ -37,7 +36,7 @@ const sumFiredShotsCount = (dailyStats: any[]) =>
                 const statDate: Date | null = parseDateStringToDate(stat._id);
                 if (statDate) {
                   const diffInDays: number = Math.floor((currentDate - statDate.getTime()) / (1000 * 60 * 60 * 24));
-                  return diffInDays <= period;
+                  return diffInDays < period;
                 } else {
                   return false;
                 }
@@ -50,8 +49,7 @@ const sumFiredShotsCount = (dailyStats: any[]) =>
             id: user._id,
             userName: user.nickname,
             headshotPercentage: (sumFiredShotsCount(lastXDayStats) !== 0 ? 
-                                ((sumHeadshotsCount(lastXDayStats) * 100) / sumFiredShotsCount(lastXDayStats)).toFixed(2) : 
-                                0),
+                                ((sumHeadshotsCount(lastXDayStats) * 100) / sumFiredShotsCount(lastXDayStats)).toFixed(2) : 0),
             number: 0
         };
     } 
@@ -66,9 +64,7 @@ const sumFiredShotsCount = (dailyStats: any[]) =>
     if(el) {
         el.number = i++;
     }
-    
   });
-
   const paginatedUsers = sortedUsers.slice(startIndex, endIndex);
 
   return (

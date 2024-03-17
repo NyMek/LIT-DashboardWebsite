@@ -18,6 +18,12 @@ import DashboardUsersSlKillsOverview from './DashboardUsersSlKillsOverview'
 import DashboardUsersSlTimeOverview from './DashboardUsersSlTimeOverview'
 import DashboardUsersSlShotsOverview from './DashboardUsersSlShotsOverview'
 import DashboardSlPersonnelClassOverview from './DashboardSlPersonnelClassOverview'
+import DashboardSlMtfClassOverview from './DashboardSlMtfClassOverview'
+import DashboardSlChaosClassOverview from './DashboardSlChaosClassOverview'
+import DashboardSlScpClassOverview from './DashboardSlSCPClassOverview'
+import DashboardUsersSlWalletsOverview from './DashboardUsersSlWalletsOverview'
+import DashboardUsersSlJumpsOverview from './DashboardUsersSlJumpsOverview'
+import NotFound from './NotFound'
 
 export {
     Home,
@@ -39,5 +45,11 @@ export {
     DashboardUsersSlKillsOverview,
     DashboardUsersSlTimeOverview,
     DashboardUsersSlShotsOverview,
-    DashboardSlPersonnelClassOverview
+    DashboardSlPersonnelClassOverview,
+    DashboardSlMtfClassOverview,
+    DashboardSlChaosClassOverview,
+    DashboardSlScpClassOverview,
+    DashboardUsersSlWalletsOverview,
+    DashboardUsersSlJumpsOverview,
+    NotFound
 }
