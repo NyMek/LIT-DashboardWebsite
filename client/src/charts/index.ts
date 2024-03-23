@@ -10,16 +10,6 @@ import UserSLSummaryChart from "./UserSLSummaryChart";
 import UserSLKDChart from "./UserSLKDChart";
 import UserSLPlayTimeChart from "./UserSLPlayTimeChart";
 import UserSLShotsChart from "./UserSLShotsChart";
-import UsersDiscordMessageCountTopChart from "./UsersDiscordMessageCountTopChart";
-import UsersDiscordVoiceCountTopChart from "./UsersDiscordVoiceCountTopChart";
-import TextChannelsMessagesTopChart from "./TextChannelsMessagesTopChart";
-import UsersSLKillTopChart from "./UsersSLKillTopChart";
-import UsersSLDeathsTopChart from "./UsersSLDeathsTopChart";
-import UsersSLPlayTimeTopChart from "./UsersSLPlayTimeTopChart";
-import UsersSLHeasdhotsTopChart from "./UsersSLHeadshotsTopChart";
-import UsersSLFiredshotsTopChart from "./UsersSLFiredshotsTopChart";
-import UsersSLHeasdhotsPercentageTopChart from "./UsersSLHeadshotPercentageTopChart";
-import UsersSLAccuracyTopChart from "./UsersSLAccuracyTopChart";
 import UserSLDClassSummaryChart from "./UserSLDClassSummaryChart";
 import UserSLScientistClassSummaryChart from "./UserSLScientistSummaryChart";
 import UserSLGuardClassSummaryChart from "./UserSLGuardSummaryChart";
@@ -40,7 +30,9 @@ import UserSLScp3114ClassSummaryChart from "./UserSLScp3114ClassSummaryChart";
 import UserSLScp079ClassSummaryChart from "./UserSLScp079ClassSummaryChart";
 import UserSLScp939ClassSummaryChart from "./UserSLScp939ClassSummaryChart";
 import UsersSLWalletsTopChart from "./UsersSLWalletsTopChart";
-import UsersSLJumpsTopChart from "./UsersSLJumpsTopChart";
+import UsersDiscordTopChart from "./UsersDiscordTopChart";
+import ChannelsDiscordTopChart from "./ChannelsDiscordTopChart";
+import UsersSLTopChart from "./UsersSlTopChart";
 
 export {
     MembersChart,
@@ -55,16 +47,6 @@ export {
     UserSLKDChart,
     UserSLPlayTimeChart,
     UserSLShotsChart,
-    UsersDiscordMessageCountTopChart,
-    UsersDiscordVoiceCountTopChart,
-    TextChannelsMessagesTopChart,
-    UsersSLKillTopChart,
-    UsersSLDeathsTopChart,
-    UsersSLPlayTimeTopChart,
-    UsersSLHeasdhotsTopChart,
-    UsersSLFiredshotsTopChart,
-    UsersSLHeasdhotsPercentageTopChart,
-    UsersSLAccuracyTopChart,
     UserSLDClassSummaryChart,
     UserSLScientistClassSummaryChart,
     UserSLGuardClassSummaryChart,
@@ -85,5 +67,7 @@ export {
     UserSLScp079ClassSummaryChart,
     UserSLScp939ClassSummaryChart,
     UsersSLWalletsTopChart,
-    UsersSLJumpsTopChart
+    UsersDiscordTopChart,
+    ChannelsDiscordTopChart,
+    UsersSLTopChart 
 }

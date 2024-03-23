@@ -1,8 +1,8 @@
 import axios from "axios";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useEffect, useState  } from "react"
-import { OverviewDashboardNavbar, SLUsersDashboardNavbar, Loader, ErrorInfo } from "../components";
-import { UsersSLHeasdhotsTopChart, UsersSLFiredshotsTopChart, UsersSLHeasdhotsPercentageTopChart, UsersSLAccuracyTopChart } from "../charts";
+import { OverviewDashboardNavbar, SLUsersDashboardNavbar, Loader, ErrorInfo, SelectPeriod } from "../components";
+import { UsersSLTopChart } from "../charts";
 
 const DashboardUsersSlShotsOverview = () => {
  const {user} = useAuthContext()
@@ -47,6 +47,25 @@ const [period, setPeriod] = useState(30)
 const [loading, setLoading] = useState(true)
 const [error, setError] = useState(false);
 const [errorMessage, setErrorMessage] = useState('');
+
+const sumHeadshotsCount = (dailyStats: any[]) =>
+    dailyStats.reduce((sum, daily) => sum + daily.headshots, 0);
+
+const sumFiredShotsCount = (dailyStats: any[]) =>
+    dailyStats.reduce((sum, daily) => sum + daily.firedShots, 0);
+
+const headshotsPercentageCount = (dailyStats: any[]) => {
+  return (
+    (dailyStats.reduce((sum, daily) => sum + daily.firedShots, 0)) !== 0 ? (dailyStats.reduce((sum, daily) => sum + daily.headshots, 0) * 100) / ( dailyStats.reduce((sum, daily) => sum + daily.firedShots, 0)) :  0
+  ).toFixed(2)
+}
+
+const sumAccuratePercentage = (dailyStats: any[]) => {
+  return (
+    (dailyStats.reduce((sum, daily) => sum + daily.firedShots, 0)) !== 0 ? (dailyStats.reduce((sum, daily) => sum + daily.accurateShots, 0) * 100) / ( dailyStats.reduce((sum, daily) => sum + daily.firedShots, 0)) :  0
+  ).toFixed(2)
+  }
+
 
 
  useEffect(()=> {
@@ -93,69 +112,19 @@ const [errorMessage, setErrorMessage] = useState('');
         <Loader />
       ) : (
         <div>
-          <select 
-            className="bg-dark_opacity p-6 text-[16px] sm:text-[24px] uppercase font-black w-[300px] mb-[24px]"
-            value={period}
-            onChange={(e) => {
-              const newPeriod = Number(e.target.value);
-              setPeriod(newPeriod)
-            }}
-          >
-            <option value="1000" className="bg-black">Od początku</option>
-            <option value="365" className="bg-black">Ostatni rok</option>
-            <option value="30" className="bg-black">Ostatni miesiąc</option>
-            <option value="14" className="bg-black">Ostatnie dwa tygodnie</option>
-            <option value="7" className="bg-black">Ostatni tydzień</option>
-            <option value="1" className="bg-black">Ostatni dzień</option>
-          </select>
+          <SelectPeriod period={period} setPeriod={setPeriod}/>
         
           
           <div className="flex flex-col sm:flex-row gap-[33px] justify-between w-full">
-            <div className="p-6 bg-dark_opacity w-full">
-            <h2 className="text-[25px] leading-[28px] font-black sm:text-[32px] sm:leading-[32px] lg:text-[40px] lg:leading-[48px] pb-6 sm:pb-[40px]">Najwięcej strzałów w głowę:</h2>
-            <div className="flex justify-between">
-              <h3 className="text-[24px] leading-[32px] font-roboto font-black uppercase pb-6">Pozycja</h3>
-              <h3 className="text-[24px] leading-[32px] font-roboto font-black uppercase pb-6">Nick</h3>
-              <h3 className="text-[24px] leading-[32px] font-roboto font-black uppercase pb-6">Wartość</h3>
-            </div>
-                <UsersSLHeasdhotsTopChart usersSlOverview={usersSlOverview} period={period}/>
-            </div>
-          
 
-            <div className="p-6 bg-dark_opacity w-full">
-              <h2 className="text-[25px] leading-[28px] font-black sm:text-[32px] sm:leading-[32px] lg:text-[40px] lg:leading-[48px] pb-6 sm:pb-[40px]">Najwięcej oddanych strzałów:</h2>
-              <div className="flex justify-between">
-                <h3 className="text-[24px] leading-[32px] font-roboto font-black uppercase pb-6">Pozycja</h3>
-                <h3 className="text-[24px] leading-[32px] font-roboto font-black uppercase pb-6">Nick</h3>
-                <h3 className="text-[24px] leading-[32px] font-roboto font-black uppercase pb-6">Wartość</h3>
-              </div>
-              <UsersSLFiredshotsTopChart usersSlOverview={usersSlOverview} period={period}/>
-                
-            </div>
+            <UsersSLTopChart usersSlOverview={usersSlOverview} period={period} itemsPerPage={10} sumFunctionCount={sumHeadshotsCount} text={"Najwięcej strzałów w głowę:"} format={false}/>
+            <UsersSLTopChart usersSlOverview={usersSlOverview} period={period} itemsPerPage={10} sumFunctionCount={sumFiredShotsCount} text={"Najwięcej oddanych strzałów:"} format={false}/>
           </div>
 
           <div className="flex flex-col sm:flex-row gap-[33px] justify-between w-full pt-[33px]">
-            <div className="p-6 bg-dark_opacity w-full">
-            <h2 className="text-[25px] leading-[28px] font-black sm:text-[32px] sm:leading-[32px] lg:text-[40px] lg:leading-[48px] pb-6 sm:pb-[40px]">Największy procent strzałów w głowę:</h2>
-            <div className="flex justify-between">
-              <h3 className="text-[24px] leading-[32px] font-roboto font-black uppercase pb-6">Pozycja</h3>
-              <h3 className="text-[24px] leading-[32px] font-roboto font-black uppercase pb-6">Nick</h3>
-              <h3 className="text-[24px] leading-[32px] font-roboto font-black uppercase pb-6">Wartość</h3>
-            </div>
-                <UsersSLHeasdhotsPercentageTopChart usersSlOverview={usersSlOverview} period={period}/>
-            </div>
-          
-
-            <div className="p-6 bg-dark_opacity w-full">
-              <h2 className="text-[25px] leading-[28px] font-black sm:text-[32px] sm:leading-[32px] lg:text-[40px] lg:leading-[48px] pb-6 sm:pb-[40px]">Najwyższa celność:</h2>
-              <div className="flex justify-between">
-                <h3 className="text-[24px] leading-[32px] font-roboto font-black uppercase pb-6">Pozycja</h3>
-                <h3 className="text-[24px] leading-[32px] font-roboto font-black uppercase pb-6">Nick</h3>
-                <h3 className="text-[24px] leading-[32px] font-roboto font-black uppercase pb-6">Wartość</h3>
-              </div>
-              <UsersSLAccuracyTopChart usersSlOverview={usersSlOverview} period={period}/>
-                
-            </div>
+           
+            <UsersSLTopChart usersSlOverview={usersSlOverview} period={period} itemsPerPage={10} sumFunctionCount={headshotsPercentageCount} text={"Największy procent strzałów w głowę:"} format={false}/>
+            <UsersSLTopChart usersSlOverview={usersSlOverview} period={period} itemsPerPage={10} sumFunctionCount={sumAccuratePercentage} text={"Najwyższy procent celnych strzałów:"} format={false}/>
           </div>
 
         </div>

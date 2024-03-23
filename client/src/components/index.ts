@@ -12,6 +12,7 @@ import SLUsersDashboardNavbar from "./SLUsersDashboardNavbar";
 import Loader from "./Loader";
 import SLUsersClassDashboardNavbar from "./SLUserClassDashboardNavbar";
 import ErrorInfo from "./ErrorInfo";
+import SelectPeriod from "./SelectPeriod";
 
 export {
     Navbar,
@@ -27,5 +28,6 @@ export {
     SLUsersDashboardNavbar,
     Loader,
     SLUsersClassDashboardNavbar,
-    ErrorInfo
+    ErrorInfo,
+    SelectPeriod
 }
