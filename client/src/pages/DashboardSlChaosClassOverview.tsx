@@ -2,13 +2,10 @@ import axios from "axios";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useEffect, useState  } from "react"
 import { SLDashboardNavbar, Loader, ErrorInfo, SLUsersClassDashboardNavbar  } from "../components";
-import { UserSLChaosMarauderClassSummaryChart,
-    UserSLChaosConscriptClassSummaryChart,
-    UserSLChaosRepressorClassSummaryChart,
-    UserSLChaosRiflemanClassSummaryChart } from "../charts";
+import { UserSLClassSummaryChart } from "../charts";
 
 
-const DashboardSlChaosClassOverview = () => {
+const DashboardSlChaosClassOverview = ({classImage}: any) => {
 
   const basicClass = {
     _t: [],
@@ -30,7 +27,7 @@ const humanClass = {
 }
 
 const {user} = useAuthContext()
-const [userSlChaosClassOverview, setUserSlChaosClassOverview] = useState({
+const [userSlClassOverview, setUserSlClassOverview] = useState({
     _id: '',
     nickname: '',
     ignoreDNT: false,
@@ -53,7 +50,7 @@ const [errorMessage, setErrorMessage] = useState('');
     
                 if(response.status === 200) {
                   const jsonData = response.data; // one servwr temp 
-                  setUserSlChaosClassOverview(jsonData);
+                  setUserSlClassOverview(jsonData);
                 }
                 setLoading(false);
               } catch (error:any) {
@@ -86,13 +83,13 @@ const [errorMessage, setErrorMessage] = useState('');
          (
            <Loader />
          ) : (
-          <div className="flex flex-col gap-[33px] ">
-            <UserSLChaosMarauderClassSummaryChart userSlChaosClassOverview={userSlChaosClassOverview}/>
-            <UserSLChaosConscriptClassSummaryChart userSlChaosClassOverview={userSlChaosClassOverview}/>
-            <UserSLChaosRepressorClassSummaryChart userSlChaosClassOverview={userSlChaosClassOverview}/>
-            <UserSLChaosRiflemanClassSummaryChart userSlChaosClassOverview={userSlChaosClassOverview}/>
-
-          </div>
+          classImage.map((img:any, index:any ) => {
+            return(
+              <div className="flex flex-col gap-[33px] " key={index}>
+                  <UserSLClassSummaryChart userSlClassOverview={userSlClassOverview} img={img} classNumber={index}/>
+              </div>
+            )
+          })
         )
       }
 

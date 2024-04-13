@@ -8,7 +8,6 @@ type AuthContextType = {
 
 export const useAuthContext = (): AuthContextType => {
   const context = useContext(AuthContext);
-  console.log('useAuthContext')
 
   if (!context) {
     throw new Error('AuthContext nie istnieje');

@@ -125,51 +125,62 @@ userSchema.statics.resetPassword = async function(id: string, username: string, 
     return user
 }
 
-userSchema.statics.updateCredentials = async function(id: string, username?: string, email?: string, password?: string ) {
-    console.log('static updateCredentials ', )
+userSchema.statics.updateCredentials = async function(id: string, currentPassword: string, newUsername?: string, newEmail?: string, newPassword?: string  ) {
+
     if (!id) {
         throw Error('Błąd autoryzacji')
     }
 
-    if (email && !validator.isEmail(email)) {
+    const checkPasswordUser = await this.findOne({'_id': id})
+
+    const matchPassword = await bcrypt.compare(currentPassword, checkPasswordUser.password)
+
+    if(!matchPassword) {
+        throw Error('Niepoprawne dane logowania')
+    }
+
+    if (newEmail && !validator.isEmail(newEmail)) {
         throw Error('Podany adres E-mail nie jest poprawny!')
     }
 
-    if (password && !validator.isStrongPassword(password)) {
+    if (newPassword && !validator.isStrongPassword(newPassword)) {
         throw Error('Hasło jest za słabe!')
     }
 
+    if (newUsername) {
 
-    if (username) {
-        const existUsername = await this.findOne({ username: username })
+        const usernameRegex = /^[a-zA-Z0-9_]+$/; 
+        if (!usernameRegex.test(newUsername)) {
+            throw Error('Nazwa użytkownika zawiera niedozwolone znaki!');
+        }
+
+        const existUsername = await this.findOne({ username: newUsername })
         if (existUsername) {
-            throw Error('Ten username jest w użyciu')
+            throw Error('Ten username jest w użyciu!')
         }
     }
 
-    if (email) {
-        const existEmail = await this.findOne({ email: email })
+    if (newEmail) {
+        const existEmail = await this.findOne({ email: newEmail })
         if (existEmail) {
-            throw Error('Ten E-mail jest w użyciu')
+            throw Error('Ten E-mail jest w użyciu!')
         }
     }
 
     const updateFields: { [key: string]: string } = {};
    
-
-    if (username) {
-        updateFields.username = username;
+    if (newUsername) {
+        updateFields.username = newUsername;
     }
-    if (email) {
-        updateFields.email = email;
+    if (newEmail) {
+        updateFields.email = newEmail;
     }
-    if (password) {
+    if (newPassword) {
         const salt = await bcrypt.genSalt(10)
-        const hash = await bcrypt.hash(password, salt)
+        const hash = await bcrypt.hash(newPassword, salt)
         updateFields.password = hash;
     }
     const user = await this.findByIdAndUpdate(id, updateFields, { new: true });
-
     return user
 }
 
@@ -178,7 +189,7 @@ interface UserStatics extends Model<UserDoc> {
     login(email: string, password: string): Promise<UserDoc>;
     forgot(email: string): Promise<UserDoc>;
     resetPassword(id: string, username: string, email: string, password: string): Promise<UserDoc>;
-    updateCredentials(id: string, username: string, email: string, password: string): Promise<UserDoc>;
+    updateCredentials(id: string, newUsername: string, newEmail: string, newPassword: string, currentPassword: string): Promise<UserDoc>;
   }
   
   const User = mongoose.model<UserDoc, UserStatics>('user', userSchema);

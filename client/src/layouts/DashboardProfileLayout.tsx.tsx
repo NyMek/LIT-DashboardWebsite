@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom'
 
-const DashboardSLClassLayout = () => {
+const DashboarProfileLayout = () => {
   return (
       <main className='w-full'>
           <Outlet/>
@@ -9,4 +9,4 @@ const DashboardSLClassLayout = () => {
   )
 }
 
-export default DashboardSLClassLayout
+export default DashboarProfileLayout

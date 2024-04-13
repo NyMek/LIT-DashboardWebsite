@@ -72,11 +72,8 @@ const [errorMessage, setErrorMessage] = useState('');
             </div>
                 <UsersSLWalletsTopChart usersSlWalltesOverview={usersSlWalltesOverview} />
             </div>
-          
 
-            
           </div>
-
 
         </div>
       )

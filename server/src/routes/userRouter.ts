@@ -1,5 +1,5 @@
 import express, { Router } from "express"
-import { userLogin, userSignup, userForgot, userResetPassword, userUpdateCredentials } from '../Controllers/userController'
+import { userLogin, userSignup, userForgot, userResetPassword, userUpdateCredentials} from '../Controllers/userController'
 import requireAuth from "../middleware/requireAuth"
 
 const router: Router = express.Router()
@@ -12,7 +12,7 @@ router.post("/forgot", userForgot)
 //router.use(requireAuth);
 router.post('/reset-password/:id/:token', userResetPassword)
 
-router.post('/dashboard/profile', userUpdateCredentials)
+router.post('/dashboard/profile/settings', userUpdateCredentials)
 
 
 

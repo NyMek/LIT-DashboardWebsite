@@ -13,6 +13,9 @@ import Loader from "./Loader";
 import SLUsersClassDashboardNavbar from "./SLUserClassDashboardNavbar";
 import ErrorInfo from "./ErrorInfo";
 import SelectPeriod from "./SelectPeriod";
+import DashboardSettingsNavbar from "./DashboardSettingsNavbar.tsx";
+import UsernameChangeForm from "./UsernameChangeForm.tsx";
+import EmailChangeForm from "./EmailChangeForm.tsx";
 
 export {
     Navbar,
@@ -29,5 +32,8 @@ export {
     Loader,
     SLUsersClassDashboardNavbar,
     ErrorInfo,
-    SelectPeriod
+    SelectPeriod,
+    DashboardSettingsNavbar,
+    UsernameChangeForm,
+    EmailChangeForm
 }

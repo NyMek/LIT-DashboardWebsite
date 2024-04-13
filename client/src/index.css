@@ -501,7 +501,42 @@
   animation-name: dropdownMenuText;
 }
 
-  
+.dropdown_form_open {
+  animation-duration: 1s;
+  animation-name: dropdownFormOpen;
+}
+
+.dropdown_form_close {
+  animation-duration: 1s;
+  animation-name: dropdownFormClose;
+}
+
+@keyframes dropdownFormOpen {
+  0% {
+    max-height: 0;
+    transition: max-height 0.30s ease-in-out;
+    opacity: 0;
+  }  100% {
+    
+    max-height: 500px;
+    transition: max-height 0.25s ease-in-out;
+    opacity: 1;
+  }
+}
+
+@keyframes dropdownFormClose {
+  0% {
+    max-height: 500px;
+    transition: max-height 0.25s ease-in-out;
+    opacity: 1;
+  }  100% {
+    
+    max-height: 0px;
+    transition: max-height 0.30s ease-in-out;
+    opacity: 0;
+  }
+}
+
 @keyframes arrow {
     0% {
       opacity: 0;

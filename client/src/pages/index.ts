@@ -4,7 +4,7 @@ import Login from './Login'
 import Forgot from './Forgot'
 import ResetPassword from './ResetPassword'
 import Dashboard from './Dashboard'
-import DashboardProfile from './DashboardProfile'
+import DashboarProfileSettings from './DashboarProfileSettings.tsx'
 import DashboardUserDiscordOverview from './DashboardUserDiscordOverview'
 import DashboardServerDiscordOverview from './DashboardServerDiscordOverview'
 import DashboardTextChannelOverview from './DashboardTextChannelOverview'
@@ -32,7 +32,7 @@ export {
     Forgot,
     ResetPassword,
     Dashboard,
-    DashboardProfile,
+    DashboarProfileSettings,
     DashboardUserDiscordOverview,
     DashboardServerDiscordOverview,
     DashboardTextChannelOverview,

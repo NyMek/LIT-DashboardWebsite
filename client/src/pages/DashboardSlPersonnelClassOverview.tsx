@@ -2,10 +2,9 @@ import axios from "axios";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useEffect, useState  } from "react"
 import { SLDashboardNavbar, Loader, ErrorInfo, SLUsersClassDashboardNavbar  } from "../components";
-import {UserSLDClassSummaryChart, UserSLScientistClassSummaryChart, UserSLGuardClassSummaryChart} from "../charts";
+import { UserSLClassSummaryChart} from "../charts";
 
-
-const DashboardSlPersonnelClassOverview = () => {
+const DashboardSlPersonnelClassOverview = ({classImage, }: any) => {
 
   const basicClass = {
     _t: [],
@@ -30,51 +29,8 @@ const escapistClass = {
   timesEscaped: 0
 }
 
-const scp173Class = {
-  basicClass,
-  placedTantrums: 0,
-}
-
-const scp106Class = {
-  basicClass,
-  caughtInPocket: 0,
-}
-
-const scp096Class = {
-  basicClass,
-  timesRaged: 0,
-}
-
-const scp049Class = {
-  basicClass,
-  timesRecalled: 0,
-}
-
-const scp0492Class = {
-  basicClass,
-  consummedCorpses: 0,
-}
-
-const scp3114Class = {
-  basicClass,
-  timesDisguised: 0,
-}
-
-const scp079Class = {
-  basicClass,
-  totalGainedExperience: 0,
-  teslaInteractions: 0,
-  roomBlackouts: 0,
-}
-
-const scp939Class = {
-  basicClass,
-  totalGainedExperience: 0,
-  teslaInteractions: 0,
-  savedVoices: 0,
-}
 const {user} = useAuthContext()
-const [userSlPersonnelClassOverview, setUserSlPersonnelClassOverview] = useState({
+const [userSlClassOverview, setUserSlClassOverview] = useState({
     _id: '',
     nickname: '',
     ignoreDNT: false,
@@ -83,21 +39,24 @@ const [userSlPersonnelClassOverview, setUserSlPersonnelClassOverview] = useState
 
 const [loading, setLoading] = useState(true)
 const [error, setError] = useState(false);
-const [errorMessage, setErrorMessage] = useState('');
- 
+const [errorMessage, setErrorMessage] = useState('')
+const [lastElement, setLastElement] = useState('')
+
+
         useEffect(()=> {
             const fetchUserSlOverview = async () => {
               setLoading(true);
 
               try {
-                const response = await axios.get('http://localhost:5000/dashboard/sl/class/personnel', {
+                const response = await axios.get(`http://localhost:5000/dashboard/sl/class/personnel`, {
                   withCredentials: true,
                   headers: { 'Authorization': `Bearer ${user.token}` }
-                 })
-    
-                if(response.status === 200) {
+                });
+
+
+                if(response?.status === 200) {
                   const jsonData = response.data; // one servwr temp 
-                  setUserSlPersonnelClassOverview(jsonData);
+                  setUserSlClassOverview(jsonData);
                 }
                 setLoading(false);
               } catch (error:any) {
@@ -114,8 +73,7 @@ const [errorMessage, setErrorMessage] = useState('');
             if(user) {
               fetchUserSlOverview()
             }
-         }, [])
-
+         }, [lastElement])
   return (
     <div className='text-white flex flex-col w-full px-6 pb-6 sm:px-[40px] lg:px-[80px] gap-[33px]'>
       <SLDashboardNavbar/>
@@ -130,12 +88,14 @@ const [errorMessage, setErrorMessage] = useState('');
          (
            <Loader />
          ) : (
-          <div className="flex flex-col gap-[33px] ">
-            <UserSLDClassSummaryChart userSlPersonnelClassOverview={userSlPersonnelClassOverview}/>
-            <UserSLScientistClassSummaryChart userSlPersonnelClassOverview={userSlPersonnelClassOverview}/>
-            <UserSLGuardClassSummaryChart userSlPersonnelClassOverview={userSlPersonnelClassOverview}/>
 
-          </div>
+          classImage.map((img:any, index:any ) => {
+            return(
+              <div className="flex flex-col gap-[33px] " key={index}>
+                  <UserSLClassSummaryChart userSlClassOverview={userSlClassOverview} img={img} classNumber={index}/>
+              </div>
+            )
+          })
         )
       }
 

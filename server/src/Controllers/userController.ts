@@ -85,7 +85,13 @@ export const userResetPassword = async (req: Request, res: Response) => {
 }
 
 export const  userUpdateCredentials = async (req: Request, res: Response) => {
-    const {token, username, email, password } = req.body;
+    const {token, newUsername, newEmail, newPassword, currentPassword } = req.body;
+
+    console.log('token update ', token)
+    console.log('newUsername ', newUsername)
+    console.log(' newEmail ',  newEmail)
+    console.log('newPassword ', newPassword)
+    console.log('currentPassword ', currentPassword)
 
     try {
 
@@ -93,10 +99,10 @@ export const  userUpdateCredentials = async (req: Request, res: Response) => {
 
         const id = decodeToken._id 
 
-        const user = await User.updateCredentials(id, username, email, password)
+        const user = await User.updateCredentials(id, currentPassword, newUsername, newEmail, newPassword)
 
 
-        res.status(200).json({user})
+        res.status(200).json(user)
     } catch (error) {
         res.status(400).json({error: error.message})
         

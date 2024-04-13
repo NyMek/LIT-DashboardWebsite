@@ -2,10 +2,10 @@ import axios from "axios";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useEffect, useState  } from "react"
 import { SLDashboardNavbar, Loader, ErrorInfo, SLUsersClassDashboardNavbar  } from "../components";
-import {UserSLScp173ClassSummaryChart, UserSLScp106ClassSummaryChart, UserSLScp096ClassSummaryChart, UserSLScp049ClassSummaryChart, UserSLScp0492ClassSummaryChart, UserSLScp3114ClassSummaryChart, UserSLScp079ClassSummaryChart, UserSLScp939ClassSummaryChart} from "../charts";
+import { UserSLScpClassSummaryChart } from "../charts";
 
 
-const DashboardSlScpClassOverview = () => {
+const DashboardSlScpClassOverview = ({classImage}: any) => {
 
   const basicClass = {
     _t: [],
@@ -118,17 +118,14 @@ const [errorMessage, setErrorMessage] = useState('');
          (
            <Loader />
          ) : (
-          <div className="flex flex-col gap-[33px] ">
 
-            <UserSLScp173ClassSummaryChart userSlScpClassOverview={userSlScpClassOverview}/>
-            <UserSLScp106ClassSummaryChart userSlScpClassOverview={userSlScpClassOverview}/>
-            <UserSLScp096ClassSummaryChart userSlScpClassOverview={userSlScpClassOverview}/>
-            <UserSLScp049ClassSummaryChart userSlScpClassOverview={userSlScpClassOverview}/>
-            <UserSLScp0492ClassSummaryChart userSlScpClassOverview={userSlScpClassOverview}/>
-            <UserSLScp3114ClassSummaryChart userSlScpClassOverview={userSlScpClassOverview}/>
-            <UserSLScp079ClassSummaryChart userSlScpClassOverview={userSlScpClassOverview}/>
-            <UserSLScp939ClassSummaryChart userSlScpClassOverview={userSlScpClassOverview}/>
-          </div>
+          classImage.map((img:any, index:any ) => {
+            return(
+              <div className="flex flex-col gap-[33px] " key={index}>
+               <UserSLScpClassSummaryChart userSlScpClassOverview={userSlScpClassOverview} img={img} classNumber={index}/>
+            </div>
+            )
+            })
         )
       }
 

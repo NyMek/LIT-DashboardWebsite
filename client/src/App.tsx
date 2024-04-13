@@ -1,17 +1,17 @@
-import {
-  createBrowserRouter,
-  RouterProvider,
-  Navigate
-} from "react-router-dom";
-
-import { RootLayout, DashboardLayout, DashboardSlUsersLayout, DashboardSLClassLayout } from "./layouts";
-import { Home, Signup, Login, Forgot, ResetPassword, Dashboard, DashboardProfile, DashboardUserDiscordOverview, DashboardServerDiscordOverview, DashboardTextChannelOverview, DashboardVoiceChannelOverview, DashboardServerSlOverview, DashboardUserSlOverview, DashboardWalletSlOverview, DashboardSlPersonnelClassOverview, DashboardUsersDiscordOverview, DashboardTextChannelsOverview, DashboardUsersSlKillsOverview, DashboardUsersSlTimeOverview, DashboardUsersSlShotsOverview, DashboardSlMtfClassOverview, DashboardSlChaosClassOverview, DashboardSlScpClassOverview, DashboardUsersSlWalletsOverview, DashboardUsersSlJumpsOverview, NotFound } from "./pages";
+import { createBrowserRouter, RouterProvider, Navigate} from "react-router-dom";
+import { RootLayout, DashboardLayout, DashboardSlUsersLayout, DashboardSLClassLayout, DashboarProfileLayout } from "./layouts";
+import { Home, Signup, Login, Forgot, ResetPassword, Dashboard, DashboarProfileSettings, DashboardUserDiscordOverview, DashboardServerDiscordOverview, DashboardTextChannelOverview, DashboardVoiceChannelOverview, DashboardServerSlOverview, DashboardUserSlOverview, DashboardWalletSlOverview, DashboardSlPersonnelClassOverview, DashboardUsersDiscordOverview, DashboardTextChannelsOverview, DashboardUsersSlKillsOverview, DashboardUsersSlTimeOverview, DashboardUsersSlShotsOverview, DashboardSlMtfClassOverview, DashboardSlChaosClassOverview, DashboardSlScpClassOverview, DashboardUsersSlWalletsOverview, DashboardUsersSlJumpsOverview, NotFound } from "./pages";
 import { useAuthContext } from './hooks/useAuthContext'
 import { useDiscordAuthContext } from './hooks/useDiscordAuthContext'
 import { useSteamAuthContext } from "./hooks/useSteamAuthContext";
 
+const personnelImage: any = ['../../../assets/class/ClassD.svg', '../../../assets/class/Scientist.svg', '../../../assets/class/Security.svg']
+
+const mtfImage: any = ['../../../assets/class/MTF_1.svg', '../../../assets/class/MTF_1.svg', '../../../assets/class/MTF_1.svg' , '../../../assets/class/MTF_1.svg']
+const chaosImage: any = ['../../../assets/class/Chaos_1.svg', '../../../assets/class/Chaos_1.svg','../../../assets/class/Chaos_1.svg','../../../assets/class/Chaos_1.svg',]
+const scpImage: any = ['../../../assets/class/SCP-173.svg', '../../../assets/class/SCP-106.svg', '../../../assets/class/SCP-096.svg', '../../../assets/class/SCP-049.svg', '../../../assets/class/SCP-049-2.svg', '../../../assets/class/SCP-3114.svg', '../../../assets/class/SCP-079.svg', '../../../assets/class/SCP-939.svg']
+
 const App = () => {
-  console.log('app')
   const { user } = useAuthContext()
   const { discordUser } = useDiscordAuthContext()
   const { steamUser } = useSteamAuthContext()
@@ -53,7 +53,13 @@ const App = () => {
         },
         {
           path: '/dashboard/profile',
-          element:  user ? <DashboardProfile /> : <Navigate to="/" />
+          element:  user ? <DashboarProfileLayout /> : <Navigate to="/" />,
+          children: [
+            {
+              path: '/dashboard/profile/settings',
+              element:  user ? <DashboarProfileSettings /> : <Navigate to="/" />,
+            }
+          ]
         },
         {
           path: '/dashboard/sl/user',
@@ -73,19 +79,19 @@ const App = () => {
           children: [
             {
               path: '/dashboard/sl/class/personnel',
-              element: user && steamUser ? <DashboardSlPersonnelClassOverview/>  : <Navigate to="/dashboard/overview" />,
+              element: user && steamUser ? <DashboardSlPersonnelClassOverview  classImage={personnelImage}/>  : <Navigate to="/dashboard/overview" />,
             },
             {
               path: '/dashboard/sl/class/mtf',
-              element: user && steamUser ? <DashboardSlMtfClassOverview/>  : <Navigate to="/dashboard/overview" />,
+              element: user && steamUser ? <DashboardSlMtfClassOverview classImage={mtfImage}/>  : <Navigate to="/dashboard/overview" />,
             },
             {
               path: '/dashboard/sl/class/chaos',
-              element: user && steamUser ? <DashboardSlChaosClassOverview />  : <Navigate to="/dashboard/overview" />,
+              element: user && steamUser ? <DashboardSlChaosClassOverview  classImage={chaosImage}/>  : <Navigate to="/dashboard/overview" />,
             },
             {
               path: '/dashboard/sl/class/scp',
-              element: user && steamUser ? <DashboardSlScpClassOverview /> : <Navigate to="/dashboard/overview" />,
+              element: user && steamUser ? <DashboardSlScpClassOverview classImage={scpImage}/> : <Navigate to="/dashboard/overview" />,
             },
           ]
         },

@@ -58,7 +58,7 @@ const DashboardNavbar = () => {
               <span className='arrow_dropdown rotate-45'></span>
           </div>
           <div className='flex items-center sm:text-[16px] '>
-            <NavLink to="/dashboard/profile" className="flex items-center gap-[8px]">
+            <NavLink to="/dashboard/profile/settings" className="flex items-center gap-[8px]">
               <img src="../../../assets/user.png" alt="avatar" className='w-[50px] h-[50px]'/>
             </NavLink>
           </div>

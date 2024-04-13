@@ -4,8 +4,6 @@ import requireAuth from "../middleware/requireAuth"
 
 const router: Router = express.Router()
 
-// router.get('/auth/discord/callback', discordCallback)
-
 router.use(requireAuth);
 
 router.get('/user', userDiscordOverview)

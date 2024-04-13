@@ -2,10 +2,10 @@ import axios from "axios";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useEffect, useState  } from "react"
 import { SLDashboardNavbar, Loader, ErrorInfo, SLUsersClassDashboardNavbar  } from "../components";
-import { UserSLNtfCaptainClassSummaryChart, UserSLNtfPrivateClassSummaryChart, UserSLNtfSergeantClassSummaryChart, UserSLNtfSpecialistClassSummaryChart } from "../charts";
+import { UserSLClassSummaryChart } from "../charts";
 
 
-const DashboardSlMtfClassOverview = () => {
+const DashboardSlMtfClassOverview = ({classImage}: any) => {
 
   const basicClass = {
     _t: [],
@@ -27,7 +27,7 @@ const humanClass = {
 }
 
 const {user} = useAuthContext()
-const [userSlMtfClassOverview, setUserSlMtfClassOverview] = useState({
+const [userSlClassOverview, setUserSlClassOverview] = useState({
     _id: '',
     nickname: '',
     ignoreDNT: false,
@@ -50,7 +50,7 @@ const [errorMessage, setErrorMessage] = useState('');
     
                 if(response.status === 200) {
                   const jsonData = response.data; // one servwr temp 
-                  setUserSlMtfClassOverview(jsonData);
+                  setUserSlClassOverview(jsonData);
                 }
                 setLoading(false);
               } catch (error:any) {
@@ -83,13 +83,13 @@ const [errorMessage, setErrorMessage] = useState('');
          (
            <Loader />
          ) : (
-          <div className="flex flex-col gap-[33px] ">
-            <UserSLNtfCaptainClassSummaryChart userSlMtfClassOverview={userSlMtfClassOverview}/>
-            <UserSLNtfSpecialistClassSummaryChart userSlMtfClassOverview={userSlMtfClassOverview}/>
-            <UserSLNtfSergeantClassSummaryChart userSlMtfClassOverview={userSlMtfClassOverview}/>
-            <UserSLNtfPrivateClassSummaryChart userSlMtfClassOverview={userSlMtfClassOverview}/>
-
-          </div>
+          classImage.map((img:any, index:any ) => {
+            return(
+              <div className="flex flex-col gap-[33px] " key={index}>
+                  <UserSLClassSummaryChart userSlClassOverview={userSlClassOverview} img={img} classNumber={index}/>
+              </div>
+            )
+          })
         )
       }
 

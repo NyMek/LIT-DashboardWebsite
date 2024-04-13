@@ -1,35 +1,34 @@
 import { useState } from "react";
 import { useAuthContext } from "./useAuthContext";
-import axios from "axios"; 
+import axios from "axios";
+import Cookies from 'js-cookie'
 
-export const useUpdateCredentials = () => {
+export const useUpdateEmail = () => {
     const [error, setError] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const { dispatch } = useAuthContext();
 
-    const updateCredentials = async (username: string, email: string, password: string) => {
+    const updateEmail = async (newEmail: string, currentPassword: string) => {
         setIsLoading(true);
         setError(null);
 
         try {
             interface User {
-                username: string;
                 email: string;
                 token: string;
               }
               
-              const userString = localStorage.getItem('user'); //wtf???
+              const userString = Cookies.get('user')
               
-              if (userString !== null) {
+              if (userString !== undefined) {
                 const user: User = JSON.parse(userString);
                 const token: string = user.token;
 
                 const response = await axios.post('http://localhost:5000/dashboard/profile/settings', {
                     token,
-                    username,
-                    email,
-                    password
+                    newEmail,
+                    currentPassword
                 }, {
                     headers: { 'Content-Type': 'application/json' }
                 });
@@ -52,5 +51,5 @@ export const useUpdateCredentials = () => {
         }
     };
 
-    return { updateCredentials, isLoading, error };
+    return { updateEmail, isLoading, error };
 };
