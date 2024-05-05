@@ -3,7 +3,6 @@ import SignupForm from "./SignupForm";
 import LoginForm from "./LoginForm";
 import ForgotForm from "./ForgotForm";
 import ResetPasswordForm from "./ResetPasswordForm";
-import Sidebar from "./Sidebar";
 import DashboardNavbar from "./DashboardNavbar";
 import DiscordDashboardNavbar from "./DiscordDashboardNavbar";
 import SLDashboardNavbar from "./SLDashboardNavbar";
@@ -16,6 +15,8 @@ import SelectPeriod from "./SelectPeriod";
 import DashboardSettingsNavbar from "./DashboardSettingsNavbar.tsx";
 import UsernameChangeForm from "./UsernameChangeForm.tsx";
 import EmailChangeForm from "./EmailChangeForm.tsx";
+import PasswordChangeForm from "./PasswordChangeForm.tsx";
+import Enable2faForm from "./Enable2faForm.tsx";
 
 export {
     Navbar,
@@ -23,7 +24,6 @@ export {
     LoginForm,
     ForgotForm,
     ResetPasswordForm,
-    Sidebar,
     DashboardNavbar,
     DiscordDashboardNavbar,
     SLDashboardNavbar,
@@ -35,5 +35,7 @@ export {
     SelectPeriod,
     DashboardSettingsNavbar,
     UsernameChangeForm,
-    EmailChangeForm
+    EmailChangeForm,
+    PasswordChangeForm,
+    Enable2faForm,
 }

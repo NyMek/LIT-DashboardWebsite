@@ -2,14 +2,25 @@ import { useState, FormEvent } from "react"
 import { useUpdateUsername } from "../hooks/useUpdateUsername"
 
 const UsernameChangeForm = ({toggleMenu, animate}: {toggleMenu: any, animate:any}) => {
-    const [newUsername, setNewUsername] = useState('')
-    const [currentPassword, setCurrentPassword] = useState('')
     const { updateUsername, error, isLoading } = useUpdateUsername()
+
+    const [form, setForm] = useState({
+        newUsername: '',
+        currentPassword: '',
+      })
+  
+      const handleChange = (e: any) => {
+        setForm({
+          ...form,
+          [e.target.name]: e.target.value
+  
+        })
+      }
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
     
-        await updateUsername(newUsername, currentPassword) 
+        await updateUsername(form.newUsername, form.currentPassword) 
       }
 
   return (
@@ -21,18 +32,16 @@ const UsernameChangeForm = ({toggleMenu, animate}: {toggleMenu: any, animate:any
         onSubmit={handleSubmit}>
             <input 
                 type="text" 
-                name="username" 
-                id="username"
-                value={newUsername}
-                onChange={(e) => setNewUsername(e.target.value)} 
+                name="newUsername" 
+                id="newUsername"
+                onChange={handleChange} 
                 placeholder='Nowy username' 
                 className={`mb-[23px] bg-transparent border border-white p-[16px] hover_gold text-white placeholder:text-white ${animate}` }/>
             <input 
                 type="password" 
-                name="password" 
-                id="password"
-                value={currentPassword}
-                onChange={(e) => setCurrentPassword(e.target.value)}
+                name="currentPassword" 
+                id="currentPassword"
+                onChange={handleChange}
                 placeholder='Wpisz swoje hasło' 
                 className={`mb-[33px] bg-transparent border border-white p-[16px] hover_gold text-white placeholder:text-white ${animate}`}/>
 

@@ -1,7 +1,9 @@
 import express, { Router } from "express"
 import {usersDiscordOverview, textChannelsOverview, walletsSlOverview, classesSlOverview, usersSlTimeOverview, usersSlKillsOverview, usersSlShotsOverview, usersSlJumpsOverview } from "../Controllers/overviewController"
-
+import requireAuth from "../middleware/requireAuth"
 const router: Router = express.Router()
+
+router.use(requireAuth);
 
 router.get('/users-discord', usersDiscordOverview)
 router.get('/text', textChannelsOverview)

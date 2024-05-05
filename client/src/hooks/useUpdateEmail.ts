@@ -36,6 +36,15 @@ export const useUpdateEmail = () => {
                 const json = response.data;
     
                 if (response.status === 200) {
+                    const cookie = Cookies.get('user')
+
+                    if(cookie) {
+                        const parseCookie = JSON.parse(cookie)
+                        const newCookie = {...parseCookie, email: json.email }
+                        Cookies.remove("user")
+    
+                        Cookies.set('user', JSON.stringify(newCookie), { expires: 3 })
+                    }
                     dispatch({ type: 'LOGIN', payload: json });
                     setIsLoading(false);
     

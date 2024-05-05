@@ -63,7 +63,7 @@ const [errorMessage, setErrorMessage] = useState('');
                   headers: { 'Authorization': `Bearer ${user.token}` }
                  })
                   if (response.status === 200) {
-                    const jsonData = response.data[0]; // one servwr temp 
+                    const jsonData = response.data;
                     setServerOverview(jsonData);
                   }
                   setLoading(false);
@@ -106,18 +106,18 @@ const [errorMessage, setErrorMessage] = useState('');
       ) : (
         <div>
           <div className="bg-dark_opacity p-6">
-            <h2 className="text-[25px] leading-[28px] font-black sm:text-[32px] sm:leading-[32px] lg:text-[40px] lg:leading-[48px] mb-[8px]">GoldLegends:</h2>
+            <h2 className="text-[25px] leading-[28px] font-black sm:text-[32px] sm:leading-[32px] lg:text-[40px] lg:leading-[48px] mb-[8px]">GoldLegends</h2>
             <BasicServerInforChart serverOverview={serverOverview} chartHeight={width < 420 ? 300 : 400} chartWidth={width < 420 ? '250px' : width > 850 ?'780px': '400px'}/>
           </div>
         
           <div className="bg-dark_opacity p-6">
-            <h2 className="text-[25px] leading-[28px] font-black sm:text-[32px] sm:leading-[32px] lg:text-[40px] lg:leading-[48px] mb-[8px]">Ilość osób na serwerze:</h2>
+            <h2 className="text-[25px] leading-[28px] font-black sm:text-[32px] sm:leading-[32px] lg:text-[40px] lg:leading-[48px] mb-[8px]">Ilość osób na serwerze</h2>
             <MembersChart serverOverview={serverOverview} chartHeight={chartHeight} chartWidth={'100%'}/>
           </div>
         
 
           <div className="bg-dark_opacity p-6">
-            <h2 className="text-[25px] leading-[28px] font-black sm:text-[32px] sm:leading-[32px] lg:text-[40px] lg:leading-[48px] mb-[8px]">Wiadomości na kanałach tekstowych:</h2>
+            <h2 className="text-[25px] leading-[28px] font-black sm:text-[32px] sm:leading-[32px] lg:text-[40px] lg:leading-[48px] mb-[8px]">Wiadomości na kanałach tekstowych</h2>
             <MessagesChart serverOverview={serverOverview} chartHeight={chartHeight} chartWidth={'100%'}/>
           </div>
         </div>

@@ -2,14 +2,25 @@ import { useState, FormEvent } from "react"
 import { useUpdateEmail } from "../hooks/useUpdateEmail"
 
 const EmailChangeForm = ({toggleMenu, animate}: {toggleMenu: any, animate:any}) => {
-    const [newEmail, setNewEmail] = useState('')
-    const [currentPassword, setCurrentPassword] = useState('')
     const { updateEmail, error, isLoading } = useUpdateEmail()
+
+    const [form, setForm] = useState({
+        newEmail: '',
+        currentPassword: ''
+      })
+  
+      const handleChange = (e: any) => {
+        setForm({
+          ...form,
+          [e.target.name]: e.target.value
+  
+        })
+      } 
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
     
-        await updateEmail(newEmail, currentPassword) 
+        await updateEmail(form.newEmail, form.currentPassword) 
       }
 
   return (
@@ -21,18 +32,16 @@ const EmailChangeForm = ({toggleMenu, animate}: {toggleMenu: any, animate:any}) 
         onSubmit={handleSubmit}>
             <input 
                 type="email" 
-                name="email" 
-                id="email"
-                value={newEmail}
-                onChange={(e) => setNewEmail(e.target.value)} 
+                name="newEmail" 
+                id="newEmail"
+                onChange={handleChange} 
                 placeholder='newgold@legends.gl'  
                 className={`mb-[23px] bg-transparent border border-white p-[16px] hover_gold text-white placeholder:text-white ${animate}` }/>
             <input 
                 type="password" 
-                name="password" 
-                id="password"
-                value={currentPassword}
-                onChange={(e) => setCurrentPassword(e.target.value)}
+                name="currentPassword" 
+                id="currentPassword"
+                onChange={handleChange}
                 placeholder='Wpisz swoje hasło' 
                 className={`mb-[33px] bg-transparent border border-white p-[16px] hover_gold text-white placeholder:text-white ${animate}`}/>
 

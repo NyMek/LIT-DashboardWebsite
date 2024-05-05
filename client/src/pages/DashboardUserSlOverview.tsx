@@ -104,7 +104,7 @@ if(height > chartHeight){
       (
         <Loader />
       ) : (
-          <div>
+          <div className="font-roboto">
             <UserSLSummaryChart userSlOverview={userSlOverview}/>
             <div className="bg-dark_opacity p-6 mt-[33px]">
                 <h2 className="text-[25px] leading-[28px] font-black sm:text-[32px] sm:leading-[32px] lg:text-[40px] lg:leading-[48px] mb-[8px]">K/D:</h2>

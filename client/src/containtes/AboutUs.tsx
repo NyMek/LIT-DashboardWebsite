@@ -8,7 +8,7 @@ interface CardProps {
 const menagement = [
   {img: '../../assets/avatar/budlo.png', name: 'Budło', text: 'Cześć, miło mi Cię poznać, odpowiadam za sekcję discord naszego serwera, mam nadzieję że fajnie spędzisz u Nas czas!'},
   {img: '../../assets/avatar/mute.jpg', name: 'Mute', text: 'Od najmłodszych lat interesowało mnie prowadzenie serwerów gier. Wydaje mi się, że właśnie ta pasja skłoniła mnie by założyć GoldLegends.'},
-  {img: '../../assets/avatar/NyMek.png', name: 'NyMek', text: 'Ja tu tylko sprzątam.'}
+  {img: '../../assets/avatar/nymek.jpg', name: 'NyMek', text: 'Ja tu tylko sprzątam.'}
 ]
 
 const Card: React.FC<CardProps> = ({ img, name, text }) => {

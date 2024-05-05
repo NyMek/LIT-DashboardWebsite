@@ -50,7 +50,7 @@ const DashboardUsersDiscordOverview = () => {
           headers: { 'Authorization': `Bearer ${user.token}` }
           })
           if (response.status === 200) {
-            const jsonData = response.data[1];
+            const jsonData = response.data[0];
             setUsersOverview(jsonData);
           }
           setLoading(false);

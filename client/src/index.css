@@ -4,23 +4,19 @@
 @tailwind components;
 @tailwind utilities;
 
-/* .gradient__bg { 
-  background:radial-gradient(circle at 77% 50%, #790000 -300%, #0a0a0a 55%);
-} */
-
 .gradient__bg { 
   background: linear-gradient(135deg, #171c1f 0%, #070a0f 100%);
 }
 .hover_gradient__gold:hover { 
-  background: linear-gradient(135deg, #efc95e -40% , #cda73c 100%);
+  background: linear-gradient(135deg, #efc95e -40% , #efc95e 100%);
 }
 .gradient__gold{ 
-  background: linear-gradient(135deg, #efc95e -40% , #cda73c 100%);
+  background: linear-gradient(135deg, #efc95e -40% , #efc95e 100%);
 }
 
 
 .gradient__text {
-    background: radial-gradient(circle, #efc95e 0%, #cda73c 100%);
+    background: radial-gradient(circle, #efc95e 0%, rgba(239,201,94,1) 100%);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -28,7 +24,7 @@
 
 
 .hover_gradient__text:hover {
-    background: radial-gradient(circle, rgba(239,201,94,1) 0%, #cda73c 100%);
+    background: radial-gradient(circle, rgba(239,201,94,1) 0%, rgba(239,201,94,1) 100%);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -58,13 +54,13 @@
 }
 
 .hover_gold:hover {
-  border-image: linear-gradient(rgba(239,201,94,1), #cda73c) 10;
+  border-image: linear-gradient(rgba(239,201,94,1), rgba(239,201,94,1)) 10;
   border-width: 1px;
   border-style: solid;
 }
 
 .border_gold {
-  border-image: linear-gradient(#efc95e, #cda73c) 10;
+  border-image: linear-gradient(rgba(239,201,94,1), rgba(239,201,94,1)) 10;
   border-width: 1px;
   border-style: solid;
 }

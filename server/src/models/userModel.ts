@@ -1,7 +1,7 @@
-import mongoose, { Model, Document } from 'mongoose';
+import mongoose, { Model } from 'mongoose';
 import validator from 'validator'
 import bcrypt from 'bcrypt'
-
+import OTPAuth from "otpauth";
 
 const Schema = mongoose.Schema
 
@@ -10,11 +10,16 @@ const strReqUni = {
     required: true,
     unique: true
 }
+const strUni = {
+    type: String,
+}
 
 const userSchema = new Schema({
     username: strReqUni,
     email: strReqUni,
-    password: strReqUni
+    password: strReqUni,
+    enable2fa: Boolean,
+    secret2fa: strUni,
 })
 export interface UserDoc extends mongoose.Document {
     username: {
@@ -29,15 +34,34 @@ export interface UserDoc extends mongoose.Document {
     },
     password: {
         type: String,
-    required: true,
-    unique: true
+        required: true,
+        unique: true
+    },
+    enable2fa: Boolean,
+    secret2fa: {
+        type: String,
     }
 }
 
 userSchema.statics.signup = async function(username: string, email: string, password: string) {
 
+    const secret2fa = ''
+    const enable2fa = false
+
     if(!username || !email || !password) {
         throw Error('Wszystkie pola są wymagane!')
+    }
+    if (username) {
+
+        const usernameRegex = /^[a-zA-Z0-9_]+$/; 
+        if (!usernameRegex.test(username)) {
+            throw Error('Nazwa użytkownika zawiera niedozwolone znaki!');
+        }
+
+        const existUsername = await this.findOne({ username: username })
+        if (existUsername) {
+            throw Error('Ten username jest w użyciu!')
+        }
     }
 
     if(!validator.isEmail(email)) {
@@ -47,14 +71,9 @@ userSchema.statics.signup = async function(username: string, email: string, pass
     if(!validator.isStrongPassword(password)) {
         throw Error('Hasło jest za słabe!')
     }
-
-    const existUsername = await this.findOne({username})
     const existEmail = await this.findOne({email})
 
-    if(existUsername) {
-        throw Error('Ten username jest w użyciu')
-    }
-
+  
     if(existEmail) {
         throw Error('Ten E-mail jest w użyciu')
     }
@@ -62,7 +81,7 @@ userSchema.statics.signup = async function(username: string, email: string, pass
     const salt = await bcrypt.genSalt(10)
     const hash = await bcrypt.hash(password, salt)
 
-    const user = await this.create({username, email, password: hash})
+    const user = await this.create({username, email, password: hash, enable2fa, secret2fa})
 
     return user
 }
@@ -103,14 +122,10 @@ userSchema.statics.forgot = async function(email: string){
     return user
 }
 
-userSchema.statics.resetPassword = async function(id: string, username: string, email: string, password: string) {
+userSchema.statics.resetPassword = async function(id: string, password: string) {
 
-    if(!username || !email || !password) {
-        throw Error('Wszystkie pola są wymagane!')
-    }
-
-    if(!validator.isEmail(email)) {
-        throw Error('Podany adres E-mail nie jest poprawny!')
+    if(!password) {
+        throw Error('Wpisz nowe hasło')
     }
 
     if(!validator.isStrongPassword(password)) {
@@ -119,13 +134,20 @@ userSchema.statics.resetPassword = async function(id: string, username: string, 
 
     const salt = await bcrypt.genSalt(10)
     const hash = await bcrypt.hash(password, salt)
+    const checkPasswordUser = await this.findOne({'_id': id})
+    const matchPassword = await bcrypt.compare(password, checkPasswordUser.password)
+    
+    if(matchPassword) {
+        throw Error('Nowe hasło nie może być takie samo jak poprzednie')
+    }
+
 
     const user = await this.findByIdAndUpdate(id, { password: hash }, { new: true })
 
     return user
 }
 
-userSchema.statics.updateCredentials = async function(id: string, currentPassword: string, newUsername?: string, newEmail?: string, newPassword?: string  ) {
+userSchema.statics.updateCredentials = async function(id: string, currentPassword: string, newUsername?: string, newEmail?: string, newPassword?: string) {
 
     if (!id) {
         throw Error('Błąd autoryzacji')
@@ -137,6 +159,10 @@ userSchema.statics.updateCredentials = async function(id: string, currentPasswor
 
     if(!matchPassword) {
         throw Error('Niepoprawne dane logowania')
+    }
+
+    if(!newEmail && !newPassword && !newUsername) {
+        throw Error('Uzupełnij wszystkie pola')
     }
 
     if (newEmail && !validator.isEmail(newEmail)) {
@@ -184,12 +210,59 @@ userSchema.statics.updateCredentials = async function(id: string, currentPasswor
     return user
 }
 
+userSchema.statics.verify2fa = async function(id: string, currentPassword: string, token: string) {
+
+    if (!id) {
+        throw Error('Błąd autoryzacji')
+    }
+
+    const user = await this.findOne({'_id': id})
+
+    const matchPassword = await bcrypt.compare(currentPassword, user.password)
+
+    if(!matchPassword) {
+        throw Error('Niepoprawne dane logowania')
+    }
+
+    if(token.length > 6 || token.length < 6 ) {
+        throw Error('Podaj poprawny kod')
+    }
+
+    let totp = new OTPAuth.TOTP({
+        issuer: "https://www.goldlegends.pl",
+        label: "GoldLegends",
+        algorithm: "SHA1",
+        digits: 6,
+        secret: user.secret2fa,
+     });
+    let delta = totp.validate( {token} );
+
+  
+    if(delta == 0) {
+
+        await User.findOneAndUpdate({
+            '_id': id,
+        }, {
+            $set: {
+                 'enable2fa': true 
+            }
+        })
+
+        const user = await User.findOne({'_id': id})
+        return user
+      } else {
+        throw Error('Nie poprawny kod')
+      }
+   
+
+}
 interface UserStatics extends Model<UserDoc> {
     signup(username: string, email: string, password: string): Promise<UserDoc>;
     login(email: string, password: string): Promise<UserDoc>;
     forgot(email: string): Promise<UserDoc>;
-    resetPassword(id: string, username: string, email: string, password: string): Promise<UserDoc>;
+    resetPassword(id: string, password: string): Promise<UserDoc>;
     updateCredentials(id: string, newUsername: string, newEmail: string, newPassword: string, currentPassword: string): Promise<UserDoc>;
+    verify2fa(id: string, currentPassword: string, code: string): Promise<UserDoc>;
   }
   
   const User = mongoose.model<UserDoc, UserStatics>('user', userSchema);

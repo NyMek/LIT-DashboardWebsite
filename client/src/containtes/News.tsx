@@ -5,9 +5,9 @@ import { RiCloseLine } from 'react-icons/ri';
 const texts = {
   "1": {
       "title": "Nowe Pluginy",
-      "text": "Chcąc wzbogacić i urozmaicić rozgrywkę na serwerze, wprowadziliśmy nowe pluginy oraz możliwość śledzenia swoich statystyk na naszej stronie.",
+      "text": "Chcąc wzbogacić i urozmaicić rozgrywkę na serwerze, wprowadziliśmy nowe pluginy t.j. Monetka, Leki na Schizofrenie, SCP Swap i wiele wiecej.",
       "img": [
-        '../../assets/grafiki/1.png',
+        '../../assets/grafiki/coin.png',
         '../../assets/grafiki/2.png',
         '../../assets/grafiki/3.png'
 
@@ -55,8 +55,7 @@ const ModalInfo = ({ setIsModalOpen, title, text, img }: any) => {
   };
 
   return (
-    <div
-      className={`right-0 left-0 top-0 bottom-0 absolute z-[100] border_gold bg-slate-700 backdrop-blur-[70px] p-6 sm:px-[40px] lg:px-[80px] bg-cover bg-center`}
+    <div className={`right-0 left-0 top-0 bottom-0 absolute z-[100] border_gold bg-slate-700 backdrop-blur-[70px] p-6   bg-cover bg-center flex flex-col items-center lg:items-start justify-center `}
       style={{ backgroundImage: `url(${backgroundImage})` }}
     >
       <div className="absolute right-6 top-6 cursor-pointer">
@@ -65,7 +64,7 @@ const ModalInfo = ({ setIsModalOpen, title, text, img }: any) => {
       <h2 className="gradient__text text-[28px] leading-[32px] font-black sm:text-[32px] sm:leading-[48px] lg:text-[40px] text-center lg:text-left mb-[24px]">{title}</h2>
       <p className="text-white text-center lg:text-left leading-[25px] lg:leading-[26px] mb-[24px]">{text}</p>
 
-      <div className="flex flex-col sm:flex-row gap-[33px] absolute bottom-6 right-6 left-6 sm:bottom-10 sm:right-10 sm:left-10 lg:right-20 lg:left-20">
+      <div className="flex flex-col sm:flex-row gap-[33px] mt-[33px] ">
         {img.map((imgSrc: string, index: number) => (
           <img
             key={index}

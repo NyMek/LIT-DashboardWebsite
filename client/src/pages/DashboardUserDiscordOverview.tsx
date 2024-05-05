@@ -54,11 +54,13 @@ const [userOverview, setUserOverview] = useState<UserData>({
   useEffect(()=> {
     const fetchUserOverview = async () => {
       setLoading(true);
+      console.log('user.token', user)
       try {
         const response = await axios.get('http://localhost:5000/dashboard/discord/user', {
           withCredentials: true,
           headers: { 'Authorization': `Bearer ${user.token}` }
         });
+       
   
         if (response.status === 200) {
           const jsonData = response.data;
@@ -90,7 +92,7 @@ const [userOverview, setUserOverview] = useState<UserData>({
  } 
 
   return (
-    <div className='text-white flex flex-col w-full px-6 sm:px-[40px] lg:px-[80px] gap-[33px] '>
+    <div className='text-white flex flex-col w-full px-6 sm:px-[40px] lg:px-[80px] gap-[33px]'>
     <DiscordDashboardNavbar/>
 
     {
@@ -105,7 +107,7 @@ const [userOverview, setUserOverview] = useState<UserData>({
         <div>
           <div className="p-6 bg-dark_opacity flex gap-[33px]">
             <div>
-              <h3 className="font-barlow_condensed text-[24px] leading-[32px] lead">Podstawowe Informacje:</h3>
+              <h3 className="font-barlow_condensed text-[24px] leading-[32px] lead">Podstawowe Informacje</h3>
 
               <p>User ID: <span className="gradient__text__yellow">{userOverview.userId}</span></p>
               <p>User Name: <span className="gradient__text__yellow">{userOverview.userName}</span></p>

@@ -36,6 +36,15 @@ export const useUpdateUsername = () => {
                 const json = response.data;
     
                 if (response.status === 200) {
+                 const cookie = Cookies.get('user')
+
+                if(cookie) {
+                    const parseCookie = JSON.parse(cookie)
+                    const newCookie = {...parseCookie, username: json.username }
+                    Cookies.remove("user")
+
+                    Cookies.set('user', JSON.stringify(newCookie), { expires: 3 })
+                }
                     dispatch({ type: 'LOGIN', payload: json });
                     setIsLoading(false);
     

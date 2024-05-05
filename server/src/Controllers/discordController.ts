@@ -1,5 +1,4 @@
 import { Request, Response } from 'express'
-import axios from 'axios'
 import jwt from 'jsonwebtoken'
 import { JwtPayload } from 'jsonwebtoken'
 import { UserOverview, ServerOverview, TextChannelOverview, VoiceChannelOverview } from '../models'
@@ -8,7 +7,7 @@ const createToken = (_id: object, time: string) => {
     return jwt.sign({_id}, process.env.SECRET, {expiresIn: time})
   }
 
-export const userDiscordOverview = async (req: Request, res: Response) => {
+  export const userDiscordOverview = async (req: Request, res: Response) => {
     try {
       const token = req.cookies['discordToken']
 
@@ -20,24 +19,38 @@ export const userDiscordOverview = async (req: Request, res: Response) => {
          
           const decodeToken = jwt.decode(token) as JwtPayload
           const userId = decodeToken._id;
-          const userOverview = await UserOverview.find({ 'users.userId': userId })
 
-          if(!userOverview || userOverview.length === 0) {
-             return res.status(404).json({ error: 'Nie znaleziono użytkownika, prawdopodobnie nie ma cię na naszym discordzie' });
+         const userSchemaInstance = await UserOverview.aggregate([
+          {
+            $match: { 'users.userId': userId }
+          },
+          {
+            $unwind: '$users'
+          },
+          {
+            $match: { 'users.userId': userId }
+          },
+          {
+            $project: {
+              userId: '$users.userId',
+              userName: '$users.userName',
+              dailyStats: '$users.dailyStats'
+            }
+          },
+          {
+            $group: {
+              _id: '$_id',
+              userId: { $first: '$userId' },
+              userName: { $first: '$userName' },
+              dailyStats: { $first: '$dailyStats' }
+            }
           }
-
-          const userOverviewInstance = userOverview[1];
-          if(!userOverviewInstance || !userOverviewInstance.users) {
-          
+        ]);
+          if(!userSchemaInstance || userSchemaInstance.length === 0) {
             return res.status(404).json({ error: 'Nie znaleziono danych użytkownika' });
           }
 
-          const userSchemaInstance = userOverviewInstance.users.find((user: any) => user.userId === userId);
-          if(!userSchemaInstance) {
-            return res.status(404).json({ error: 'Nie znaleziono danych użytkownika' });
-          }
-
-          res.status(200).json(userSchemaInstance);
+          res.status(200).json(userSchemaInstance[0]);
         }
       })
 
@@ -54,9 +67,8 @@ export const serverDiscordOverview = async (req: Request, res: Response) => {
       if(error) {
         return res.status(404).json({error: 'Token prawdopodobnie wygasł lub nie połączyłeś konta z Discord'})
       } else {
-        const serverOverview = await ServerOverview.find({ 'guildId': '473863145207889931' }) //temp 
-    
-        if (!serverOverview || serverOverview.length === 0) {
+        const serverOverview = await ServerOverview.findOne({ 'guildId': '473863145207889931' }) //temp 
+        if (!serverOverview ) {
            return res.status(404).json({ error: 'Nie znaleziono serwera, prawdopodobnie bot nie znajduje się na serwerze, bądź zaszedł inny nieznany błąd' });
        }
         res.status(200).json(serverOverview)
@@ -77,9 +89,9 @@ export const textChannelOverview = async (req: Request, res: Response) => {
         return res.status(404).json({error: 'Token prawdopodobnie wygasł lub nie połączyłeś konta z Discord'})
       } else {
 
-        const textChannelOverview = await TextChannelOverview.find({ 'guildId': '473863145207889931' }) //temp 
+        const textChannelOverview = await TextChannelOverview.findOne({ 'guildId': '473863145207889931' }) //temp 
     
-        if (!textChannelOverview || textChannelOverview.length === 0) {
+        if (!textChannelOverview) {
            return res.status(404).json({ error: 'Nie znaleziono serwera, prawdopodobnie bot nie znajduje się na serwerze, bądź zaszedł inny nieznany błąd' });
        }
         res.status(200).json(textChannelOverview);
@@ -99,8 +111,8 @@ export const voiceChannelOverview = async (req: Request, res: Response) => {
          return res.status(404).json({error: 'Token prawdopodobnie wygasł lub nie połączyłeś konta z Discord'})
        } else {
         
-         const voiceChannelOverview = await VoiceChannelOverview.find({ 'guildId': '473863145207889931' }) //temp 
-         if (!voiceChannelOverview || voiceChannelOverview.length === 0) {
+         const voiceChannelOverview = await VoiceChannelOverview.findOne({ 'guildId': '473863145207889931' }) //temp 
+         if (!voiceChannelOverview) {
             return res.status(404).json({ error: 'Nie znaleziono serwera, prawdopodobnie bot nie znajduje się na serwerze, bądź zaszedł inny nieznany błąd' });
         }
          res.status(200).json(voiceChannelOverview);

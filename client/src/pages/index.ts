@@ -4,7 +4,7 @@ import Login from './Login'
 import Forgot from './Forgot'
 import ResetPassword from './ResetPassword'
 import Dashboard from './Dashboard'
-import DashboarProfileSettings from './DashboarProfileSettings.tsx'
+import DashboarProfileSettings from './DashboarProfileSettings'
 import DashboardUserDiscordOverview from './DashboardUserDiscordOverview'
 import DashboardServerDiscordOverview from './DashboardServerDiscordOverview'
 import DashboardTextChannelOverview from './DashboardTextChannelOverview'
@@ -24,6 +24,8 @@ import DashboardSlScpClassOverview from './DashboardSlSCPClassOverview'
 import DashboardUsersSlWalletsOverview from './DashboardUsersSlWalletsOverview'
 import DashboardUsersSlJumpsOverview from './DashboardUsersSlJumpsOverview'
 import NotFound from './NotFound'
+import DashboardConnect from './DashboardConnect'
+import DashboardIgnoreDNT from './DashboardIgnoreDNT'
 
 export {
     Home,
@@ -51,5 +53,7 @@ export {
     DashboardSlScpClassOverview,
     DashboardUsersSlWalletsOverview,
     DashboardUsersSlJumpsOverview,
-    NotFound
+    NotFound,
+    DashboardConnect,
+    DashboardIgnoreDNT
 }

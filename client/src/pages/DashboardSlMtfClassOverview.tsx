@@ -26,7 +26,7 @@ const humanClass = {
   headshotPercentage: '',
 }
 
-const {user} = useAuthContext()
+const { user } = useAuthContext()
 const [userSlClassOverview, setUserSlClassOverview] = useState({
     _id: '',
     nickname: '',

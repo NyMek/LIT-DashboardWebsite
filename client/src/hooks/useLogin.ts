@@ -7,8 +7,11 @@ import Cookies from 'js-cookie'
 export const useLogin = () => {
     const [error, setError] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [ isEnabled2fa, setIsEnabled2fa ] = useState({
+        enable2fa: false,
+        token: ''
+    })
     const navigate = useNavigate();
-
     const { dispatch } = useAuthContext();
 
     const login = async (email: string, password: string) => {
@@ -22,13 +25,20 @@ export const useLogin = () => {
 
             const json = response.data;
 
-            if (response.status === 200) {
-               // localStorage.setItem('user', JSON.stringify(json));
-                Cookies.set('user', JSON.stringify(json), { expires: 3 })
-                dispatch({ type: 'LOGIN', payload: json });
-                setIsLoading(false);
-                navigate('/dashboard');
-                
+            if (response.status === 200) { 
+
+                 if(json.enable2fa) {
+                    setIsEnabled2fa({
+                        enable2fa: json.enable2fa,
+                        token: json.token
+                    })
+                 }else {
+                    Cookies.set('user', JSON.stringify(json), { expires: 3 })
+                    dispatch({ type: 'LOGIN', payload: json });
+                    setIsLoading(false);
+                    navigate('/dashboard/overview');
+                 }
+ 
             } else {
                 setIsLoading(false);
                 setError(json.error);
@@ -39,5 +49,5 @@ export const useLogin = () => {
         }
     };
 
-    return { login, isLoading, error };
+    return { login, isLoading, isEnabled2fa, error };
 };

@@ -30,7 +30,7 @@ export const useSignup = () => {
                 Cookies.set('user', JSON.stringify(json), { expires: 3 })
                 dispatch({ type: 'LOGIN', payload: json });
                 setIsLoading(false);
-                navigate('/dashboard');
+                navigate('/dashboard/overview');
 
             } else {
                 setIsLoading(false);

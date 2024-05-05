@@ -1,6 +1,6 @@
 const Footer = () => {
   return (
-    <div className='bg-footer flex flex-col justify-center p-6 sm:p-[40px] lg:p-[80px]'>
+    <div id="footer" className='bg-footer flex flex-col justify-center p-6 sm:p-[40px] lg:p-[80px]'>
       <div className='text-white footer_bar flex flex-row justify-center items-center gap-[16px] xs:gap-[33px] p-6 sm:px-[40px] lg:px-[80px]'>
 
           <a href="https://www.instagram.com/golfkredens/" target="_blank">

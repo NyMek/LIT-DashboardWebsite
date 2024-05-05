@@ -13,7 +13,7 @@ const Header = () => {
 
           <h1 className='font-montserrat font-bold text-[32px] xs:text-[40px] leading-[40px] sm:text-[72px] sm:leading-[72px] lg:text-[96px] lg:leading-[96px]'><span className="header gradient__text" >GoldLegends</span></h1>
 
-          <h3 className='font-montserrat text-white text-[24px] leading-[32px] my-[24px] sm:mt-[48px] lg:mt-[96px]'>Dołącz do nas i zostań Złotą Legendą</h3>
+          <h3 className='font-roboto text-white text-[24px] leading-[32px] my-[24px] sm:mt-[48px] lg:mt-[96px]'>Dołącz do nas i zostań Złotą Legendą</h3>
 
           {
             user

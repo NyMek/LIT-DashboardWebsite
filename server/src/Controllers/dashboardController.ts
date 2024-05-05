@@ -1,6 +1,7 @@
 import { Request, Response } from 'express'
 import jwt from 'jsonwebtoken'
 import axios from 'axios'
+
 const createToken = (_id: object, time: string) => {
   return jwt.sign({_id}, process.env.SECRET, {expiresIn: time})
 
@@ -13,7 +14,9 @@ const createToken = (_id: object, time: string) => {
     if (req.user) {
   
       const steamId = req.user.id
-  
+
+      const { id, displayName, photos }:any = req.user
+
       const token = createToken(steamId, '3d')
   
       res.cookie('steamToken', token, { maxAge: 3 * 24 * 60 * 60 * 1000 });
@@ -66,7 +69,7 @@ const createToken = (_id: object, time: string) => {
             }
           });
 
-          const { id, username, avatar } = userResponse.data
+          const { id, username, global_name, avatar } = userResponse.data
 
           const token = createToken(id, '3d')
 

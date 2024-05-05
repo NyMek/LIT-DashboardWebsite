@@ -45,7 +45,7 @@ const DashboardTextChannelOverview = () => {
           })
 
           if (response.status === 200) {
-            const jsonData = response.data; // one server temp
+            const jsonData = response.data;
             setTextChannelOverview(jsonData);
           }
           setLoading(false);
@@ -92,12 +92,12 @@ return (
       value={selectedChannel?.channelId || ''}
       onChange={(e) => {
         const channelId = e.target.value;
-        const selected = textChannelOverview[0]?.channels.find((channel: any) => channel.channelId === channelId);
+        const selected = textChannelOverview?.channels.find((channel: any) => channel.channelId === channelId);
         setSelectedChannel(selected);
       }}
     >
       <option value="" className="bg-black">Wybierz kanał</option>
-      {textChannelOverview[0]?.channels.map((channel: any) => (
+      {textChannelOverview?.channels.map((channel: any) => (
         <option
           className="bg-black"
           key={channel.channelId}

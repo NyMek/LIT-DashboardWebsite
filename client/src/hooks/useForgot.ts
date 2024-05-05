@@ -16,11 +16,13 @@ export const useForgot = () => {
                 headers: { 'Content-Type': 'application/json' }
             });
 
-            console.log(response);
 
             if (response.status === 200) {
                 setIsLoading(false);
-                navigate('/login');
+                setTimeout(() => {
+                    navigate('/login')
+                }, 2500)
+              
             }
         } catch (error: any) { 
             setIsLoading(false);
